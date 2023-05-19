@@ -1,17 +1,17 @@
 .movie-card {
 display: block;
 cursor: pointer;
-
+width: 280px;
+@include tablet {
+    width: 336px;
+}
+@include desktop {
+    width: 395px;
+}
 &__poster {
     display: block;
-    width: 280px;
+    width: 100%;
     border-radius: 5px;
-    @include tablet {
-        width: 336px;
-    }
-    @include desktop {
-        width: 395px;
-    }
 }
 &__figcaption {
     margin: 0;
