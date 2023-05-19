@@ -1,0 +1,52 @@
+.movie-card {
+display: block;
+cursor: pointer;
+
+&__poster {
+    display: block;
+    width: 280px;
+    border-radius: 5px;
+    @include tablet {
+        width: 336px;
+    }
+    @include desktop {
+        width: 395px;
+    }
+}
+&__figcaption {
+    margin: 0;
+    padding-top: 10px;
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    @include tablet {
+        padding-top: 8px;
+    }
+    @include desktop {
+        padding-top: 12px;
+    }
+}
+&__title {
+    color: #000000;
+    margin: 0;
+    @include desktop {
+        font-size: 20px;
+        line-height: 1.2; 
+    }
+}
+&__genre {
+    color: #FF6B08;  
+    @include desktop {
+        font-size: 20px;
+        line-height: 1.2; 
+    }
+}
+&__release-date {
+    color: #FF6B08; 
+    @include desktop {
+        font-size: 20px;
+        line-height: 1.2; 
+    }  
+}
+}
