@@ -1,0 +1,51 @@
+.pagination {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  &__button {
+    padding: 0;
+    background-color: inherit;
+    border: none;
+    font-size: 12px;
+    line-height: 133%;
+    cursor: pointer;
+    font-weight: 700;
+
+    &--active {
+      background: #ff6b08;
+      padding: 0;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+      border: none;
+      font-size: 12px;
+      line-height: 133%;
+      cursor: pointer;
+    }
+    &--arrow {
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      background: #f7f7f7;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    &--hidden-on-mobile {
+      display: none;
+      @media screen and (min-width: 768px) {
+        display: flex;
+        padding: 0;
+        background-color: inherit;
+        border: none;
+        font-size: 12px;
+        line-height: 133%;
+        cursor: pointer;
+        font-weight: 700;
+      }
+    }
+  }
+}
