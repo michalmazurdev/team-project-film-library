@@ -5,6 +5,7 @@
   align-items: center;
   gap: 16px;
   &__button {
+    padding: 0;
     background-color: inherit;
     border: none;
     font-size: 12px;
@@ -14,8 +15,10 @@
 
     &--active {
       background: #ff6b08;
+      padding: 0;
       color: white;
-      padding: 11px 13px;
+      width: 40px;
+      height: 40px;
       border-radius: 5px;
       border: none;
       font-size: 12px;
@@ -23,7 +26,9 @@
       cursor: pointer;
     }
     &--arrow {
-      padding: 12px;
+      padding: 0;
+      width: 40px;
+      height: 40px;
       background: #f7f7f7;
       border: none;
       border-radius: 5px;
