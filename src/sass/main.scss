@@ -4,5 +4,9 @@
  */
 
 // Style dla pliku z przykładem HTML fragmentu
-@import './example';
+
 @import './partials/pagination';
+@import './partials/mixins';
+@import './partials/container_movies';
+@import './partials/movie_card';
+@import './partials/footer';
