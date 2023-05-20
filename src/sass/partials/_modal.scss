@@ -13,9 +13,9 @@
     rgba(194, 194, 204, 0.6278886554621849) 0%
   );
 }
-.modal__hidden {
-  display: none;
-}
+// .modal__hidden {
+//   display: none;
+// }
 .modal {
   width: 280px;
   height: 940px;
@@ -43,4 +43,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.modal__title {
+  font-family: 'Roboto';
+  // font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+  color: #000000;
+}
+.modal dt {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8c8c8c;
 }
