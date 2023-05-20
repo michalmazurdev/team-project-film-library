@@ -1,7 +1,7 @@
 .modal__backdrop {
   //   height: 100%;
   //   width: 100%;
-  position: fixed;
+  // position: fixed;
   top: 0;
   right: 0;
   left: 0;
@@ -18,7 +18,7 @@
 // }
 .modal {
   width: 280px;
-  height: 940px;
+  // height: 940px;
   background-color: #fff;
   margin: auto;
   position: relative;
@@ -51,6 +51,12 @@
   font-size: 20px;
   line-height: 1.15;
   color: #000000;
+  margin: 20 0 20;
+  text-transform: uppercase;
+}
+.modal dl {
+  display: flex;
+  flex-flow: row wrap;
 }
 .modal dt {
   font-family: 'Roboto';
@@ -59,4 +65,78 @@
   font-size: 12px;
   line-height: 1.33;
   color: #8c8c8c;
+  flex-basis: 50%;
+}
+.modal dt:not(:first-of-type) {
+  margin-top: 8px;
+}
+.modal dd {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  margin: 0;
+  margin-top: 8;
+}
+.modal dd:first-of-type {
+  display: flex;
+  color: #8c8c8c;
+  gap: 2px;
+  margin: 0;
+}
+.modal__rating {
+  background: #ff6b01;
+  border-radius: 5px;
+  width: 36px;
+  height: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 14px;
+  color: #fff;
+}
+.modal__rating--number-of-votes {
+  color: #000;
+  background-color: #f7f7f7;
+}
+.modal__descripton-heading {
+  margin: 20 0 8;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+}
+.modal__descripton {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.66;
+}
+.modal__buttons-container {
+  margin-top: 20;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.modal__button {
+  width: 110px;
+  height: 44px;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1.33;
+  border: none;
+}
+.modal__button--watched {
+  background-color: #ff6b01;
+  color: #fff;
+}
+.modal__button--queue {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
 }
