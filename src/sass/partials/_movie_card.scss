@@ -49,4 +49,21 @@ width: 280px;
         line-height: 1.2; 
     }  
 }
+&__rating {
+    background-color: #FF6B08;
+    color: #FFFFFF;
+    border-radius: 5px;
+    font-family: Roboto;
+    font-size: 12px;
+    line-height: 1.17; 
+    text-align: center;
+    padding: 1px 9px 1px 10px;
+    margin-left: 8px;
+    @include desktop {
+        padding: 3px 11px 3px 12px; 
+    }
+}
+&__rating.is-hidden {
+    display: none;
+}
 }
