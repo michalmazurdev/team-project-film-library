@@ -1,7 +1,7 @@
 $tablet: 768px;
 $desktop: 1280px;
 .modal__backdrop {
-  // position: fixed;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
@@ -65,7 +65,7 @@ $desktop: 1280px;
   font-size: 12px;
   line-height: 1.33;
   color: #8c8c8c;
-  flex-basis: 50%;
+  width: 108px;
 }
 .modal dt:not(:first-of-type) {
   margin-top: 8px;
@@ -78,6 +78,7 @@ $desktop: 1280px;
   line-height: 1.33;
   margin: 0;
   margin-top: 8;
+  width: 132px;
 }
 .modal dd:first-of-type {
   display: flex;
@@ -161,6 +162,12 @@ $desktop: 1280px;
   .modal__title {
     margin: 0 0 20;
   }
+  .modal dt {
+    width: 108px;
+  }
+  .modal dd {
+    width: 156px;
+  }
   .modal__buttons-container {
     gap: 15px;
   }
@@ -189,6 +196,12 @@ $desktop: 1280px;
     font-size: 30px;
     line-height: 1.166;
     margin: 0 0 20;
+  }
+  .modal dt {
+    width: 152px;
+  }
+  .modal dd {
+    width: 239px;
   }
   .modal__buttons-container {
     gap: 15px;
