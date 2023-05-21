@@ -13,9 +13,9 @@ $desktop: 1280px;
     rgba(194, 194, 204, 0.6278886554621849) 0%
   );
 }
-// .modal__hidden {
-//   display: none;
-// }
+.modal__hidden {
+  display: none;
+}
 .modal {
   width: 280px;
   max-height: 95vh;
