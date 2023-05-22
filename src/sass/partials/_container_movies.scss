@@ -1,0 +1,25 @@
+.container-movies {
+    padding: 20px 0px 40px 0px;
+    @include tablet {
+        padding: 59px 0px 60px 0px;     
+    }
+    @include desktop {
+        padding: 60px 0px; 
+    }
+}
+.movie-list {
+    display: grid;
+    justify-content: center;
+    align-content: start;
+    grid-template-columns: auto;
+    gap: 20px;
+    @include tablet {
+        grid-template-columns: auto auto;
+        gap: 32px;    
+    }
+    @include desktop {
+        grid-template-columns: auto auto auto;
+        column-gap: 16px;
+        row-gap: 32px;
+    }
+}

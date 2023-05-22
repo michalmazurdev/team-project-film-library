@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nagłówek strony</title>
+    <title>Filmoteka</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
       integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
       crossorigin="anonymous"
     />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./images/favicon.ico" rel="icon" type="image/x-icon" />
   </head>
   <body>
+
     <!-- W taki sposbu dodajemy fragmenty w główny HTML-plik strony. -->
 
     <include src="./partials/header_home.html"></include>
-    <!-- <komentarz -->
+
+    <!-- Grid for movies-->
+    <include src="./partials/container_movies.html"></include>
+    <!--     pagination -->
+    <include src="./partials/pagination.html"></include>
+    <!-- Footer -->
+    <include src="./partials/footer.html"></include>
+
+    <!-- Modal -->
+    <include src="./partials/modal.html"></include>
+    <include src="./partials/modal_team.html"></include>
 
     <!-- Skrypt jest na samym dole kodu. On juz ma w sobie podłączony SAAS plik. -->
     <script src="./index.js" type="module"></script>
+    <script src="./js/modal.js" type="module"></script>
   </body>
 </html>
