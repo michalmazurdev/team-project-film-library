@@ -65,7 +65,6 @@ $laptop: 1280px;
 .headerContainer {
   padding: 40px 20px;
   position: relative;
-  display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   @media screen and (min-width: $tablet) {
@@ -126,10 +125,9 @@ $laptop: 1280px;
           }}
     
     .searchForm {
-      position: relative;
-      display: inline-flex;
-      width: 100vw;
+      display: flex;
       justify-content: space-around;
+      position: relative;
       
       .searchInput{ 
         border: none;
@@ -151,13 +149,12 @@ $laptop: 1280px;
       color: white;
       border-style: none;
       position: absolute;
-      left: 300px;
-   
-      //background-image: url("/src/images/search.png");
+      left: 270px;
+      top: 0px;
       background-repeat: no-repeat;
       background-position: center;
-      }
-    }
+      }}}
+    
   
     .headerFilmStatus {
       display: flex;
@@ -185,7 +182,7 @@ $laptop: 1280px;
   :hover,
   :focus {
   background-color: rgba(255, 107, 1, 1);}
-  }}
+  }
 
     
   
