@@ -1,0 +1,139 @@
+@charset "UTF-8";
+/*
+ * Główny plik dla stylów.
+ * Wszystkie partials podłączamy tutaj.
+ */
+.header {
+  width: 100%;
+  height: 230px;
+  background-image: url("/src/images/header_background1.png");
+  opacity: 0.9;
+  background-size: cover;
+  background-position: center;
+}
+@media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .header {
+    background-image: url("/src/images/header_background1x2.png");
+  }
+}
+.header .headerContainer {
+  padding: 40px 20px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (min-width: 480px) {
+  .header {
+    width: 480px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .header {
+    width: 768px;
+    height: 216px;
+    padding: 0 33px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header {
+    width: 1280px;
+  }
+}
+.header .headerLogo {
+  display: flex;
+  align-items: baseline;
+}
+.header .headerLogo .headerLogoText {
+  display: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 10px;
+}
+@media screen and (min-width: 768px) {
+  .header .headerLogo .headerLogoText {
+    display: block;
+  }
+}
+.header .searchForm {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  display: inline-flex;
+  width: 100vw;
+}
+.header .searchForm .searchInput {
+  border: none;
+  border-bottom: 1px solid white;
+  background-color: transparent;
+  outline: none;
+  color: white;
+  width: 280px;
+}
+.header .searchForm .searchInput::-moz-placeholder {
+  color: white;
+}
+.header .searchForm .searchInput::placeholder {
+  color: white;
+}
+.header .searchForm .searchBtn {
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border-style: none;
+  background-image: url("/src/images/search.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.headerMenu {
+  display: flex;
+}
+.headerMenu .headerMenuList {
+  display: inline-flex;
+  gap: 20px;
+  list-style: none;
+  margin-top: 7px;
+}
+.headerMenu .menu {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+.headerFilmStatus {
+  position: absolute;
+  top: 150px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.headerFilmStatus .btnFilmStatus {
+  width: 130px;
+  height: 44px;
+  left: 21px;
+  top: 100px;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  text-transform: uppercase;
+}/*# sourceMappingURL=main.css.map */

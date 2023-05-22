@@ -1,0 +1,189 @@
+
+$mobile: 480px;
+$tablet: 768px;
+$laptop: 1280px;
+
+.headerHome {
+  width: 100%;  
+  opacity: 0.9;
+  height: 230px;
+  background-image: url('/src/images/header_background_mobile1.png');
+  background-size: cover;
+  background-position: center;
+
+  @media screen and (min-width: $mobile) {
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  background-image: url('/src/images/header_background_mobile2.png');
+} 
+}
+
+  @media screen and (min-width: $tablet) {
+  height: 216px;
+  background-image: url('/src/images/header_background_tablet1.png');
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  background-image: url('/src/images/header_background_tablet2.png');
+}
+}
+
+  @media screen and (min-width: $laptop) {
+  background-image: url('/src/images/header_background_detskop1.png');
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  background-image: url('/src/images/header_background_detskop2.png');
+}
+}
+}
+.headerLibrary {
+  width: 100%;  
+  opacity: 0.9;
+  height: 230px;
+  background-image: url('/src/images/library_mobile1.png');
+  background-size: cover;
+  background-position: center;
+
+  @media screen and (min-width: $mobile) {
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  background-image: url('/src/images/library_mobile2.png');
+} 
+}
+
+  @media screen and (min-width: $tablet) {
+  height: 216px;
+  background-image: url('/src/images/library_tablet1.png');
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  background-image: url('/src/images/library_tablet2.png');
+}
+}
+
+  @media screen and (min-width: $laptop) {
+  background-image: url('/src/images/library_detskop1.png');
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  background-image: url('/src/images/library_detskop2.png');
+}
+}
+}
+
+.headerContainer {
+  padding: 40px 20px;
+  position: relative;
+  flex-wrap: wrap;
+  flex-direction: column;
+  @media screen and (min-width: $tablet) {
+   padding: 40px 32px;}
+
+    .headerItem {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 45px;
+      align-items: baseline;
+  
+     .headerLogo {
+      display: flex;
+      align-items: baseline;
+
+      .headerLogoText {
+        display: none;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 35px;
+        align-items: center;
+        text-align: center;
+        color: #ffffff;
+        margin-left: 10px;
+        @media screen and (min-width: $tablet) {
+        display: block;
+        }
+      }
+     }
+
+      .headerMenu {
+        display: flex;
+      
+        .headerMenuList {
+          position: relative;
+          display: inline-flex;
+          gap: 20px;
+          list-style: none;
+          margin-top: 7px;
+          }
+
+            .menu {
+              color: white;
+              text-decoration: none;
+              text-transform: uppercase;
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 14px;
+              letter-spacing: 0em;
+              text-align: center;
+            }
+
+            .menuIsActive{
+              border-bottom: 3px solid  rgba(255, 0, 27, 1);
+            }
+          }}
+    
+    .searchForm {
+      display: flex;
+      justify-content: space-around;
+      position: relative;
+      
+      .searchInput{ 
+        border: none;
+        border-bottom: 1px solid white;
+        background-color: transparent;
+        outline: none;
+        color: white;
+        width:280px;
+        @media screen and (min-width: $tablet) {
+        width:336px;}
+      }
+      .searchInput::placeholder {
+        color:white;
+      }
+      
+    .searchBtn{
+      cursor: pointer;
+      background-color: transparent;
+      color: white;
+      border-style: none;
+      position: absolute;
+      left: 270px;
+      top: 0px;
+      background-repeat: no-repeat;
+      background-position: center;
+      }}}
+    
+  
+    .headerFilmStatus {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      
+      .btnFilmStatus{
+        width: 130px;
+        height: 44px;
+        color:  #FFFFFF;
+        border: 1px solid #FFFFFF;
+        border-radius: 5px;
+        background-color: transparent;
+        cursor: pointer;
+        display: flex;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;  
+        text-transform: uppercase;
+        align-items: center;
+        justify-content: center;
+        
+    }
+  .btnFilmStatus 
+  :hover,
+  :focus {
+  background-color: rgba(255, 107, 1, 1);}
+  }
+
+    
+  
+
