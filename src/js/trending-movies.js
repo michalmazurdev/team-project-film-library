@@ -19,6 +19,7 @@ const fetchTrendingMovies = async page => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
+    console.log(response.data.results);
     return response.data;
   } catch (error) {
     console.log(error);
