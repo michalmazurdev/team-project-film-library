@@ -1,9 +1,8 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import checkGenre from './genres.js';
-const language = 'en-US';
+// const language = 'en-US';
 let page = 1;
-// let fetchedMovies = []
+let fetchedMovies = [];
 
 // const searchParams = new URLSearchParams({
 //   api_key: '5e58d3162f5aafaf855cf7d900bbc361',
@@ -11,8 +10,6 @@ let page = 1;
 //   language: language,
 //   page: page,
 // });
-console.log(checkGenre(28));
-// const searchTrendingMoviesURL = `https://api.themoviedb.org/3/search/movie?${searchParams}`;
 
 const fetchTrendingMovies = async page => {
   try {
