@@ -2,8 +2,8 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 import { movieTypes } from './genres.js';
 
-const searchFormEl = document.getElementById('searchForm');
-const inputEl = document.querySelector('.searchInput');
+const searchFormEl = document.getElementById('form-search');
+const inputEl = document.querySelector('.search__input');
 const movieListEl = document.querySelector('.movie-list');
 const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
 const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
@@ -73,12 +73,17 @@ const drawMovies = movies => {
   let id = 0;
   // saveMovieResults(movies);
   movies.forEach(movie => {
+    let posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
+    let posterUrlRetina = movie.poster_path ? `https://image.tmdb.org/t/p/w780${movie.poster_path}` : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
     <div class="movie-card" id=${id++}>
+    <div class="movie-card__poster-container">
     <img class="movie-card__poster" id="poster_path"
-    src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
+    src="${posterUrl}"
+    srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
     />
+    </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
         <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
@@ -97,6 +102,11 @@ const drawMovies = movies => {
 const loadMovies = markup => {
   movieListEl.innerHTML = '';
   movieListEl.innerHTML = markup;
+// funkcja żeby ukryć rating filmu na stronie Home
+  const ratingElements = document.querySelectorAll('.movie-card__rating');
+  ratingElements.forEach(element => {
+    element.classList.add('is-hidden')
+  });
 };
 
 window.addEventListener('load', async () => {
