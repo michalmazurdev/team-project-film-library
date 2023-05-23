@@ -1,8 +1,10 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 
 const database = getDatabase();
+
+// const database = getDatabase();
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -71,3 +73,14 @@ document.getElementById('register-btn').addEventListener('click', function () {
       document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
     });
 });
+
+//funkcje zapisu i odczytu danych z Firebase
+
+function addToWatchedOrQueue(userId, name, email, imageUrl) {
+  const db = getDatabase();
+  set(ref(db, 'users/' + userId), {
+    username: name,
+    email: email,
+    profile_picture: imageUrl,
+  });
+}
