@@ -1,15 +1,18 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import { movieTypes } from './genres.js';
+import { mockMovies } from './genres.js';
 
 const searchFormEl = document.getElementById('form-search');
-const inputEl = document.querySelector('.search__input');
+const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
 const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
 const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
 const searchAllURL = `https://api.themoviedb.org/3/search/multi?`;
 const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
 const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
+// console.log(searchFormEl);
+// console.log(movieListEl);
 
 const language = 'en-US';
 let page = 1;
@@ -39,24 +42,31 @@ const fetchTrendingMovies = async page => {
 const getURL = () => {
   const searchParams = new URLSearchParams({
     query: inputEl.value,
+    // query: 'matrix',
     api_key: '5e58d3162f5aafaf855cf7d900bbc361',
     include_adult: false,
     language: language,
     page: page,
   });
-  let url;
-  if (inputEl.value === '') {
-    url = `${thisWeekMovieURL}${searchParams}`;
-  } else {
-    url = `${searchMovieURL}${searchParams}`;
-  }
+
+  let url = `${searchMovieURL}${searchParams}`;
+
   return url;
+
+  // let url;
+  // if (inputEl.value === '') {
+  //   url = `${thisWeekMovieURL}${searchParams}`;
+  // } else {
+  //   url = `${searchMovieURL}${searchParams}`;
+  // }
+  // return url;
 };
 
 // FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
 const fetchSearchedMovies = async () => {
   try {
     const response = await axios.get(getURL());
+    // console.log(getURL());
     let movies = response.data.results;
     saveMovieResults(movies);
     return movies;
@@ -73,8 +83,12 @@ const drawMovies = movies => {
   let id = 0;
   // saveMovieResults(movies);
   movies.forEach(movie => {
-    let posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
-    let posterUrlRetina = movie.poster_path ? `https://image.tmdb.org/t/p/w780${movie.poster_path}` : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
+    let posterUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
+    let posterUrlRetina = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
+      : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
     <div class="movie-card" id=${id++}>
     <div class="movie-card__poster-container">
@@ -102,10 +116,10 @@ const drawMovies = movies => {
 const loadMovies = markup => {
   movieListEl.innerHTML = '';
   movieListEl.innerHTML = markup;
-// funkcja żeby ukryć rating filmu na stronie Home
+  // funkcja żeby ukryć rating filmu na stronie Home
   const ratingElements = document.querySelectorAll('.movie-card__rating');
   ratingElements.forEach(element => {
-    element.classList.add('is-hidden')
+    element.classList.add('is-hidden');
   });
 };
 
