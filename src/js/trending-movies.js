@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import { movieTypes } from './genres.js';
 
 const searchFormEl = document.getElementById('searchForm');
 const inputEl = document.querySelector('.searchInput');
@@ -12,15 +13,20 @@ const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 
 const language = 'en-US';
 let page = 1;
-let fetchedMovies = [];
+
+let arrayOfSearchedMovies = [];
+const saveMovieResults = movies => {
+  arrayOfSearchedMovies = [movies];
+};
 
 const fetchTrendingMovies = async page => {
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
-    // console.log(response.data.results);
-    return response.data;
+    let movies = response.data.results;
+    saveMovieResults(movies);
+    return movies;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.failure(
@@ -38,16 +44,12 @@ const getURL = () => {
     language: language,
     page: page,
   });
-
   let url;
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
-    console.log('this week');
   } else {
     url = `${searchMovieURL}${searchParams}`;
-    console.log('search for movies');
   }
-  console.log(url);
   return url;
 };
 
@@ -55,9 +57,9 @@ const getURL = () => {
 const fetchSearchedMovies = async () => {
   try {
     const response = await axios.get(getURL());
-    console.log(response.data.results);
-
-    return response.data;
+    let movies = response.data.results;
+    saveMovieResults(movies);
+    return movies;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.failure(
@@ -66,10 +68,11 @@ const fetchSearchedMovies = async () => {
   }
 };
 
-const drawMovies = arrayOfMovies => {
+const drawMovies = movies => {
   let markup = '';
   let id = 0;
-  arrayOfMovies.results.forEach(movie => {
+  // saveMovieResults(movies);
+  movies.forEach(movie => {
     markup += `
     <div class="movie-card" id=${id++}>
     <img class="movie-card__poster" id="poster_path"
@@ -78,7 +81,7 @@ const drawMovies = arrayOfMovies => {
     />
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
-        <span class="movie-card__genre" id="genre_ids">Lorem impsum |</span>
+        <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,
@@ -134,3 +137,50 @@ searchFormEl.addEventListener('submit', async event => {
 // };
 
 // fetchMovies();
+
+// const types = [80, 12, 27, 10752];
+
+// console.log(movieTypes(types));
+
+// const movieTypes = types => {
+//   const genres = {
+//     28: 'Action',
+//     12: 'Adventure',
+//     16: 'Animation',
+//     35: 'Comedy',
+//     80: 'Crime',
+//     99: 'Documentary',
+//     18: 'Drama',
+//     10751: 'Family',
+//     14: 'Fantasy',
+//     36: 'History',
+//     27: 'Horror',
+//     10402: 'Music',
+//     9648: 'Mystery',
+//     10749: 'Romance',
+//     878: 'Science Fiction',
+//     10770: 'TV Movie',
+//     53: 'Thriller',
+//     10752: 'War',
+//     37: 'Western',
+//   };
+//   let array = [];
+
+//   types.forEach(item => {
+//     if (item === genres.key) {
+//       array.push(genre.value);
+//     }
+//   });
+//   return array.join(', ');
+
+//   // types.forEach(item => {
+//   //   if (genres[item]) {
+//   //     array.push(genres[item]);
+//   //   }
+//   // });
+//   // return array;
+// };
+
+// const test = [37, 10752, 18];
+
+// console.log('here:', movieTypes(test));
