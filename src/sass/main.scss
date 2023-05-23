@@ -4,9 +4,11 @@
  */
 
 // Style dla pliku z przykładem HTML fragmentu
+
 @import './partials/mixins';
 @import './partials/typography';
-@import './partials/header_home';
+@import './partials/common';
+@import './partials/header';
 @import './partials/pagination';
 @import './partials/container_movies';
 @import './partials/movie_card';
