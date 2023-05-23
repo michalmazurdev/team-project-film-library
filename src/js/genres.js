@@ -20,18 +20,15 @@ export const genres = {
   37: 'Western',
 };
 
+// const types = [80, 12, 27];
+// let array = [];
 
-const types = [80, 12, 27]
-let array =[]
+// const movieTypes = types => {
+//   types.forEach(item => {
+//     if (item === genres.key) {
+//       array.push(genres.value);
+//     }
 
-const movieTypes = types => {
-  types.forEach(item => 
-    if (item === genres.key) {
-      array.push(genres.value)
-
-    }
-    )
-    return array
-}
-
-console
+//     return array;
+//   });
+// };
