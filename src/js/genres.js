@@ -19,3 +19,19 @@ export const genres = {
   10752: 'War',
   37: 'Western',
 };
+
+
+const types = [80, 12, 27]
+let array =[]
+
+const movieTypes = types => {
+  types.forEach(item => 
+    if (item === genres.key) {
+      array.push(genres.value)
+
+    }
+    )
+    return array
+}
+
+console

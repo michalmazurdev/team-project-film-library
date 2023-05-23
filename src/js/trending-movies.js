@@ -12,15 +12,23 @@ const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 
 const language = 'en-US';
 let page = 1;
-let fetchedMovies = [];
+
+let arrayOfSearchedMovies = [];
+
+const saveMovieResults = movies => {
+  arrayOfSearchedMovies = [movies];
+};
 
 const fetchTrendingMovies = async page => {
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
-    // console.log(response.data.results);
-    return response.data;
+    let movies = response.data.results;
+    saveMovieResults(movies);
+    console.log('searched movies - trending load', arrayOfSearchedMovies);
+
+    return movies;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.failure(
@@ -57,7 +65,12 @@ const fetchSearchedMovies = async () => {
     const response = await axios.get(getURL());
     console.log(response.data.results);
 
-    return response.data;
+    let movies = response.data.results;
+
+    saveMovieResults(movies);
+    console.log('searched movies ', arrayOfSearchedMovies);
+
+    return movies;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.failure(
@@ -66,10 +79,11 @@ const fetchSearchedMovies = async () => {
   }
 };
 
-const drawMovies = arrayOfMovies => {
+const drawMovies = movies => {
   let markup = '';
   let id = 0;
-  arrayOfMovies.results.forEach(movie => {
+  // saveMovieResults(movies);
+  movies.forEach(movie => {
     markup += `
     <div class="movie-card" id=${id++}>
     <img class="movie-card__poster" id="poster_path"
