@@ -53,4 +53,4 @@ const fetchMovies = async () => {
 //     }
 //   };
 
-fetchMovies();
+// fetchMovies();
