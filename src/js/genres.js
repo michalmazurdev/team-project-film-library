@@ -29,3 +29,4 @@ export const movieTypes = types => {
   });
   return array.join(', ');
 };
+
