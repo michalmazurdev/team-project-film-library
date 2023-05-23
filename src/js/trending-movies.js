@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import { movieTypes } from './genres.js';
 
 const searchFormEl = document.getElementById('searchForm');
 const inputEl = document.querySelector('.searchInput');
@@ -14,7 +15,6 @@ const language = 'en-US';
 let page = 1;
 
 let arrayOfSearchedMovies = [];
-
 const saveMovieResults = movies => {
   arrayOfSearchedMovies = [movies];
 };
@@ -26,8 +26,6 @@ const fetchTrendingMovies = async page => {
     );
     let movies = response.data.results;
     saveMovieResults(movies);
-    console.log('searched movies - trending load', arrayOfSearchedMovies);
-
     return movies;
   } catch (error) {
     console.log(error);
@@ -46,16 +44,12 @@ const getURL = () => {
     language: language,
     page: page,
   });
-
   let url;
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
-    console.log('this week');
   } else {
     url = `${searchMovieURL}${searchParams}`;
-    console.log('search for movies');
   }
-  console.log(url);
   return url;
 };
 
@@ -63,13 +57,8 @@ const getURL = () => {
 const fetchSearchedMovies = async () => {
   try {
     const response = await axios.get(getURL());
-    console.log(response.data.results);
-
     let movies = response.data.results;
-
     saveMovieResults(movies);
-    console.log('searched movies ', arrayOfSearchedMovies);
-
     return movies;
   } catch (error) {
     console.log(error);
@@ -92,7 +81,7 @@ const drawMovies = movies => {
     />
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
-        <span class="movie-card__genre" id="genre_ids">Lorem impsum |</span>
+        <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,
@@ -148,3 +137,50 @@ searchFormEl.addEventListener('submit', async event => {
 // };
 
 // fetchMovies();
+
+// const types = [80, 12, 27, 10752];
+
+// console.log(movieTypes(types));
+
+// const movieTypes = types => {
+//   const genres = {
+//     28: 'Action',
+//     12: 'Adventure',
+//     16: 'Animation',
+//     35: 'Comedy',
+//     80: 'Crime',
+//     99: 'Documentary',
+//     18: 'Drama',
+//     10751: 'Family',
+//     14: 'Fantasy',
+//     36: 'History',
+//     27: 'Horror',
+//     10402: 'Music',
+//     9648: 'Mystery',
+//     10749: 'Romance',
+//     878: 'Science Fiction',
+//     10770: 'TV Movie',
+//     53: 'Thriller',
+//     10752: 'War',
+//     37: 'Western',
+//   };
+//   let array = [];
+
+//   types.forEach(item => {
+//     if (item === genres.key) {
+//       array.push(genre.value);
+//     }
+//   });
+//   return array.join(', ');
+
+//   // types.forEach(item => {
+//   //   if (genres[item]) {
+//   //     array.push(genres[item]);
+//   //   }
+//   // });
+//   // return array;
+// };
+
+// const test = [37, 10752, 18];
+
+// console.log('here:', movieTypes(test));
