@@ -1,18 +1,15 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import { movieTypes } from './genres.js';
-import { mockMovies } from './genres.js';
 
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
-const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
+// const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
 const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
 const searchAllURL = `https://api.themoviedb.org/3/search/multi?`;
 const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
 const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
-// console.log(searchFormEl);
-// console.log(movieListEl);
 
 const language = 'en-US';
 let page = 1;
@@ -42,24 +39,13 @@ const fetchTrendingMovies = async page => {
 const getURL = () => {
   const searchParams = new URLSearchParams({
     query: inputEl.value,
-    // query: 'matrix',
     api_key: '5e58d3162f5aafaf855cf7d900bbc361',
     include_adult: false,
     language: language,
     page: page,
   });
-
   let url = `${searchMovieURL}${searchParams}`;
-
   return url;
-
-  // let url;
-  // if (inputEl.value === '') {
-  //   url = `${thisWeekMovieURL}${searchParams}`;
-  // } else {
-  //   url = `${searchMovieURL}${searchParams}`;
-  // }
-  // return url;
 };
 
 // FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
