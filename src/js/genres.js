@@ -1,37 +1,31 @@
-export const genres = {
-  28: 'Action',
-  12: 'Adventure',
-  16: 'Animation',
-  35: 'Comedy',
-  80: 'Crime',
-  99: 'Documentary',
-  18: 'Drama',
-  10751: 'Family',
-  14: 'Fantasy',
-  36: 'History',
-  27: 'Horror',
-  10402: 'Music',
-  9648: 'Mystery',
-  10749: 'Romance',
-  878: 'Science Fiction',
-  10770: 'TV Movie',
-  53: 'Thriller',
-  10752: 'War',
-  37: 'Western',
-};
+export const movieTypes = types => {
+  const genres = {
+    28: 'Action',
+    12: 'Adventure',
+    16: 'Animation',
+    35: 'Comedy',
+    80: 'Crime',
+    99: 'Documentary',
+    18: 'Drama',
+    10751: 'Family',
+    14: 'Fantasy',
+    36: 'History',
+    27: 'Horror',
+    10402: 'Music',
+    9648: 'Mystery',
+    10749: 'Romance',
+    878: 'Science Fiction',
+    10770: 'TV Movie',
+    53: 'Thriller',
+    10752: 'War',
+    37: 'Western',
+  };
+  let array = [];
 
-
-const types = [80, 12, 27]
-let array =[]
-
-const movieTypes = types => {
-  types.forEach(item => 
-    if (item === genres.key) {
-      array.push(genres.value)
-
+  types.forEach(item => {
+    if (genres[item]) {
+      array.push(genres[item]);
     }
-    )
-    return array
-}
-
-console
+  });
+  return array.join(', ');
+};
