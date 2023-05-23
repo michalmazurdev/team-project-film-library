@@ -47,6 +47,10 @@ $desktop: 1280px;
       transform: scale(1.5);
     }
   }
+  &__header {
+    text-align: center;
+    margin-top: 0;
+  }
 }
 .team-members {
   display: flex;
