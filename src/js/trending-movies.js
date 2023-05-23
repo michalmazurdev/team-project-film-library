@@ -19,7 +19,7 @@ const fetchTrendingMovies = async page => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
-    console.log(response.data.results);
+    // console.log(response.data.results);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -55,6 +55,7 @@ const getURL = () => {
 const fetchSearchedMovies = async () => {
   try {
     const response = await axios.get(getURL());
+    console.log(response.data.results);
 
     return response.data;
   } catch (error) {
@@ -78,7 +79,10 @@ const drawMovies = arrayOfMovies => {
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
         <span class="movie-card__genre" id="genre_ids">Lorem impsum |</span>
-        <span class="movie-card__release-date" id="release_date"> ${movie.release_date}</span>
+        <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
+          0,
+          4,
+        )}</span>
         <!-- in JS need to add a script for changing visibility on Homepage: document.querySelector('.movie-card__rating').classList.add('is-hidden') -->
         <span class="movie-card__rating" id="vote_average">${movie.vote_average}</span>
     </div>
