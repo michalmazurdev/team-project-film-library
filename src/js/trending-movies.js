@@ -103,18 +103,8 @@ const firstIteration = async page => {
   loadMovies(markup);
   renderPageNumber(page, data);
   // localStorage.setItem('currentPage', page.toString());
+  // hidePageNumber(page, data);
 };
-firstIteration(page);
-
-searchFormEl.addEventListener('submit', async event => {
-  event.preventDefault();
-  page = 1;
-  const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
-  loadMovies(markup);
-  renderPageNumber(page, data);
-  // localStorage.setItem('currentPage', page.toString());
-});
 
 // PAGINATION
 
@@ -129,43 +119,76 @@ const pagePlus2 = document.getElementById('plus2');
 const pageDot2 = document.getElementById('dot2');
 const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
+
 const pageNumberBtnEl = document.querySelector('.pagination');
 
 const renderPageNumber = (page, data) => {
-  // pageFirst.dataset.page = 1;
-  // pageMinus2.dataset.page = page - 2;
-  // pageMinus1.dataset.page = page - 1;
-  // pageCurrent.dataset.page = page;
-  // pagePlus1.dataset.page = page + 1;
-  // pagePlus2.dataset.page = page + 2;
-  // pageLast.dataset.page = data.total_pages;
-
-  // pageFirst.innerHTML = pageFirst.dataset.page;
-  // pageMinus2.innerHTML = pageMinus2.dataset.page;
-  // pageMinus1.innerHTML = pageMinus1.dataset.page;
-  // pageCurrent.innerHTML = pageCurrent.dataset.page;
-  // pagePlus1.innerHTML = pagePlus1.dataset.page;
-  // pagePlus2.innerHTML = pagePlus2.dataset.page;
-  // pageLast.innerHTML = pageLast.dataset.page;
-
   pageFirst.innerHTML = 1;
-  pageMinus2.innerHTML = Number(page - 2);
-  pageMinus1.innerHTML = Number(page - 1);
+  pageMinus2.innerHTML = Number(page) - 2;
+  pageMinus1.innerHTML = Number(page) - 1;
   pageCurrent.innerHTML = page;
-  pagePlus1.innerHTML = Number(page + 1);
-  pagePlus2.innerHTML = Number(page + 2);
+  pagePlus1.innerHTML = Number(page) + 1;
+  pagePlus2.innerHTML = Number(page) + 2;
   pageLast.innerHTML = data.total_pages;
 
-  // if (page === 1) {
-  //   pageFirst.classList.add('pagination__is-hidden');
-  //   pageDot.classList.add('pagination__is-hidden');
-  //   pageMinus2.classList.add('pagination__is-hidden');
-  //   pageMinus1.classList.add('pagination__is-hidden');
-  //   console.log('hide');
-  // } else if () {
-
-  // }
+  if (page === 1) {
+    pagePrevious.classList.add('is-hidden');
+    pageFirst.add('is-hidden');
+    pageDot.add('is-hidden');
+    pageMinus2.add('is-hidden');
+    pageMinus1.add('is-hidden');
+  } else if (page === 2) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.add('is-hidden');
+    pageDot.remove('is-hidden');
+    pageMinus2.remove('is-hidden');
+    pageMinus1.add('is-hidden');
+  }
+  if (page === data.total_pages - 1) {
+    pagePlus2.style.display = 'none';
+  }
+  if (page === data.total_pages) {
+    pagePlus1.style.display = 'none';
+    pagePlus2.style.display = 'none';
+    pageDot2.style.display = 'none';
+    pageNext.style.display = 'none';
+  }
 };
+
+// const hidePageNumber = (page, data) => {
+//   if (page === 1) {
+//     pagePrevious.style.display = 'none';
+//     pageFirst.style.display = 'none';
+//     pageDot.style.display = 'none';
+//     pageMinus2.style.display = 'none';
+//     pageMinus1.style.display = 'none';
+//   }
+//   if (page === 2) {
+//     pageMinus2.style.display = 'none';
+//   }
+//   if (page === data.total_pages - 1) {
+//     pagePlus2.style.display = 'none';
+//   }
+//   if (page === data.total_pages) {
+//     pagePlus1.style.display = 'none';
+//     pagePlus2.style.display = 'none';
+//     pageDot2.style.display = 'none';
+//     pageNext.style.display = 'none';
+//   }
+// };
+
+firstIteration(page);
+
+searchFormEl.addEventListener('submit', async event => {
+  event.preventDefault();
+  page = 1;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
+  // localStorage.setItem('currentPage', page.toString());
+  // hidePageNumber(page, data);
+});
 
 pageNumberBtnEl.addEventListener('click', async event => {
   event.preventDefault();
@@ -176,6 +199,7 @@ pageNumberBtnEl.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data);
   // localStorage.setItem('currentPage', page.toString());
+  // hidePageNumber(page, data);
 });
 
 pagePrevious.addEventListener('click', async event => {
@@ -186,6 +210,7 @@ pagePrevious.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data);
   // localStorage.setItem('currentPage', page.toString());
+  // hidePageNumber(page, data);
 });
 
 pageNext.addEventListener('click', async event => {
@@ -196,4 +221,5 @@ pageNext.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data);
   // localStorage.setItem('currentPage', page.toString());
+  // hidePageNumber(page, data);
 });
