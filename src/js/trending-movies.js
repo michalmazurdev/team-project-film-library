@@ -20,6 +20,7 @@ const fetchTrendingMovies = async page => {
     );
     let data = response.data;
     localStorage.setItem('currentFetch', JSON.stringify(data.results));
+    localStorage.setItem('areWeTrending', JSON.stringify(true));
     console.log('TRENDING', data);
     return data;
   } catch (error) {
@@ -48,8 +49,9 @@ const fetchSearchedMovies = async page => {
   try {
     const response = await axios.get(getURL(page));
     let data = response.data;
-
     localStorage.setItem('currentFetch', JSON.stringify(data.results));
+    localStorage.setItem('areWeTrending', JSON.stringify(false));
+
     console.log('SEARCHED', data);
 
     return data;
@@ -114,6 +116,7 @@ window.addEventListener('load', async () => {
 
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
+  page = 1;
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data);
   loadMovies(markup);
@@ -127,14 +130,24 @@ const nextPage = document.querySelector('.pagination__button--arrow-next');
 
 paginationEl.addEventListener('click', event => {
   const action = event.target;
-  console.log(action);
+  // console.log(action);
 });
 
 previousPage.addEventListener('click', async event => {
   event.preventDefault();
   page--;
-  // const data = (await fetchTrendingMovies(page)) || (await fetchSearchedMovies(page));
-  const data = await fetchSearchedMovies(page);
+  let data;
+  const getData = async () => {
+    if (JSON.parse(localStorage.getItem('areWeTrending'))) {
+      data = await fetchTrendingMovies(page);
+      // console.log(data);
+    } else {
+      data = await fetchSearchedMovies(page);
+    }
+    return data;
+  };
+  await getData();
+
   const markup = drawMovies(data);
   loadMovies(markup);
 });
@@ -142,8 +155,16 @@ previousPage.addEventListener('click', async event => {
 nextPage.addEventListener('click', async event => {
   event.preventDefault();
   page++;
-  // const data = (await fetchTrendingMovies(page)) || (await fetchSearchedMovies(page));
-  const data = await fetchSearchedMovies(page);
+  let data;
+  const getData = async () => {
+    if (JSON.parse(localStorage.getItem('areWeTrending'))) {
+      data = await fetchTrendingMovies(page);
+    } else {
+      data = await fetchSearchedMovies(page);
+    }
+    return data;
+  };
+  await getData();
   const markup = drawMovies(data);
   loadMovies(markup);
 });
