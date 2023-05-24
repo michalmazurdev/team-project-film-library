@@ -2,9 +2,10 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set, onValue, child, get, push, update } from 'firebase/database';
 import { getAnalytics } from 'firebase/analytics';
-
+import { Notiflix } from 'notiflix';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDWoBH83IVZtl5zfAq5CbdguqYq3fE-DS0',
   authDomain: 'js-team-project-gr5.firebaseapp.com',
@@ -86,6 +87,7 @@ function addToWatchedOrQueue(picture, title, rating, libraryPlace, userId) {
   const newAddedFilmKey = push(child(ref(db), userId + ' / ' + `${libraryPlace}`)).key;
   get(child(dbRef, userId + '/' + `${libraryPlace}`))
     .then(snapshot => {
+      console.log(`added to ${libraryPlace} list`);
       if (snapshot.exists()) {
         const updates = {};
         updates[userId + '/' + `${libraryPlace}` + '/' + newAddedFilmKey] = {
@@ -94,7 +96,6 @@ function addToWatchedOrQueue(picture, title, rating, libraryPlace, userId) {
           rating: rating,
         };
         update(ref(db), updates);
-        console.log(snapshot.val());
       } else {
         const db = getDatabase();
         set(ref(db, userId + '/' + `${libraryPlace}` + '/' + newAddedFilmKey), {
@@ -109,34 +110,36 @@ function addToWatchedOrQueue(picture, title, rating, libraryPlace, userId) {
     });
 }
 
-document.querySelector('.modal__button--watched').addEventListener('click', e => {
-  if (user) {
-    let uid = user.uid;
-    console.log('User ID:', uid);
+document.querySelector('.modal__container').addEventListener('click', () => {
+  document.querySelector('.modal__button--watched').addEventListener('click', e => {
+    if (user) {
+      let uid = user.uid;
+      // console.log('User ID:', uid);
 
-    const image = document.querySelector('.modal__poster').src;
-    const title = document.querySelector('.modal__title').textContent;
-    // console.log(document.querySelector('.modal__descripton-heading').previousElementSibling);
-    const rating = document.querySelector('.modal__rating').textContent;
-    addToWatchedOrQueue(image, title, rating, 'watched', uid);
-  } else {
-    // console.log(user);
-    console.log('No user is signed in.');
-  }
-});
+      const image = document.querySelector('.modal__poster').src;
+      const title = document.querySelector('.modal__title').textContent;
+      // console.log(document.querySelector('.modal__descripton-heading').previousElementSibling);
+      const rating = document.querySelector('.modal__rating').textContent;
+      addToWatchedOrQueue(image, title, rating, 'watched', uid);
+    } else {
+      // console.log(user);
+      console.log('No user is signed in.');
+    }
+  });
 
-document.querySelector('.modal__button--queue').addEventListener('click', e => {
-  if (user) {
-    let uid = user.uid;
-    console.log('User ID:', uid);
+  document.querySelector('.modal__button--queue').addEventListener('click', e => {
+    if (user) {
+      let uid = user.uid;
+      // console.log('User ID:', uid);
 
-    const image = document.querySelector('.modal__poster').src;
-    const title = document.querySelector('.modal__title').textContent;
-    // console.log(document.querySelector('.modal__descripton-heading').previousElementSibling);
-    const rating = document.querySelector('.modal__rating').textContent;
-    addToWatchedOrQueue(image, title, rating, 'queue', uid);
-  } else {
-    // console.log(user);
-    console.log('No user is signed in.');
-  }
+      const image = document.querySelector('.modal__poster').src;
+      const title = document.querySelector('.modal__title').textContent;
+      // console.log(document.querySelector('.modal__descripton-heading').previousElementSibling);
+      const rating = document.querySelector('.modal__rating').textContent;
+      addToWatchedOrQueue(image, title, rating, 'queue', uid);
+    } else {
+      // console.log(user);
+      console.log('No user is signed in.');
+    }
+  });
 });

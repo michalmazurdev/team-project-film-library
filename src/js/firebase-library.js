@@ -109,7 +109,7 @@ const loadMovies = markup => {
   movieListEl.innerHTML = markup;
 };
 
-document.querySelector('.btn-film-status').addEventListener('click', () => {
+document.querySelector('.button__status').addEventListener('click', () => {
   if (user) {
     let uid = user.uid;
     const dbRef = ref(getDatabase());
@@ -122,7 +122,7 @@ document.querySelector('.btn-film-status').addEventListener('click', () => {
   }
 });
 
-document.querySelector('.btn-film-status').nextElementSibling.addEventListener('click', () => {
+document.querySelector('.button__status').nextElementSibling.addEventListener('click', () => {
   if (user) {
     let uid = user.uid;
     const dbRef = ref(getDatabase());
