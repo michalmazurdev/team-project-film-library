@@ -22,6 +22,12 @@ window.addEventListener('click', event => {
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
 
   console.log(modalContainerEl);
+
+  const formatRate = rate => {
+    return rate.toFixed(2)
+  }
+  const formattedRate = formatRate(clickedMovie.vote_average)
+
   modalContainerEl.innerHTML = `
    <div class="modal__poster-container">
   <img class="modal__poster"
@@ -35,7 +41,7 @@ window.addEventListener('click', event => {
      <dl>
        <dt>Vote / Votes</dt>
        <dd>
-         <span class="modal__rating">${clickedMovie.vote_average}</span> /
+         <span class="modal__rating">${formattedRate}</span> /
          <span class="modal__rating modal__rating--number-of-votes">${
            clickedMovie.vote_count
          }</span>
