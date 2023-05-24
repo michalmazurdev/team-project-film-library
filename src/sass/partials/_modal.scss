@@ -25,6 +25,7 @@ $desktop: 1280px;
   padding: 48 20 40;
   overflow-y: scroll;
 }
+
 .modal__close {
   position: absolute;
   top: 16px;
@@ -35,6 +36,7 @@ $desktop: 1280px;
   height: 14px;
   font-size: 0;
 }
+
 .modal__poster-container {
   width: 240px;
   height: 357px;
@@ -148,8 +150,10 @@ $desktop: 1280px;
   .modal {
     width: 704px;
     padding: 40px 72px 40px 36px;
-    display: flex;
+  }
+  .modal__container {
     gap: 68px;
+    display: flex;
   }
   .modal__poster-container {
     width: 264px;
@@ -182,9 +186,10 @@ $desktop: 1280px;
   .modal {
     width: 806px;
     padding: 40px 12px;
+  }
+  .modal__container {
     gap: 16px;
   }
-
   .modal__poster-container {
     width: 375px;
     height: 478px;

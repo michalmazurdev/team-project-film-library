@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import { movieTypes } from './genres.js';
-
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
@@ -14,10 +13,11 @@ const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 const language = 'en-US';
 let page = 1;
 
-let arrayOfSearchedMovies = [];
-const saveMovieResults = movies => {
-  arrayOfSearchedMovies = [movies];
-};
+// let arrayOfSearchedMovies = [];
+
+// const saveMovieResults = movies => {
+//   arrayOfSearchedMovies = [movies];
+// };
 
 const fetchTrendingMovies = async page => {
   try {
@@ -25,7 +25,8 @@ const fetchTrendingMovies = async page => {
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
     let movies = response.data.results;
-    saveMovieResults(movies);
+    // saveMovieResults(movies);
+    localStorage.setItem('currentFetch', JSON.stringify(movies));
     return movies;
   } catch (error) {
     console.log(error);
@@ -52,9 +53,10 @@ const getURL = () => {
 const fetchSearchedMovies = async () => {
   try {
     const response = await axios.get(getURL());
-    // console.log(getURL());
     let movies = response.data.results;
-    saveMovieResults(movies);
+    // saveMovieResults(movies);
+    localStorage.setItem('currentFetch', JSON.stringify(movies));
+
     return movies;
   } catch (error) {
     console.log(error);
@@ -76,9 +78,9 @@ const drawMovies = movies => {
       ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
-    <div class="movie-card" id=${id++}>
+    <div class="movie-card">
     <div class="movie-card__poster-container">
-    <img class="movie-card__poster" id="poster_path"
+    <img class="movie-card__poster" id="poster_path" data-order=${id++}
     src="${posterUrl}"
     srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
