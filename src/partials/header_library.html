@@ -1,25 +1,22 @@
-<header class="headerLibrary">
-  <div class="headerContainer">
-    <div class="headerItem">
-    <div class="headerLogo">
-      <a class="logo" href="index.html">
-      <img src='./images/logox2.png' width="24" hight="24" alt="logo" /></a>
-      <span class="headerLogoText">Filmoteka</span>
-    </div>
-    <div class="headerMenu">
-      <ul class="headerMenuList">
-        <li >
-          <a class="menu " href="./index.html">home</a>
-        </li>
-        <li>
-          <a class="menu menuIsActive" href="./library.html">my library</a>
-        </li>
-      </ul>
-    </div>
-   </div>
-      <div class="headerFilmStatus">
-        <button type="button" class="btnFilmStatus">watched</button
-        ><button type="button" class="btnFilmStatus">queue</button>
-      </div>
-    </div>
-  </header>
+<header class="header header--library">
+  <div class="header__container header__container--margin">
+    <a class="header__logo" href="/src/index.html">
+      <svg class="header__icon" width="24" height="24">
+        <use href="/src/images/icons.svg#icon-movie"></use>
+      </svg>
+      <p class="header__title">Filmoteka</p>
+    </a>
+    <ul class="header__list">
+      <li class="header__item">
+        <a class="header__link" href="/src/index.html">Home</a>
+      </li>
+      <li class="header__item">
+        <a class="header__link header__link--active" href="/src/library.html">My Library</a>
+      </li>
+    </ul>
+  </div>
+  <div class="button">
+    <button type="button" class="button__status">watched</button>
+    <button type="button" class="button__status">queue</button>
+  </div>
+</header>

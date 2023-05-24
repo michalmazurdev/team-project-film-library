@@ -8,10 +8,25 @@ width: 280px;
 @include desktop {
     width: 395px;
 }
+&__poster-container {
+    width: 280px;
+    height: 398px;
+    @include tablet {
+        width: 336px;
+        height: 455px;
+    }
+    @include desktop {
+        width: 395px;
+        height: 574px;
+    }
+}
 &__poster {
     display: block;
     width: 100%;
+    height: 100%;
     border-radius: 5px;
+    object-fit: cover;
+    overflow: hidden;
 }
 &__figcaption {
     margin: 0;

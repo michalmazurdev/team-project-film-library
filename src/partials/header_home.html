@@ -1,35 +1,35 @@
-<header class="headerHome">
-  <div class="headerContainer">
-    <div class="headerItem">
-    <div class="headerLogo">
-      <a class="logo" href="index.html">
-      <img src='./images/logox2.png' width="24" hight="24" alt="logo" /></a>
-      <span class="headerLogoText">Filmoteka</span>
-    </div>
-    <div class="headerMenu">
-      <ul class="headerMenuList">
-        <li >
-          <a class="menu menuIsActive" href="./index.html">home</a>
-        </li>
-        <li>
-          <a class="menu" href="./library.html">my library</a>
-        </li>
-      </ul>
-    </div>
-   </div>
-   <!-- <div class="searchDiv" > -->
-    <form  class="searchForm"id="searchForm">
-      <input
-      class="searchInput"
-        type="text"
-        name="search"
-        autocomplete="off"
-        placeholder="Movie search"
-        autocomplete="off"
-        required
-      />
-      <button type="submit" class="searchBtn">o</button>
-    </form>
+<header class="header">
+  <div class="header__container">
+    <a class="header__logo" href="/src/index.html">
+      <svg class="header__icon" width="24" height="24">
+        <use href="/src/images/icons.svg#icon-movie"></use>
+      </svg>
+      <p class="header__title">Filmoteka</p>
+    </a>
+    <ul class="header__list">
+      <li class="header__item">
+        <a class="header__link header__link--active" href="/src/index.html"> Home </a>
+      </li>
+      <li class="header__item">
+        <a class="header__link" href="/src/library.html">My Library</a>
+      </li>
+    </ul>
   </div>
-  <!-- </div> -->
+  <form class="form" id="form-search">
+    <input
+      class="form__input"
+      type="text"
+      name="search"
+      autocomplete="off"
+      placeholder="Movie search"
+      autocomplete="off"
+      required
+    />
+    <button class="form__btn" type="submit">
+      <svg class="form__icon" width="16" height="16">
+        <use href="/src/images/icons.svg#icon-search"></use>
+      </svg>
+    </button>
+    <div class="form__result">Search result not successful. Enter the correct movie name.</div>
+  </form>
 </header>
