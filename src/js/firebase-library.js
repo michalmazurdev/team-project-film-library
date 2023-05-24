@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set, onValue, child, get, push, update } from 'firebase/database';
 import { getAnalytics } from 'firebase/analytics';
+import Notiflix from 'notiflix';
 // import { firebaseConfig } from '../js/firebase';
 
 const movieListEl = document.querySelector('.movie-list');
