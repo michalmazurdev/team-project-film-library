@@ -4,7 +4,7 @@ import { movieTypes } from './genres.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
-// const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
+const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
 const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
 const searchAllURL = `https://api.themoviedb.org/3/search/multi?`;
 const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
@@ -13,25 +13,6 @@ const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 const language = 'en-US';
 let page = 1;
 
-const fetchTrendingMovies = async page => {
-  try {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
-    );
-    let data = response.data;
-    localStorage.setItem('currentFetch', JSON.stringify(data.results));
-    localStorage.setItem('areWeTrending', JSON.stringify(true));
-    console.log('TRENDING', data);
-    return data;
-  } catch (error) {
-    console.log(error);
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.',
-    );
-  }
-};
-
-// LOGIKA BUDOWANIA ADRESU URL - ZMIENNEGO ZALEŻNIE OD ZAPYTANIA
 const getURL = page => {
   const searchParams = new URLSearchParams({
     query: inputEl.value,
@@ -40,7 +21,17 @@ const getURL = page => {
     language: language,
     page: page,
   });
-  let url = `${searchMovieURL}${searchParams}`;
+
+  let url;
+  if (inputEl.value === '') {
+    url = `${thisWeekMovieURL}${searchParams}`;
+    console.log('this week');
+    // Jeśli inny warunek to można np z local storage pobrać dane
+  } else {
+    url = `${searchMovieURL}${searchParams}`;
+    console.log('search for movies');
+  }
+  console.log(url);
   return url;
 };
 
@@ -66,8 +57,9 @@ const fetchSearchedMovies = async page => {
 const drawMovies = data => {
   let markup = '';
   let id = 0;
-  let arrayOfMovies = data.results;
-  arrayOfMovies.forEach(movie => {
+  // let arrayOfMovies = data.results;
+
+  data.forEach(movie => {
     let posterUrl = movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
@@ -108,91 +100,77 @@ const loadMovies = markup => {
   });
 };
 
-window.addEventListener('load', async () => {
-  const data = await fetchTrendingMovies(page);
-  const markup = drawMovies(data);
+const firstIteration = async page => {
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
   loadMovies(markup);
-});
+  renderPageNumber(page, data);
+};
+firstIteration(page);
 
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
   page = 1;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data);
+  const markup = drawMovies(data.results);
   loadMovies(markup);
+  renderPageNumber(page, data);
 });
 
 // PAGINATION
 
-const paginationEl = document.querySelector('.pagination');
-const previousPage = document.querySelector('.pagination__button--arrow-previous');
-const nextPage = document.querySelector('.pagination__button--arrow-next');
+const pagePreviousEl = document.getElementById('previous');
+const pageFirst = document.getElementById('first');
+const pageDot = document.getElementById('dot');
+const pageMinus2 = document.getElementById('minus2');
+const pageMinus1 = document.getElementById('minus1');
+const pageCurrent = document.getElementById('current');
+const pagePlus1 = document.getElementById('plus1');
+const pagePlus2 = document.getElementById('plus2');
+const pageLast = document.getElementById('last');
+const pageNext = document.getElementById('next');
 
-paginationEl.addEventListener('click', event => {
-  const action = event.target;
+const pageCount = data => {
+  const totalPages = data.total_pages;
+  console.log(totalPages);
+  return totalPages;
+};
+
+const pageNumberBtnEl = document.querySelector('.pagination');
+
+pageNumberBtnEl.addEventListener('click', event => {
+  // const page = parseInt(event.target)
+
+  const action = event.target.innerHTML;
+  console.log(action);
   // console.log(action);
 });
 
-previousPage.addEventListener('click', async event => {
+pagePreviousEl.addEventListener('click', async event => {
   event.preventDefault();
   page--;
-  let data;
-  const getData = async () => {
-    if (JSON.parse(localStorage.getItem('areWeTrending'))) {
-      data = await fetchTrendingMovies(page);
-      // console.log(data);
-    } else {
-      data = await fetchSearchedMovies(page);
-    }
-    return data;
-  };
-  await getData();
-
-  const markup = drawMovies(data);
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
   loadMovies(markup);
+  renderPageNumber(page, data);
 });
 
-nextPage.addEventListener('click', async event => {
+pageNext.addEventListener('click', async event => {
   event.preventDefault();
   page++;
-  let data;
-  const getData = async () => {
-    if (JSON.parse(localStorage.getItem('areWeTrending'))) {
-      data = await fetchTrendingMovies(page);
-    } else {
-      data = await fetchSearchedMovies(page);
-    }
-    return data;
-  };
-  await getData();
-  const markup = drawMovies(data);
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
   loadMovies(markup);
+  renderPageNumber(page, data);
+  // pageCount(data);
 });
 
-// const renderPageNumber = () => {
-//   // renderuje current page, -1, -2, +1, +2
-// }
-
-// PIERWSZE WYWOŁANIE FUNKCJI DO GENEROWALNIA FILMÓW TYGODNIA
-
-// const showMovies = movies => {
-//   //   movieArray.push(movies);
-//   //   console.log(movies[1].vote_average);
-//   console.log(movies);
-//   movieListEl.innerHTML = movies
-//     .map(movieCard => {
-//       return `<div class="movie-card" id="1">
-//         <img class="movie-card__poster" id="poster_path"
-//         src= 'https://image.tmdb.org/t/p/w500/${movieCard.poster_path}'
-//         alt='${movieCard.title}'
-//         />
-//       <div class="movie-card__figcaption">
-//         <p class="movie-card__title" id="title">${movieCard.title}</p>
-//         <span class="movie-card__genre" id="genre_ids">${movieCard.genre_ids}</span>
-//         <span class="movie-card__release-date" id="release_date">${movieCard.relese_date}</span>
-//         <span class="movie-card__rating" id="vote_average">${movieCard.vote_average}</span>
-//       </div>
-//     </div>`;
-//     })
-//     .join('');
-// };
+const renderPageNumber = (page, data) => {
+  pageFirst.innerHTML = 1;
+  pageMinus2.innerHTML = page - 2;
+  pageMinus1.innerHTML = page - 1;
+  pageCurrent.innerHTML = page;
+  pagePlus1.innerHTML = page + 1;
+  pagePlus2.innerHTML = page + 2;
+  pageLast.innerHTML = data.total_pages;
+};
