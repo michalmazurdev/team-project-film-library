@@ -25,7 +25,8 @@
       line-height: 133%;
       cursor: pointer;
     }
-    &--arrow {
+    &--arrow-previous,
+    &--arrow-next {
       padding: 0;
       width: 40px;
       height: 40px;

@@ -13,21 +13,15 @@ const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 const language = 'en-US';
 let page = 1;
 
-// let arrayOfSearchedMovies = [];
-
-// const saveMovieResults = movies => {
-//   arrayOfSearchedMovies = [movies];
-// };
-
 const fetchTrendingMovies = async page => {
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
-    let movies = response.data.results;
-    // saveMovieResults(movies);
-    localStorage.setItem('currentFetch', JSON.stringify(movies));
-    return movies;
+    let data = response.data;
+    localStorage.setItem('currentFetch', JSON.stringify(data.results));
+    console.log('TRENDING', data);
+    return data;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.failure(
@@ -37,7 +31,7 @@ const fetchTrendingMovies = async page => {
 };
 
 // LOGIKA BUDOWANIA ADRESU URL - ZMIENNEGO ZALEŻNIE OD ZAPYTANIA
-const getURL = () => {
+const getURL = page => {
   const searchParams = new URLSearchParams({
     query: inputEl.value,
     api_key: '5e58d3162f5aafaf855cf7d900bbc361',
@@ -50,14 +44,15 @@ const getURL = () => {
 };
 
 // FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
-const fetchSearchedMovies = async () => {
+const fetchSearchedMovies = async page => {
   try {
-    const response = await axios.get(getURL());
-    let movies = response.data.results;
-    // saveMovieResults(movies);
-    localStorage.setItem('currentFetch', JSON.stringify(movies));
+    const response = await axios.get(getURL(page));
+    let data = response.data;
 
-    return movies;
+    localStorage.setItem('currentFetch', JSON.stringify(data.results));
+    console.log('SEARCHED', data);
+
+    return data;
   } catch (error) {
     console.log(error);
     Notiflix.Notify.failure(
@@ -66,11 +61,11 @@ const fetchSearchedMovies = async () => {
   }
 };
 
-const drawMovies = movies => {
+const drawMovies = data => {
   let markup = '';
   let id = 0;
-  // saveMovieResults(movies);
-  movies.forEach(movie => {
+  let arrayOfMovies = data.results;
+  arrayOfMovies.forEach(movie => {
     let posterUrl = movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
@@ -112,17 +107,50 @@ const loadMovies = markup => {
 };
 
 window.addEventListener('load', async () => {
-  const movies = await fetchTrendingMovies(page);
-  const markup = drawMovies(movies);
+  const data = await fetchTrendingMovies(page);
+  const markup = drawMovies(data);
   loadMovies(markup);
 });
 
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
-  const movies = await fetchSearchedMovies(page);
-  const markup = drawMovies(movies);
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data);
   loadMovies(markup);
 });
+
+// PAGINATION
+
+const paginationEl = document.querySelector('.pagination');
+const previousPage = document.querySelector('.pagination__button--arrow-previous');
+const nextPage = document.querySelector('.pagination__button--arrow-next');
+
+paginationEl.addEventListener('click', event => {
+  const action = event.target;
+  console.log(action);
+});
+
+previousPage.addEventListener('click', async event => {
+  event.preventDefault();
+  page--;
+  // const data = (await fetchTrendingMovies(page)) || (await fetchSearchedMovies(page));
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data);
+  loadMovies(markup);
+});
+
+nextPage.addEventListener('click', async event => {
+  event.preventDefault();
+  page++;
+  // const data = (await fetchTrendingMovies(page)) || (await fetchSearchedMovies(page));
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data);
+  loadMovies(markup);
+});
+
+// const renderPageNumber = () => {
+//   // renderuje current page, -1, -2, +1, +2
+// }
 
 // PIERWSZE WYWOŁANIE FUNKCJI DO GENEROWALNIA FILMÓW TYGODNIA
 
@@ -147,52 +175,3 @@ searchFormEl.addEventListener('submit', async event => {
 //     })
 //     .join('');
 // };
-
-// fetchMovies();
-
-// const types = [80, 12, 27, 10752];
-
-// console.log(movieTypes(types));
-
-// const movieTypes = types => {
-//   const genres = {
-//     28: 'Action',
-//     12: 'Adventure',
-//     16: 'Animation',
-//     35: 'Comedy',
-//     80: 'Crime',
-//     99: 'Documentary',
-//     18: 'Drama',
-//     10751: 'Family',
-//     14: 'Fantasy',
-//     36: 'History',
-//     27: 'Horror',
-//     10402: 'Music',
-//     9648: 'Mystery',
-//     10749: 'Romance',
-//     878: 'Science Fiction',
-//     10770: 'TV Movie',
-//     53: 'Thriller',
-//     10752: 'War',
-//     37: 'Western',
-//   };
-//   let array = [];
-
-//   types.forEach(item => {
-//     if (item === genres.key) {
-//       array.push(genre.value);
-//     }
-//   });
-//   return array.join(', ');
-
-//   // types.forEach(item => {
-//   //   if (genres[item]) {
-//   //     array.push(genres[item]);
-//   //   }
-//   // });
-//   // return array;
-// };
-
-// const test = [37, 10752, 18];
-
-// console.log('here:', movieTypes(test));
