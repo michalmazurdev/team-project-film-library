@@ -1,0 +1,215 @@
+.header {
+  @extend .container;
+  padding-top: 40px;
+  padding-bottom: 44px;
+  background-image: url('/src/images/backgroundMobile.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &--library {
+    background-image: url('/src/images/backgroundLibraryMobile.jpg');
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 54px;
+
+    &--margin {
+      margin-bottom: 62px;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__icon {
+    fill: $defaultColor;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: $headFontSize;
+    line-height: $headLineHeight;
+    color: $defaultColor;
+    margin-left: 8px;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  &__link {
+    display: block;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: $smallFontSize;
+    line-height: $smallLineHeight;
+    color: $defaultColor;
+  }
+
+  &__link--active {
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 14px;
+      width: 100%;
+      height: 3px;
+      background: $accentColor;
+      border-radius: 1px;
+    }
+  }
+
+  .form {
+    width: 280px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    @include tablet {
+      min-width: 336px;
+    }
+    @include desktop {
+      min-width: 394px;
+    }
+
+    &__input {
+      width: 100%;
+      height: 20px;
+      margin-bottom: 16px;
+      background-color: $transparentColor;
+      border: none;
+      border-bottom: 1px solid $defaultColor;
+      outline: none;
+      color: $defaultColor;
+      font-size: $smallFontSize;
+      line-height: $defaultLineHeight;
+
+      &::placeholder {
+        color: $defaultColor;
+        font-size: $smallFontSize;
+        line-height: $defaultLineHeight;
+        padding: 2px 2px;
+      }
+    }
+
+    &__btn {
+      background-color: $transparentColor;
+      border: none;
+      position: absolute;
+      top: 4px;
+      right: 0px;
+    }
+
+    &__icon {
+      fill: $defaultColor;
+      align-items: center;
+    }
+
+    &__result {
+      // visibility: visible;
+      visibility: hidden;
+      color: $accentColor;
+      font-size: $smallFontSize;
+      line-height: $defaultLineHeight;
+      text-align: left;
+    }
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    &__status {
+      width: 130px;
+      height: 40px;
+      background-color: $transparentColor;
+      border: 1px solid $defaultColor;
+      border-radius: 4px;
+      color: $defaultColor;
+      font-weight: 500;
+      font-size: $smallFontSize;
+      line-height: $smallLineHeight;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover,
+      &:focus {
+        background-color: $descritiopnColor;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header__title {
+    display: none;
+  }
+}
+
+@media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .header {
+    background-image: url('/src/images/backgroundMobile@2x.jpg');
+
+    &--library {
+      background-image: url('/src/images/backgroundLibraryMobile@2x.jpg');
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    background-image: url('/src/images/backgroundTablet.jpg');
+
+    &--library {
+      background-image: url('/src/images/backgroundLibraryTablet.jpg');
+    }
+  }
+}
+
+@media (min-width: 768px) and (min-device-pixel-ratio: 2),
+  (min-width: 768px) and (min-resolution: 192dpi),
+  (min-width: 768px) and (min-resolution: 2dppx) {
+  .header {
+    background-image: url('/src/images/backgroundTablet@2x.jpg');
+
+    &--library {
+      background-image: url('/src/images/backgroundLibraryTablet@2x.jpg');
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .header {
+    background-image: url('/src/images/backgroundDesktop.jpg');
+
+    &--library {
+      background-image: url('/src/images/backgroundLibraryDesktop.jpg');
+    }
+  }
+}
+
+@media (min-width: 1280px) and (min-device-pixel-ratio: 2),
+  (min-width: 1280px) and (min-resolution: 192dpi),
+  (min-width: 1280px) and (min-resolution: 2dppx) {
+  .header {
+    background-image: url('/src/images/backgroundDesktop@2x.jpg');
+
+    &--library {
+      background-image: url('/src/images/backgroundLibraryDeskop@2x.jpg');
+    }
+  }
+}
