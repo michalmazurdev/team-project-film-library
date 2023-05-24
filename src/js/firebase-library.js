@@ -83,19 +83,25 @@ const drawMovies = movies => {
   let id = 0;
   // saveMovieResults(movies);
   movies.forEach(movie => {
-    console.log(movie);
+    let posterUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
+    let posterUrlRetina = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
+      : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
-    <div class="movie-card" id=${id++}>
-    <img class="movie-card__poster" id="poster_path"
+    <div class="movie-card">
+    <div class="movie-card__poster-container">
+    <img class="movie-card__poster" id="poster_path" data-order=${id++}
     src="${movie.picture}"
+    srcset="${movie.picture} 1x, ${movie.picture} 2x"
     alt=""
     />
+    </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
-        <span class="movie-card__genre" id="genre_ids">Lorem impsum |</span>
-        <span class="movie-card__release-date" id="release_date">
-
-        </span>
+        <span class="movie-card__genre" id="genre_ids">${movie.genres} |</span>
+        <span class="movie-card__release-date" id="release_date"> 2023</span>
         <!-- in JS need to add a script for changing visibility on Homepage: document.querySelector('.movie-card__rating').classList.add('is-hidden') -->
         <span class="movie-card__rating" id="vote_average">${movie.rating}</span>
     </div>

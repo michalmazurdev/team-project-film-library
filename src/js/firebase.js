@@ -82,7 +82,17 @@ document.getElementById('register-btn').addEventListener('click', function () {
 
 //************************************* */
 
-function addToWatchedOrQueue(picture, title, rating, libraryPlace, userId) {
+function addToWatchedOrQueue(
+  picture,
+  title,
+  rating,
+  ratingNumberOfVotes,
+  popularity,
+  fullTitle,
+  genres,
+  libraryPlace,
+  userId,
+) {
   const dbRef = ref(getDatabase());
   const newAddedFilmKey = push(child(ref(db), userId + ' / ' + `${libraryPlace}`)).key;
   get(child(dbRef, userId + '/' + `${libraryPlace}`))
@@ -94,6 +104,11 @@ function addToWatchedOrQueue(picture, title, rating, libraryPlace, userId) {
           picture: picture,
           title: title,
           rating: rating,
+          ratingNumberOfVotes: ratingNumberOfVotes,
+          popularity: popularity,
+          fullTitle: fullTitle,
+          genres: genres,
+          about: about,
         };
         update(ref(db), updates);
       } else {
@@ -102,6 +117,10 @@ function addToWatchedOrQueue(picture, title, rating, libraryPlace, userId) {
           picture: picture,
           title: title,
           rating: rating,
+          ratingNumberOfVotes: ratingNumberOfVotes,
+          popularity: popularity,
+          fullTitle: fullTitle,
+          genres: genres,
         });
       }
     })
@@ -114,13 +133,34 @@ document.querySelector('.modal__container').addEventListener('click', () => {
   document.querySelector('.modal__button--watched').addEventListener('click', e => {
     if (user) {
       let uid = user.uid;
-      // console.log('User ID:', uid);
-
+      const tableFields = document.querySelectorAll('dd');
+      let arrayData = Array.from(tableFields);
+      arrayData = arrayData.map(el => el.textContent);
       const image = document.querySelector('.modal__poster').src;
       const title = document.querySelector('.modal__title').textContent;
-      // console.log(document.querySelector('.modal__descripton-heading').previousElementSibling);
+      const ratingNumberOfVotes = document.querySelector(
+        '.modal__rating--number-of-votes',
+      ).textContent;
       const rating = document.querySelector('.modal__rating').textContent;
-      addToWatchedOrQueue(image, title, rating, 'watched', uid);
+      const popularity = arrayData[1];
+      const fullTitle = arrayData[2];
+      const genres = arrayData[3];
+      const about = document.querySelector('.modal__descripton').textContent;
+      const releaseDate = '';
+      console.log(about);
+      console.log(fullTitle, ratingNumberOfVotes, popularity, genres);
+      addToWatchedOrQueue(
+        image,
+        title,
+        rating,
+        ratingNumberOfVotes,
+        popularity,
+        fullTitle,
+        genres,
+        about,
+        'watched',
+        uid,
+      );
     } else {
       // console.log(user);
       console.log('No user is signed in.');
@@ -130,16 +170,38 @@ document.querySelector('.modal__container').addEventListener('click', () => {
   document.querySelector('.modal__button--queue').addEventListener('click', e => {
     if (user) {
       let uid = user.uid;
-      // console.log('User ID:', uid);
-
+      const tableFields = document.querySelectorAll('dd');
+      let arrayData = Array.from(tableFields);
+      arrayData = arrayData.map(el => el.textContent);
       const image = document.querySelector('.modal__poster').src;
       const title = document.querySelector('.modal__title').textContent;
-      // console.log(document.querySelector('.modal__descripton-heading').previousElementSibling);
+      const ratingNumberOfVotes = document.querySelector(
+        '.modal__rating--number-of-votes',
+      ).textContent;
       const rating = document.querySelector('.modal__rating').textContent;
-      addToWatchedOrQueue(image, title, rating, 'queue', uid);
+      const popularity = arrayData[1];
+      const fullTitle = arrayData[2];
+      const genres = arrayData[3];
+      const about = document.querySelector('.modal__descripton').textContent;
+      addToWatchedOrQueue(
+        image,
+        title,
+        rating,
+        ratingNumberOfVotes,
+        popularity,
+        fullTitle,
+        genres,
+        about,
+        'queue',
+        uid,
+      );
     } else {
       // console.log(user);
       console.log('No user is signed in.');
     }
   });
 });
+
+// filmPictures.addEventListener('click', e => {
+//   console.log('test');
+// });
