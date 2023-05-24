@@ -13,11 +13,11 @@ const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 const language = 'en-US';
 let page = 1;
 
-let arrayOfSearchedMovies = [];
+// let arrayOfSearchedMovies = [];
 
-const saveMovieResults = movies => {
-  arrayOfSearchedMovies = [movies];
-};
+// const saveMovieResults = movies => {
+//   arrayOfSearchedMovies = [movies];
+// };
 
 const fetchTrendingMovies = async page => {
   try {
@@ -25,7 +25,7 @@ const fetchTrendingMovies = async page => {
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
     let movies = response.data.results;
-    saveMovieResults(movies);
+    // saveMovieResults(movies);
     localStorage.setItem('currentFetch', JSON.stringify(movies));
     return movies;
   } catch (error) {
@@ -53,9 +53,8 @@ const getURL = () => {
 const fetchSearchedMovies = async () => {
   try {
     const response = await axios.get(getURL());
-    // console.log(getURL());
     let movies = response.data.results;
-    saveMovieResults(movies);
+    // saveMovieResults(movies);
     localStorage.setItem('currentFetch', JSON.stringify(movies));
 
     return movies;
