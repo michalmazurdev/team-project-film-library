@@ -11,7 +11,6 @@ const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
 const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 
 const language = 'en-US';
-// let page = parseInt(localStorage.getItem('currentPage')) || 1;
 let page = 1;
 
 const getURL = page => {
@@ -37,6 +36,7 @@ const getURL = page => {
 };
 
 // FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
+
 const fetchSearchedMovies = async page => {
   try {
     const response = await axios.get(getURL(page));
@@ -47,11 +47,29 @@ const fetchSearchedMovies = async page => {
     return data;
   } catch (error) {
     console.log(error);
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.',
-    );
+    // Notiflix.Notify.failure(
+    //   'Sorry, there are no images matching your search query. Please try again.',
+    // );
   }
 };
+
+// const fetchSearchedMovies = async page => {
+//   try {
+//     const response = await axios.get(getURL(page));
+//     let data = response.data;
+//     if (data.results) {
+//       localStorage.setItem('currentFetch', JSON.stringify(data.results));
+//       localStorage.setItem('areWeTrending', JSON.stringify(false));
+//       console.log('SEARCHED', data);
+//       return data;
+//     } else {
+//       throw new Error('No movie results found.');
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     // Handle the error appropriately, e.g., show a notification or display an error message on the page.
+//   }
+// };
 
 const drawMovies = data => {
   let markup = '';
@@ -102,9 +120,9 @@ const firstIteration = async page => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
-  // localStorage.setItem('currentPage', page.toString());
-  // hidePageNumber(page, data);
 };
+
+firstIteration(page);
 
 // PAGINATION
 
@@ -120,8 +138,6 @@ const pageDot2 = document.getElementById('dot2');
 const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
-const pageNumberBtnEl = document.querySelector('.pagination');
-
 const renderPageNumber = (page, data) => {
   pageFirst.innerHTML = 1;
   pageMinus2.innerHTML = Number(page) - 2;
@@ -131,39 +147,124 @@ const renderPageNumber = (page, data) => {
   pagePlus2.innerHTML = Number(page) + 2;
   pageLast.innerHTML = data.total_pages;
 
-  if (page === 1) {
+  // if (data.total_pages === 1)
+  console.log(+data.total_pages);
+
+  if (+data.total_pages === 1) {
     pagePrevious.classList.add('is-hidden');
     pageFirst.classList.add('is-hidden');
     pageDot.classList.add('is-hidden');
     pageMinus2.classList.add('is-hidden');
     pageMinus1.classList.add('is-hidden');
-  } else if (page === 2) {
-    pagePrevious.classList.remove('is-hidden');
-    pageFirst.classList.remove('is-hidden');
-    pageDot.classList.add('is-hidden');
-    pageMinus2.classList.add('is-hidden');
-    pageMinus1.classList.add('is-hidden');
-  } else {
-    pagePrevious.classList.remove('is-hidden');
-    pageFirst.classList.remove('is-hidden');
-    pageDot.classList.remove('is-hidden');
-    pageMinus2.classList.remove('is-hidden');
-    pageMinus1.classList.remove('is-hidden');
-  }
 
-  if (page === data.total_pages - 1) {
-    pagePlus1.classList.add('is-hidden');
-    pagePlus2.classList.add('is-hidden');
-    pageDot2.classList.add('is-hidden');
-    pageLast.classList.remove('is-hidden');
-    pageNext.classList.remove('is-hidden');
-  } else if (page === data.total_pages) {
     pagePlus1.classList.add('is-hidden');
     pagePlus2.classList.add('is-hidden');
     pageDot2.classList.add('is-hidden');
     pageLast.classList.add('is-hidden');
     pageNext.classList.add('is-hidden');
+  } else if (+data.total_pages === 2) {
+    pagePrevious.classList.add('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
+
+    pagePlus1.classList.add('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.add('is-hidden');
+    pageNext.classList.add('is-hidden');
+  } else if (+page === 1) {
+    pagePrevious.classList.add('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === 2) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === 3) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === data.total_pages) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.add('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.add('is-hidden');
+    pageNext.classList.add('is-hidden');
+  } else if (+page === data.total_pages - 1) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === data.total_pages - 2) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.add('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === data.total_pages - 3) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
   } else {
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+
     pagePlus1.classList.remove('is-hidden');
     pagePlus2.classList.remove('is-hidden');
     pageDot2.classList.remove('is-hidden');
@@ -172,8 +273,6 @@ const renderPageNumber = (page, data) => {
   }
 };
 
-firstIteration(page);
-
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
   page = 1;
@@ -181,35 +280,9 @@ searchFormEl.addEventListener('submit', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
-  // localStorage.setItem('currentPage', page.toString());
-  // hidePageNumber(page, data);
 });
 
-pageNumberBtnEl.addEventListener('click', async event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  event.preventDefault();
-  const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
-  loadMovies(markup);
-  renderPageNumber(page, data);
-  // localStorage.setItem('currentPage', page.toString());
-  // hidePageNumber(page, data);
-  if (page === 1) {
-    pagePrevious.remove();
-    pageFirst.remove();
-    pageDot.remove();
-    pageMinus2.remove();
-    pageMinus1.remove();
-  }
-  if (page === data.total_pages) {
-    pagePlus1.remove();
-    pagePlus2.remove();
-    pageDot2.remove();
-    pageLast.remove();
-    pageNext.remove();
-  }
-});
+// PAGINATION BUTTONS NUMBER OF PAGE:
 
 pagePrevious.addEventListener('click', async event => {
   event.preventDefault();
@@ -218,8 +291,60 @@ pagePrevious.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
-  // localStorage.setItem('currentPage', page.toString());
-  // hidePageNumber(page, data);
+});
+
+pageFirst.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
+});
+
+pageMinus2.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
+});
+
+pageMinus1.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
+});
+
+pagePlus1.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
+});
+
+pagePlus2.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
+});
+
+pageLast.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data);
 });
 
 pageNext.addEventListener('click', async event => {
@@ -229,6 +354,4 @@ pageNext.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
-  // localStorage.setItem('currentPage', page.toString());
-  // hidePageNumber(page, data);
 });
