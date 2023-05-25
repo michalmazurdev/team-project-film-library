@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, child, get, remove } from 'firebase/database';
-import { Notify } from 'notiflix';
+import Notiflix, { Notify } from 'notiflix';
 
 const movieListEl = document.querySelector('.movie-list');
 
@@ -98,7 +98,12 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
     get(child(dbRef, uid + '/' + watchedOrQueue)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
       const arrayOfVideoData = Object.values(moviesAddedToWatch);
-      console.log('Tu przechowywane są obiekty z filmami', arrayOfVideoData);
+      const arrayOfVideoIds = Object.keys(moviesAddedToWatch);
+      console.log(
+        'Tu przechowywane są tablice z filmami i ich ID : ',
+        arrayOfVideoData,
+        arrayOfVideoIds,
+      );
       loadMovies(drawMovies(arrayOfVideoData));
     });
   } else {
@@ -106,10 +111,10 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
   }
 }
 
-//Usuwanie obiektu z Watched lub Queue po właściwości .fullTitle
-function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, fullTitle) {
-  remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${fullTitle}`))
-    .then(Notify.success(`Removed ${fullTitle} from ${watchedOrQueue} list`))
+//Usuwanie obiektu z Watched lub Queue po właściwości .UniqueId
+function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
+  remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${UniqueFilmId}`))
+    .then(Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`))
     .catch(function (error) {
       Notify.failure('Wystąpił błąd podczas usuwania obiektu:', error);
     });
