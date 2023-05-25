@@ -92,12 +92,12 @@
       border-bottom: 1px solid $defaultColor;
       outline: none;
       color: $defaultColor;
-      font-size: $smallFontSize;
+      font-size: $defaultFontSize;
       line-height: $defaultLineHeight;
 
       &::placeholder {
         color: $defaultColor;
-        font-size: $smallFontSize;
+        font-size: $defaultFontSize;
         line-height: $defaultLineHeight;
         padding: 2px 2px;
       }

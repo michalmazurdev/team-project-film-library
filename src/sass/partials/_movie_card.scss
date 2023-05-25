@@ -2,6 +2,11 @@
 display: block;
 cursor: pointer;
 width: 280px;
+transition: transform 0.3s linear;
+&:hover,
+&:focus {
+    transform: scale(1.03);
+}
 @include tablet {
     width: 336px;
 }
@@ -27,14 +32,15 @@ width: 280px;
     border-radius: 5px;
     object-fit: cover;
     overflow: hidden;
+    
 }
 &__figcaption {
     margin: 0;
     padding-top: 10px;
-    font-family: Roboto;
+    font-family: $defaultFontStyle;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 1.33;
+    font-size: $smallFontSize;
+    line-height: $defaultLineHeight;
     @include tablet {
         padding-top: 8px;
     }
@@ -43,34 +49,34 @@ width: 280px;
     }
 }
 &__title {
-    color: #000000;
+    color: $titleColor;
     margin: 0;
     @include desktop {
-        font-size: 20px;
-        line-height: 1.2; 
+        font-size: $mediumFontSize;
+        line-height: $largeLineHeight; 
     }
 }
 &__genre {
-    color: #FF6B08;  
+    color: $descritiopnColor;  
     @include desktop {
-        font-size: 20px;
-        line-height: 1.2; 
+        font-size: $mediumFontSize;
+        line-height: $largeLineHeight; 
     }
 }
 &__release-date {
-    color: #FF6B08; 
+    color: $descritiopnColor;
     @include desktop {
-        font-size: 20px;
-        line-height: 1.2; 
+        font-size: $mediumFontSize;
+        line-height: $largeLineHeight; 
     }  
 }
 &__rating {
-    background-color: #FF6B08;
-    color: #FFFFFF;
+    background-color: $descritiopnColor;
+    color: $defaultColor;
     border-radius: 5px;
-    font-family: Roboto;
-    font-size: 12px;
-    line-height: 1.17; 
+    font-family: $defaultFontStyle;
+    font-size: $smallFontSize;
+    line-height: $smallLineHeight; 
     text-align: center;
     padding: 1px 9px 1px 10px;
     margin-left: 8px;
