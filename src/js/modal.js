@@ -2,7 +2,6 @@ import { movieTypes } from './genres.js';
 
 const posterEl = document.querySelector('#poster_path');
 const modalEl = document.querySelector('.modal__backdrop');
-const modalWindowEl = document.querySelector('.modal');
 const closeButtonEl = document.querySelector('.modal__close');
 
 const formatRate = rating => {
@@ -55,7 +54,7 @@ window.addEventListener('click', event => {
   let ratingEl = document.querySelector('.modal__rating');
   let numOfVotesEL = document.querySelector('.modal__rating--number-of-votes');
   let popularityEl = document.querySelector("dd[data-info='popularity']");
-  let orgtitleEl = document.querySelector("dd[data-info='orgtitle']");
+  let longTitle = document.querySelector("dd[data-info='orgtitle']");
   let genresEl = document.querySelector("dd[data-info='genres']");
   let descriptionEl = document.querySelector('.modal__descripton');
 
@@ -65,7 +64,7 @@ window.addEventListener('click', event => {
   ratingEl.textContent = `${formatRate(clickedMovie.vote_average)}`;
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
   popularityEl.innerText = `${clickedMovie.popularity}`;
-  orgtitleEl.innerText = `${clickedMovie.original_title}`;
+  longTitle.innerText = `${clickedMovie.original_title}`;
   genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
