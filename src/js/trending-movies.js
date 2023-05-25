@@ -116,6 +116,8 @@ const loadMovies = markup => {
 };
 
 const firstIteration = async page => {
+  // localStorage.setItem('currentPage', 1);
+  page = 1;
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
@@ -288,7 +290,8 @@ searchFormEl.addEventListener('submit', async event => {
 pagePrevious.addEventListener('click', async event => {
   event.preventDefault();
   // page--;
-  page = +page - 1;
+  page = parseInt(localStorage.getItem('currentPage')) - 1;
+
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
@@ -358,7 +361,7 @@ pageLast.addEventListener('click', async event => {
 
 pageNext.addEventListener('click', async event => {
   event.preventDefault();
-  page = +page + 1;
+  page = parseInt(localStorage.getItem('currentPage')) + 1;
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
