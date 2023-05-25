@@ -143,7 +143,15 @@ const renderPageNumber = (page, data) => {
     pageDot.classList.add('is-hidden');
     pageMinus2.classList.add('is-hidden');
     pageMinus1.classList.add('is-hidden');
-  } else if (page === data.total_pages - 1) {
+  } else {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+  }
+
+  if (page === data.total_pages - 1) {
     pagePlus1.classList.add('is-hidden');
     pagePlus2.classList.add('is-hidden');
     pageDot2.classList.add('is-hidden');
@@ -153,15 +161,9 @@ const renderPageNumber = (page, data) => {
     pagePlus1.classList.add('is-hidden');
     pagePlus2.classList.add('is-hidden');
     pageDot2.classList.add('is-hidden');
-    pageLast.classList.remove('is-hidden');
+    pageLast.classList.add('is-hidden');
     pageNext.classList.add('is-hidden');
   } else {
-    pagePrevious.classList.remove('is-hidden');
-    pageFirst.classList.remove('is-hidden');
-    pageDot.classList.remove('is-hidden');
-    pageMinus2.classList.remove('is-hidden');
-    pageMinus1.classList.remove('is-hidden');
-
     pagePlus1.classList.remove('is-hidden');
     pagePlus2.classList.remove('is-hidden');
     pageDot2.classList.remove('is-hidden');
@@ -193,6 +195,20 @@ pageNumberBtnEl.addEventListener('click', async event => {
   renderPageNumber(page, data);
   // localStorage.setItem('currentPage', page.toString());
   // hidePageNumber(page, data);
+  if (page === 1) {
+    pagePrevious.remove();
+    pageFirst.remove();
+    pageDot.remove();
+    pageMinus2.remove();
+    pageMinus1.remove();
+  }
+  if (page === data.total_pages) {
+    pagePlus1.remove();
+    pagePlus2.remove();
+    pageDot2.remove();
+    pageLast.remove();
+    pageNext.remove();
+  }
 });
 
 pagePrevious.addEventListener('click', async event => {
