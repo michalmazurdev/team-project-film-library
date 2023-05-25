@@ -11,7 +11,7 @@ const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
 const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 
 const language = 'en-US';
-let page = 1;
+let page = parseInt(localStorage.getItem('currentPage')) || 1;
 
 const getURL = page => {
   const searchParams = new URLSearchParams({
@@ -280,17 +280,20 @@ searchFormEl.addEventListener('submit', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 // PAGINATION BUTTONS NUMBER OF PAGE:
 
 pagePrevious.addEventListener('click', async event => {
   event.preventDefault();
-  page--;
+  // page--;
+  page = +page - 1;
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pageFirst.addEventListener('click', async event => {
@@ -300,6 +303,7 @@ pageFirst.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pageMinus2.addEventListener('click', async event => {
@@ -309,6 +313,7 @@ pageMinus2.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pageMinus1.addEventListener('click', async event => {
@@ -318,6 +323,7 @@ pageMinus1.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pagePlus1.addEventListener('click', async event => {
@@ -327,6 +333,7 @@ pagePlus1.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pagePlus2.addEventListener('click', async event => {
@@ -336,6 +343,7 @@ pagePlus2.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pageLast.addEventListener('click', async event => {
@@ -345,13 +353,16 @@ pageLast.addEventListener('click', async event => {
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
 
 pageNext.addEventListener('click', async event => {
   event.preventDefault();
-  page++;
+  // page++;
+  page = +page + 1;
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
   renderPageNumber(page, data);
+  localStorage.setItem('currentPage', page.toString());
 });
