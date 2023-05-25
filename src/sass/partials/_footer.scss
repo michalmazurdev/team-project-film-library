@@ -1,10 +1,10 @@
 .container-footer {
-    background-color: #F7F7F7;
+    background-color: $bgFoterColor;
     padding-left: 20px;
     padding-right: 20px;
 &__list {
  list-style: none;
- color:  #545454;
+ color: $textFooterColor;
  display: flex;
  flex-direction: column;
  flex-wrap: wrap;
@@ -47,8 +47,9 @@ line-height: 1.14;
      }
 }
 &__link {
-    color: #545454;
+    color: $textFooterColor;
     cursor: pointer;
+    text-decoration: underline;
 }
 &__icon {
     width: 14px;

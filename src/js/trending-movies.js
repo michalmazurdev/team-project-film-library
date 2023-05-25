@@ -77,6 +77,7 @@ const drawMovies = movies => {
     let posterUrlRetina = movie.poster_path
       ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
+    let movieTitle = movie.title.toUpperCase();  
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
@@ -87,7 +88,7 @@ const drawMovies = movies => {
     />
     </div>
     <div class="movie-card__figcaption">
-        <p class="movie-card__title" id="title">${movie.title}</p>
+        <p class="movie-card__title" id="title">${movieTitle}</p>
         <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
