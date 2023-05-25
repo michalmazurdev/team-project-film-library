@@ -49,6 +49,7 @@ window.addEventListener('click', event => {
     ? `https://image.tmdb.org/t/p/w780${clickedMovie.poster_path}`
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
 
+
   let modalPosterEl = document.querySelector('.modal__poster');
   let titleEl = document.querySelector('.modal__title');
   let ratingEl = document.querySelector('.modal__rating');
@@ -57,6 +58,7 @@ window.addEventListener('click', event => {
   let longTitle = document.querySelector("dd[data-info='orgtitle']");
   let genresEl = document.querySelector("dd[data-info='genres']");
   let descriptionEl = document.querySelector('.modal__descripton');
+
 
   modalPosterEl.src = `${posterUrl}`;
   posterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
