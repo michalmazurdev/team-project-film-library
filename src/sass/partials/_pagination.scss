@@ -10,6 +10,10 @@
   align-items: center;
   gap: 16px;
 
+  @include tablet {
+  margin-bottom: 40px; 
+  }
+
   &__button {
     padding: 0;
     background-color: inherit;
@@ -20,9 +24,9 @@
     font-weight: 700;
 
     &--active {
-      background: #ff6b08;
+      background: $descritiopnColor;
       padding: 0;
-      color: white;
+      color: $defaultColor;
       width: 40px;
       height: 40px;
       border-radius: 5px;
@@ -42,7 +46,7 @@
     }
     &--hidden-on-mobile {
       display: none;
-      @media screen and (min-width: 768px) {
+      @include tablet {
         display: flex;
         padding: 0;
         background-color: inherit;
@@ -55,8 +59,4 @@
     }
   }
 }
-@media screen and (max-width: 767px) {
-  .pagination {
-    margin-bottom: 40px;
-  }
-}
+
