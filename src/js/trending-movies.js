@@ -133,49 +133,42 @@ const renderPageNumber = (page, data) => {
 
   if (page === 1) {
     pagePrevious.classList.add('is-hidden');
-    pageFirst.add('is-hidden');
-    pageDot.add('is-hidden');
-    pageMinus2.add('is-hidden');
-    pageMinus1.add('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
   } else if (page === 2) {
     pagePrevious.classList.remove('is-hidden');
-    pageFirst.add('is-hidden');
-    pageDot.remove('is-hidden');
-    pageMinus2.remove('is-hidden');
-    pageMinus1.add('is-hidden');
-  }
-  if (page === data.total_pages - 1) {
-    pagePlus2.style.display = 'none';
-  }
-  if (page === data.total_pages) {
-    pagePlus1.style.display = 'none';
-    pagePlus2.style.display = 'none';
-    pageDot2.style.display = 'none';
-    pageNext.style.display = 'none';
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
+  } else if (page === data.total_pages - 1) {
+    pagePlus1.classList.add('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (page === data.total_pages) {
+    pagePlus1.classList.add('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.add('is-hidden');
+  } else {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
   }
 };
-
-// const hidePageNumber = (page, data) => {
-//   if (page === 1) {
-//     pagePrevious.style.display = 'none';
-//     pageFirst.style.display = 'none';
-//     pageDot.style.display = 'none';
-//     pageMinus2.style.display = 'none';
-//     pageMinus1.style.display = 'none';
-//   }
-//   if (page === 2) {
-//     pageMinus2.style.display = 'none';
-//   }
-//   if (page === data.total_pages - 1) {
-//     pagePlus2.style.display = 'none';
-//   }
-//   if (page === data.total_pages) {
-//     pagePlus1.style.display = 'none';
-//     pagePlus2.style.display = 'none';
-//     pageDot2.style.display = 'none';
-//     pageNext.style.display = 'none';
-//   }
-// };
 
 firstIteration(page);
 

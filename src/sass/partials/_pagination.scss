@@ -1,12 +1,15 @@
+.is-hidden {
+  display: none;
+  // visibility: collapse;
+}
+
 .pagination {
   margin-bottom: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  &__is-hidden {
-    display: none;
-  }
+
   &__button {
     padding: 0;
     background-color: inherit;
@@ -56,8 +59,4 @@
   .pagination {
     margin-bottom: 40px;
   }
-}
-
-.is-hidden {
-  display: none;
 }
