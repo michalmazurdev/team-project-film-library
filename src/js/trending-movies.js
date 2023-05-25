@@ -358,7 +358,6 @@ pageLast.addEventListener('click', async event => {
 
 pageNext.addEventListener('click', async event => {
   event.preventDefault();
-  // page++;
   page = +page + 1;
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
