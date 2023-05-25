@@ -44,30 +44,30 @@ const drawMovies = movies => {
   let markup = '';
   let id = 0;
   movies.forEach(movie => {
-    let posterUrl = movie.posterPath
-      ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
+    let posterUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
-    let posterUrlRetina = movie.posterPath
-      ? `https://image.tmdb.org/t/p/w780${movie.posterPath}`
+    let posterUrlRetina = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
     <img class="movie-card__poster" id="poster_path" data-order=${id++}
-    src="${movie.picture}"
-    srcset="${movie.picture} 1x, ${movie.picture} 2x"
+    src="${movie.backdrop_path}"
+    srcset="${movie.backdrop_path} 1x, ${movie.backdrop_path} 2x"
     alt=""
     />
     </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
-        <span class="movie-card__genre" id="genre_ids">${movie.genres} |</span>
-        <span class="movie-card__release-date" id="release_date"> ${movie.releaseDate.slice(
+        <span class="movie-card__genre" id="genre_ids">${movie.genre_ids} |</span>
+        <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,
         )}</span>
         <!-- in JS need to add a script for changing visibility on Homepage: document.querySelector('.movie-card__rating').classList.add('is-hidden') -->
-        <span class="movie-card__rating" id="vote_average">${movie.rating}</span>
+        <span class="movie-card__rating" id="vote_average">${movie.vote_average}</span>
     </div>
 </div>`;
   });

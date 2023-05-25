@@ -37,11 +37,9 @@ document.getElementById('log-btn').addEventListener('click', function () {
     .then(userCredential => {
       Notify.success('Succesfully logged in');
       user = userCredential.user;
-      document.getElementById('login-div').style.display = 'inline';
     })
     .catch(error => {
       const errorMessage = error.message;
-      document.getElementById('login-div').style.display = 'inline';
       Notify.failure(`${errorMessage}`);
     });
 });
@@ -90,30 +88,30 @@ function addToWatchedOrQueue(
       if (snapshot.exists()) {
         const updates = {};
         updates[userId + '/' + `${libraryPlace}` + '/' + `${UniqueFilmId}`] = {
-          picture: picture,
+          backdrop_path: picture,
           title: title,
-          rating: rating,
-          ratingNumberOfVotes: ratingNumberOfVotes,
+          vote_average: rating,
+          vote_count: ratingNumberOfVotes,
           popularity: popularity,
-          fullTitle: fullTitle,
-          genres: genres,
-          about: about,
-          releaseDate: releaseDate,
-          posterPath: posterPath,
+          original_title: fullTitle,
+          genre_ids: genres,
+          overview: about,
+          release_date: releaseDate,
+          poster_path: posterPath,
         };
         update(ref(db), updates);
       } else {
         set(ref(db, userId + '/' + `${libraryPlace}` + '/' + `${UniqueFilmId}`), {
-          picture: picture,
+          backdrop_path: picture,
           title: title,
-          rating: rating,
-          ratingNumberOfVotes: ratingNumberOfVotes,
+          vote_average: rating,
+          vote_count: ratingNumberOfVotes,
           popularity: popularity,
-          fullTitle: fullTitle,
-          genres: genres,
-          about: about,
-          releaseDate: releaseDate,
-          posterPath: posterPath,
+          original_title: fullTitle,
+          genre_ids: genres,
+          overview: about,
+          release_date: releaseDate,
+          poster_path: posterPath,
         });
       }
       Notify.success(`added to ${libraryPlace} list`);
