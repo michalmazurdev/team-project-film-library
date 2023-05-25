@@ -121,8 +121,9 @@ document.querySelector('.button__status').addEventListener('click', () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, uid + '/' + `watched`)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
-      const value = Object.values(moviesAddedToWatch);
-      loadMovies(drawMovies(value));
+      const arrayOfVideoData = Object.values(moviesAddedToWatch);
+      console.log('Tu przechowywane są obiekty z filmami', arrayOfVideoData);
+      loadMovies(drawMovies(arrayOfVideoData));
     });
   } else {
     Notify.failure('Sign in first');
@@ -136,6 +137,7 @@ document.querySelector('.button__status').nextElementSibling.addEventListener('c
     get(child(dbRef, uid + '/' + `queue`)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
       const arrayOfVideoData = Object.values(moviesAddedToWatch);
+      console.log('Tu przechowywane są obiekty z filmami', arrayOfVideoData);
       loadMovies(drawMovies(arrayOfVideoData));
     });
   } else {
