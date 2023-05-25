@@ -2,10 +2,36 @@ import { movieTypes } from './genres.js';
 
 const posterEl = document.querySelector('#poster_path');
 const modalEl = document.querySelector('.modal__backdrop');
+const modalWindowEl = document.querySelector('.modal');
 const closeButtonEl = document.querySelector('.modal__close');
 
 const formatRate = rating => {
   return rating.toFixed(1);
+};
+const closeModal = () => {
+  modalEl.classList.toggle('modal__hidden');
+};
+const removeListeners = () => {
+  closeButtonEl.removeEventListener('click', clickedCloseButton);
+  document.removeEventListener('keydown', pressedESC);
+  modalEl.removeEventListener('click', clickedOutside);
+};
+const clickedCloseButton = () => {
+  closeModal();
+  removeListeners();
+};
+
+const pressedESC = event => {
+  if (event.keyCode === 27) {
+    closeModal();
+    removeListeners();
+  }
+};
+const clickedOutside = event => {
+  if (event.target === modalEl) {
+    closeModal();
+    removeListeners();
+  }
 };
 
 window.addEventListener('click', event => {
@@ -43,11 +69,8 @@ window.addEventListener('click', event => {
   genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
-});
 
-function closeModal() {
-  modalEl.classList.remove('modal__hidden');
-}
-closeButtonEl.addEventListener('click', () => {
-  modalEl.classList.toggle('modal__hidden');
+  closeButtonEl.addEventListener('click', clickedCloseButton);
+  modalEl.addEventListener('click', clickedOutside);
+  document.addEventListener('keydown', pressedESC);
 });
