@@ -1,10 +1,7 @@
-// import { drawMovies } from '../js/trending-movies';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set, onValue, child, get, push, update } from 'firebase/database';
-import { getAnalytics } from 'firebase/analytics';
-import { Notiflix, Notify } from 'notiflix';
-// import { firebaseConfig } from '../js/firebase';
+import { getDatabase, ref, child, get, remove } from 'firebase/database';
+import { Notify } from 'notiflix';
 
 const movieListEl = document.querySelector('.movie-list');
 
@@ -16,72 +13,36 @@ const firebaseConfig = {
   messagingSenderId: '318653212510',
   appId: '1:318653212510:web:dc27e0d5cca4f8c4cfd1cf',
   measurementId: 'G-WJNSN4TTJV',
-  // databaseURL: 'https://js-team-project-gr5-default-rtdb.firebaseio.com/',
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getDatabase();
 const auth = getAuth(app);
+const dbRef = ref(getDatabase());
 let user;
 let moviesAddedToWatch;
-
-// document.getElementById('show-login-btn').addEventListener('click', function () {
-//   document.getElementById('login-div').style.display = 'inline';
-//   document.getElementById('register-div').style.display = 'none';
-// });
-
-// document.getElementById('show-register-btn').addEventListener('click', function () {
-//   document.getElementById('register-div').style.display = 'inline';
-//   document.getElementById('login-div').style.display = 'none';
-// });
+let watchedOrQueue;
 
 document.getElementById('log-btn').addEventListener('click', function () {
   const loginEmail = document.getElementById('login-email').value;
   const loginPassword = document.getElementById('login-password').value;
 
-  signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-    .then(userCredential => {
-      user = userCredential.user;
-      // document.getElementById('result-box').style.display = 'inline';
-      // document.getElementById('login-div').style.display = 'none';
-      // document.getElementById('result').innerHTML =
-      //   'Welcome Back<br>' + loginEmail + ' was Login Succesfully';
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // document.getElementById('result-box').style.display = 'inline';
-      // document.getElementById('login-div').style.display = 'none';
-      // document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
-    });
+  signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(userCredential => {
+    user = userCredential.user;
+  });
 });
 
 document.getElementById('register-btn').addEventListener('click', function () {
   const registerEmail = document.getElementById('register-email').value;
   const registerPassword = document.getElementById('register-password').value;
 
-  createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-    .then(userCredential => {
-      user = userCredential.user;
-      // document.getElementById('result-box').style.display = 'inline';
-      // document.getElementById('register-div').style.display = 'none';
-      // document.getElementById('result').innerHTML =
-      //   'Welcome<br>' + registerEmail + ' was Registered Succesfully';
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // document.getElementById('result-box').style.display = 'inline';
-      // document.getElementById('register-div').style.display = 'none';
-      // document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
-    });
+  createUserWithEmailAndPassword(auth, registerEmail, registerPassword).then(userCredential => {
+    user = userCredential.user;
+  });
 });
 
 const drawMovies = movies => {
   let markup = '';
   let id = 0;
-  // saveMovieResults(movies);
   movies.forEach(movie => {
     let posterUrl = movie.posterPath
       ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
@@ -118,26 +79,23 @@ const loadMovies = markup => {
   movieListEl.innerHTML = markup;
 };
 
+//po kliknięciu Watched przekazuje ścieżkę do Firebase/Watched do funkcji
 document.querySelector('.button__status').addEventListener('click', () => {
-  if (user) {
-    let uid = user.uid;
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, uid + '/' + `watched`)).then(snapshot => {
-      moviesAddedToWatch = snapshot.val();
-      const arrayOfVideoData = Object.values(moviesAddedToWatch);
-      console.log('Tu przechowywane są obiekty z filmami', arrayOfVideoData);
-      loadMovies(drawMovies(arrayOfVideoData));
-    });
-  } else {
-    Notify.failure('Sign in first');
-  }
+  watchedOrQueue = 'watched';
+  passPathToRenderMoviesFrom(watchedOrQueue);
 });
 
+//po kliknięciu Queue przekazuje ścieżkę do Firebase/queue do funkcji
 document.querySelector('.button__status').nextElementSibling.addEventListener('click', () => {
+  watchedOrQueue = 'queue';
+  passPathToRenderMoviesFrom(watchedOrQueue);
+});
+
+//Przekazuje odpowiednią ścieżkę z obiektami do funkcji renderującej filmy
+function passPathToRenderMoviesFrom(watchedOrQueue) {
   if (user) {
     let uid = user.uid;
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, uid + '/' + `queue`)).then(snapshot => {
+    get(child(dbRef, uid + '/' + watchedOrQueue)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
       const arrayOfVideoData = Object.values(moviesAddedToWatch);
       console.log('Tu przechowywane są obiekty z filmami', arrayOfVideoData);
@@ -146,4 +104,13 @@ document.querySelector('.button__status').nextElementSibling.addEventListener('c
   } else {
     Notify.failure('Sign in first');
   }
-});
+}
+
+//Usuwanie obiektu z Watched lub Queue po właściwości .fullTitle
+function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, fullTitle) {
+  remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${fullTitle}`))
+    .then(Notify.success(`Removed ${fullTitle} from ${watchedOrQueue} list`))
+    .catch(function (error) {
+      Notify.failure('Wystąpił błąd podczas usuwania obiektu:', error);
+    });
+}
