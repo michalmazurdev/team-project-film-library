@@ -24,15 +24,8 @@ let user;
 let loginEmail = document.getElementById('login-email').value;
 let loginPassword = document.getElementById('login-password').value;
 
-// document.getElementById('show-login-btn').addEventListener('click', function () {
-//   document.getElementById('login-div').style.display = 'inline';
-//   document.getElementById('register-div').style.display = 'none';
-// });
-
-// document.getElementById('show-register-btn').addEventListener('click', function () {
-//   document.getElementById('register-div').style.display = 'inline';
-//   document.getElementById('login-div').style.display = 'none';
-// });
+const modalEl = document.querySelector('.modal__backdrop');
+const closeButtonEl = document.querySelector('.modal__close');
 
 document.getElementById('log-btn').addEventListener('click', function () {
   loginEmail = document.getElementById('login-email').value;
@@ -95,6 +88,8 @@ function addToWatchedOrQueue(
   fullTitle,
   genres,
   about,
+  releaseDate,
+  posterPath,
   libraryPlace,
   userId,
 ) {
@@ -114,6 +109,8 @@ function addToWatchedOrQueue(
           fullTitle: fullTitle,
           genres: genres,
           about: about,
+          releaseDate: releaseDate,
+          posterPath: posterPath,
         };
         update(ref(db), updates);
       } else {
@@ -126,6 +123,9 @@ function addToWatchedOrQueue(
           popularity: popularity,
           fullTitle: fullTitle,
           genres: genres,
+          about: about,
+          releaseDate: releaseDate,
+          posterPath: posterPath,
         });
       }
     })
@@ -134,82 +134,126 @@ function addToWatchedOrQueue(
     });
 }
 
-document.querySelector('.modal__container').addEventListener('click', () => {
-  document.querySelector('.modal__button--watched').addEventListener('click', e => {
-    if (user) {
-      let uid = user.uid;
-      const tableFields = document.querySelectorAll('dd');
-      let arrayData = Array.from(tableFields);
-      arrayData = arrayData.map(el => el.textContent);
-      const image = document.querySelector('.modal__poster').src;
-      const title = document.querySelector('.modal__title').textContent;
-      const ratingNumberOfVotes = document.querySelector(
-        '.modal__rating--number-of-votes',
-      ).textContent;
-      const rating = document.querySelector('.modal__rating').textContent;
-      const popularity = arrayData[1];
-      const fullTitle = arrayData[2];
-      const genres = arrayData[3];
-      const about = document.querySelector('.modal__descripton').textContent;
-      const releaseDate = '';
-      // console.log(about);
-      // console.log(fullTitle, ratingNumberOfVotes, popularity, genres);
-      addToWatchedOrQueue(
-        image,
-        title,
-        rating,
-        ratingNumberOfVotes,
-        popularity,
-        fullTitle,
-        genres,
-        about,
-        'watched',
-        uid,
-      );
-    } else {
-      // console.log(user);
-      Notify.failure('No user is signed in.');
-    }
-  });
+let id;
+let clickedMovie;
+// document.querySelector('.modal__container').addEventListener('click', () => {
+window.addEventListener('click', event => {
+  if (event.target.className !== 'movie-card__poster') {
+    return;
+  }
 
-  document.querySelector('.modal__button--queue').addEventListener('click', e => {
-    if (user) {
-      let uid = user.uid;
-      const tableFields = document.querySelectorAll('dd');
-      let arrayData = Array.from(tableFields);
-      arrayData = arrayData.map(el => el.textContent);
-      const image = document.querySelector('.modal__poster').src;
-      const title = document.querySelector('.modal__title').textContent;
-      const ratingNumberOfVotes = document.querySelector(
-        '.modal__rating--number-of-votes',
-      ).textContent;
-      const rating = document.querySelector('.modal__rating').textContent;
-      const popularity = arrayData[1];
-      const fullTitle = arrayData[2];
-      const genres = arrayData[3];
-      const about = document.querySelector('.modal__descripton').textContent;
-      addToWatchedOrQueue(
-        image,
-        title,
-        rating,
-        ratingNumberOfVotes,
-        popularity,
-        fullTitle,
-        genres,
-        about,
-        'queue',
-        uid,
-      );
-    } else {
-      // console.log(user);
-      Notify.failure('No user is signed in.');
-    }
-  });
+  id = event.target.dataset.order;
+  clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+  console.log(id);
 });
 
-// filmPictures.addEventListener('click', e => {
-//   console.log('test');
-// });
-// signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(userCredential => {
-//   user = userCredential.user;
-// });
+document.querySelector('.modal__button--watched').addEventListener('click', e => {
+  if (user) {
+    console.log(clickedMovie);
+    let uid = user.uid;
+    const tableFields = document.querySelectorAll('dd');
+    let arrayData = Array.from(tableFields);
+    arrayData = arrayData.map(el => el.textContent);
+    const image = document.querySelector('.modal__poster').src;
+    const title = document.querySelector('.modal__title').textContent;
+    const ratingNumberOfVotes = document.querySelector(
+      '.modal__rating--number-of-votes',
+    ).textContent;
+    const rating = document.querySelector('.modal__rating').textContent;
+    const popularity = arrayData[1];
+    const fullTitle = arrayData[2];
+    const genres = arrayData[3];
+    const about = document.querySelector('.modal__descripton').textContent;
+    const releaseDate = clickedMovie.release_date;
+    const posterPath = clickedMovie.poster_path;
+    console.log(releaseDate, posterPath);
+    // console.log(fullTitle, ratingNumberOfVotes, popularity, genres);
+    addToWatchedOrQueue(
+      image,
+      title,
+      rating,
+      ratingNumberOfVotes,
+      popularity,
+      fullTitle,
+      genres,
+      about,
+      releaseDate,
+      posterPath,
+      'watched',
+      uid,
+    );
+  } else {
+    // console.log(user);
+    Notify.failure('No user is signed in.');
+  }
+});
+
+document.querySelector('.modal__button--queue').addEventListener('click', e => {
+  if (user) {
+    let uid = user.uid;
+    const tableFields = document.querySelectorAll('dd');
+    let arrayData = Array.from(tableFields);
+    arrayData = arrayData.map(el => el.textContent);
+    const image = document.querySelector('.modal__poster').src;
+    const title = document.querySelector('.modal__title').textContent;
+    const ratingNumberOfVotes = document.querySelector(
+      '.modal__rating--number-of-votes',
+    ).textContent;
+    const rating = document.querySelector('.modal__rating').textContent;
+    const popularity = arrayData[1];
+    const fullTitle = arrayData[2];
+    const genres = arrayData[3];
+    const about = document.querySelector('.modal__descripton').textContent;
+    const releaseDate = clickedMovie.release_date;
+    const posterPath = clickedMovie.poster_path;
+    addToWatchedOrQueue(
+      image,
+      title,
+      rating,
+      ratingNumberOfVotes,
+      popularity,
+      fullTitle,
+      genres,
+      about,
+      releaseDate,
+      posterPath,
+      'queue',
+      uid,
+    );
+  } else {
+    // console.log(user);
+    Notify.failure('No user is signed in.');
+  }
+});
+
+// const removeListeners = () => {
+//   document
+//     .querySelector('.modal__button--queue')
+//     .removeEventListener('click', clickedCloseButton);
+//   // document.removeEventListener('keydown', pressedESC);
+//   document.querySelector('.modal__button--watched').removeEventListener('click', clickedOutside);
+// };
+// const clickedCloseButton = () => {
+//   // closeModal();
+//   removeListeners();
+//   console.log('clickedClose');
+// };
+
+// const pressedESC = event => {
+//   if (event.keyCode === 27) {
+//     // closeModal();
+//     removeListeners();
+//     console.log('ESC');
+//   }
+// };
+// const clickedOutside = event => {
+//   if (event.target === modalEl) {
+//     // closeModal();
+//     removeListeners();
+//     console.log('Outside');
+//   }
+// };
+
+// closeButtonEl.addEventListener('click', clickedCloseButton);
+// modalEl.addEventListener('click', clickedOutside);
+// document.addEventListener('keydown', pressedESC);

@@ -83,11 +83,11 @@ const drawMovies = movies => {
   let id = 0;
   // saveMovieResults(movies);
   movies.forEach(movie => {
-    let posterUrl = movie.poster_path
-      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    let posterUrl = movie.posterPath
+      ? `https://image.tmdb.org/t/p/w500${movie.posterPath}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
-    let posterUrlRetina = movie.poster_path
-      ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
+    let posterUrlRetina = movie.posterPath
+      ? `https://image.tmdb.org/t/p/w780${movie.posterPath}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
     <div class="movie-card">
@@ -101,7 +101,10 @@ const drawMovies = movies => {
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title}</p>
         <span class="movie-card__genre" id="genre_ids">${movie.genres} |</span>
-        <span class="movie-card__release-date" id="release_date"> 2023</span>
+        <span class="movie-card__release-date" id="release_date"> ${movie.releaseDate.slice(
+          0,
+          4,
+        )}</span>
         <!-- in JS need to add a script for changing visibility on Homepage: document.querySelector('.movie-card__rating').classList.add('is-hidden') -->
         <span class="movie-card__rating" id="vote_average">${movie.rating}</span>
     </div>
