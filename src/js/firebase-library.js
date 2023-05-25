@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set, onValue, child, get, push, update } from 'firebase/database';
 import { getAnalytics } from 'firebase/analytics';
-import Notiflix from 'notiflix';
+import { Notiflix, Notify } from 'notiflix';
 // import { firebaseConfig } from '../js/firebase';
 
 const movieListEl = document.querySelector('.movie-list');
@@ -26,15 +26,15 @@ const auth = getAuth(app);
 let user;
 let moviesAddedToWatch;
 
-document.getElementById('show-login-btn').addEventListener('click', function () {
-  document.getElementById('login-div').style.display = 'inline';
-  document.getElementById('register-div').style.display = 'none';
-});
+// document.getElementById('show-login-btn').addEventListener('click', function () {
+//   document.getElementById('login-div').style.display = 'inline';
+//   document.getElementById('register-div').style.display = 'none';
+// });
 
-document.getElementById('show-register-btn').addEventListener('click', function () {
-  document.getElementById('register-div').style.display = 'inline';
-  document.getElementById('login-div').style.display = 'none';
-});
+// document.getElementById('show-register-btn').addEventListener('click', function () {
+//   document.getElementById('register-div').style.display = 'inline';
+//   document.getElementById('login-div').style.display = 'none';
+// });
 
 document.getElementById('log-btn').addEventListener('click', function () {
   const loginEmail = document.getElementById('login-email').value;
@@ -43,17 +43,17 @@ document.getElementById('log-btn').addEventListener('click', function () {
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
       user = userCredential.user;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('login-div').style.display = 'none';
-      document.getElementById('result').innerHTML =
-        'Welcome Back<br>' + loginEmail + ' was Login Succesfully';
+      // document.getElementById('result-box').style.display = 'inline';
+      // document.getElementById('login-div').style.display = 'none';
+      // document.getElementById('result').innerHTML =
+      //   'Welcome Back<br>' + loginEmail + ' was Login Succesfully';
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('login-div').style.display = 'none';
-      document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
+      // document.getElementById('result-box').style.display = 'inline';
+      // document.getElementById('login-div').style.display = 'none';
+      // document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
     });
 });
 
@@ -64,17 +64,17 @@ document.getElementById('register-btn').addEventListener('click', function () {
   createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
     .then(userCredential => {
       user = userCredential.user;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('register-div').style.display = 'none';
-      document.getElementById('result').innerHTML =
-        'Welcome<br>' + registerEmail + ' was Registered Succesfully';
+      // document.getElementById('result-box').style.display = 'inline';
+      // document.getElementById('register-div').style.display = 'none';
+      // document.getElementById('result').innerHTML =
+      //   'Welcome<br>' + registerEmail + ' was Registered Succesfully';
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('register-div').style.display = 'none';
-      document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
+      // document.getElementById('result-box').style.display = 'inline';
+      // document.getElementById('register-div').style.display = 'none';
+      // document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
     });
 });
 
@@ -122,9 +122,10 @@ document.querySelector('.button__status').addEventListener('click', () => {
     get(child(dbRef, uid + '/' + `watched`)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
       const value = Object.values(moviesAddedToWatch);
-      console.log(value);
       loadMovies(drawMovies(value));
     });
+  } else {
+    Notify.failure('Sign in first');
   }
 });
 
@@ -134,9 +135,10 @@ document.querySelector('.button__status').nextElementSibling.addEventListener('c
     const dbRef = ref(getDatabase());
     get(child(dbRef, uid + '/' + `queue`)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
-      const value = Object.values(moviesAddedToWatch);
-      console.log(value);
-      loadMovies(drawMovies(value));
+      const arrayOfVideoData = Object.values(moviesAddedToWatch);
+      loadMovies(drawMovies(arrayOfVideoData));
     });
+  } else {
+    Notify.failure('Sign in first');
   }
 });

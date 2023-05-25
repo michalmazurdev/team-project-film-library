@@ -2,9 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set, onValue, child, get, push, update } from 'firebase/database';
 import { getAnalytics } from 'firebase/analytics';
-import { Notiflix } from 'notiflix';
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { Notiflix, Notify } from 'notiflix';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDWoBH83IVZtl5zfAq5CbdguqYq3fE-DS0',
@@ -23,35 +21,39 @@ const analytics = getAnalytics(app);
 const db = getDatabase();
 const auth = getAuth(app);
 let user;
+let loginEmail = document.getElementById('login-email').value;
+let loginPassword = document.getElementById('login-password').value;
 
-document.getElementById('show-login-btn').addEventListener('click', function () {
-  document.getElementById('login-div').style.display = 'inline';
-  document.getElementById('register-div').style.display = 'none';
-});
+// document.getElementById('show-login-btn').addEventListener('click', function () {
+//   document.getElementById('login-div').style.display = 'inline';
+//   document.getElementById('register-div').style.display = 'none';
+// });
 
-document.getElementById('show-register-btn').addEventListener('click', function () {
-  document.getElementById('register-div').style.display = 'inline';
-  document.getElementById('login-div').style.display = 'none';
-});
+// document.getElementById('show-register-btn').addEventListener('click', function () {
+//   document.getElementById('register-div').style.display = 'inline';
+//   document.getElementById('login-div').style.display = 'none';
+// });
 
 document.getElementById('log-btn').addEventListener('click', function () {
-  const loginEmail = document.getElementById('login-email').value;
-  const loginPassword = document.getElementById('login-password').value;
+  loginEmail = document.getElementById('login-email').value;
+  loginPassword = document.getElementById('login-password').value;
 
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
+      Notify.success('Succesfully logged in');
       user = userCredential.user;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('login-div').style.display = 'none';
-      document.getElementById('result').innerHTML =
-        'Welcome Back<br>' + loginEmail + ' was Login Succesfully';
+      // document.getElementById('result-box').style.display = 'none';
+      document.getElementById('login-div').style.display = 'inline';
+      // document.getElementById('result').innerHTML =
+      //   'Welcome Back<br>' + loginEmail + ' was Login Succesfully';
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('login-div').style.display = 'none';
-      document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
+      // document.getElementById('result-box').style.display = 'none';
+      document.getElementById('login-div').style.display = 'inline';
+      // document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
+      Notify.failure(`${errorMessage}`);
     });
 });
 
@@ -62,17 +64,19 @@ document.getElementById('register-btn').addEventListener('click', function () {
   createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
     .then(userCredential => {
       user = userCredential.user;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('register-div').style.display = 'none';
-      document.getElementById('result').innerHTML =
-        'Welcome<br>' + registerEmail + ' was Registered Succesfully';
+      // document.getElementById('result-box').style.display = 'inline';
+      document.getElementById('register-div').style.display = 'inline';
+      // document.getElementById('result').innerHTML =
+      //   'Welcome<br>' + registerEmail + ' was Registered Succesfully';
+      Notify.success('Succesfully registered! Now log in');
     })
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      document.getElementById('result-box').style.display = 'inline';
-      document.getElementById('register-div').style.display = 'none';
-      document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
+      // document.getElementById('result-box').style.display = 'inline';
+      document.getElementById('register-div').style.display = 'inline';
+      // document.getElementById('result').innerHTML = 'Sorry ! <br>' + errorMessage;
+      Notify.failure(`${errorMessage}`);
     });
 });
 
@@ -90,6 +94,7 @@ function addToWatchedOrQueue(
   popularity,
   fullTitle,
   genres,
+  about,
   libraryPlace,
   userId,
 ) {
@@ -97,7 +102,7 @@ function addToWatchedOrQueue(
   const newAddedFilmKey = push(child(ref(db), userId + ' / ' + `${libraryPlace}`)).key;
   get(child(dbRef, userId + '/' + `${libraryPlace}`))
     .then(snapshot => {
-      console.log(`added to ${libraryPlace} list`);
+      Notify.success(`added to ${libraryPlace} list`);
       if (snapshot.exists()) {
         const updates = {};
         updates[userId + '/' + `${libraryPlace}` + '/' + newAddedFilmKey] = {
@@ -125,7 +130,7 @@ function addToWatchedOrQueue(
       }
     })
     .catch(error => {
-      console.error(error);
+      Notify.failure(error);
     });
 }
 
@@ -147,8 +152,8 @@ document.querySelector('.modal__container').addEventListener('click', () => {
       const genres = arrayData[3];
       const about = document.querySelector('.modal__descripton').textContent;
       const releaseDate = '';
-      console.log(about);
-      console.log(fullTitle, ratingNumberOfVotes, popularity, genres);
+      // console.log(about);
+      // console.log(fullTitle, ratingNumberOfVotes, popularity, genres);
       addToWatchedOrQueue(
         image,
         title,
@@ -163,7 +168,7 @@ document.querySelector('.modal__container').addEventListener('click', () => {
       );
     } else {
       // console.log(user);
-      console.log('No user is signed in.');
+      Notify.failure('No user is signed in.');
     }
   });
 
@@ -197,11 +202,14 @@ document.querySelector('.modal__container').addEventListener('click', () => {
       );
     } else {
       // console.log(user);
-      console.log('No user is signed in.');
+      Notify.failure('No user is signed in.');
     }
   });
 });
 
 // filmPictures.addEventListener('click', e => {
 //   console.log('test');
+// });
+// signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(userCredential => {
+//   user = userCredential.user;
 // });
