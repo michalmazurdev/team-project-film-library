@@ -45,6 +45,10 @@
     gap: 40px;
   }
 
+  // &__log {
+  //   display: inline-flex;
+  // }
+
   &__link {
     display: block;
     font-weight: 500;
@@ -115,8 +119,8 @@
     }
 
     &__result {
-      // visibility: visible;
-      visibility: hidden;
+      visibility: visible;
+      //visibility: hidden;
       color: $accentColor;
       font-size: $smallFontSize;
       line-height: $defaultLineHeight;
@@ -132,7 +136,14 @@
     align-content: center;
     margin-bottom: 2px;
   }
-
+  .login__log {
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-bottom: 2px;
+  }
   .login__input {
       height: 20px;
       background-color: $transparentColor;
@@ -151,7 +162,7 @@
       }
   }
   .log__btns {
-    align-items: center;
+    justify-content: flex-end;
     gap: 20px;
     display: flex;
     margin-top: 2px;
