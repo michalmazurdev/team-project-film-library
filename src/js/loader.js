@@ -2,10 +2,11 @@ $(window).on('load', function () {
   $('.loader-wrapper').fadeOut('slow');
 });
 
-export function showLoader() {
+export function showLoader(show) {
   const preloader = document.getElementById('preloader');
-  preloader.style.display = 'flex';
-  setTimeout(function () {
+  if (show) {
+    preloader.style.display = 'flex';
+  } else {
     preloader.style.display = 'none';
-  }, 3000);
+  }
 }
