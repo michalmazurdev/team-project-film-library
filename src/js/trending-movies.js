@@ -81,7 +81,6 @@ const drawMovies = data => {
     let posterUrlRetina = movie.poster_path
       ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
-    let movieTitle = movie.title.toUpperCase();  
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
@@ -92,7 +91,7 @@ const drawMovies = data => {
     />
     </div>
     <div class="movie-card__figcaption">
-        <p class="movie-card__title" id="title">${movieTitle}</p>
+        <p class="movie-card__title" id="title">${movie.title}</p>
         <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
@@ -117,8 +116,9 @@ const loadMovies = markup => {
 };
 
 const firstIteration = async page => {
-  // localStorage.setItem('currentPage', 1);
-  page = 1;
+  localStorage.setItem('currentPage', 1);
+  page = parseInt(localStorage.getItem('currentPage'));
+
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
@@ -152,32 +152,149 @@ const renderPageNumber = (page, data) => {
 
   // if (data.total_pages === 1)
   console.log(+data.total_pages);
+  console.log(page);
 
-  if (+data.total_pages === 1) {
-    pagePrevious.classList.add('is-hidden');
-    pageFirst.classList.add('is-hidden');
-    pageDot.classList.add('is-hidden');
-    pageMinus2.classList.add('is-hidden');
-    pageMinus1.classList.add('is-hidden');
+  // if (+data.total_pages === 1) {
+  //   pagePrevious.classList.add('is-hidden');
+  //   pageFirst.classList.add('is-hidden');
+  //   pageDot.classList.add('is-hidden');
+  //   pageMinus2.classList.add('is-hidden');
+  //   pageMinus1.classList.add('is-hidden');
 
-    pagePlus1.classList.add('is-hidden');
-    pagePlus2.classList.add('is-hidden');
-    pageDot2.classList.add('is-hidden');
-    pageLast.classList.add('is-hidden');
-    pageNext.classList.add('is-hidden');
-  } else if (+data.total_pages === 2) {
-    pagePrevious.classList.add('is-hidden');
-    pageFirst.classList.add('is-hidden');
-    pageDot.classList.add('is-hidden');
-    pageMinus2.classList.add('is-hidden');
-    pageMinus1.classList.add('is-hidden');
+  //   pagePlus1.classList.add('is-hidden');
+  //   pagePlus2.classList.add('is-hidden');
+  //   pageDot2.classList.add('is-hidden');
+  //   pageLast.classList.add('is-hidden');
+  //   pageNext.classList.add('is-hidden');
+  // } else if (+data.total_pages === 2) {
+  //   pagePrevious.classList.add('is-hidden');
+  //   pageFirst.classList.add('is-hidden');
+  //   pageDot.classList.add('is-hidden');
+  //   pageMinus2.classList.add('is-hidden');
+  //   pageMinus1.classList.add('is-hidden');
 
-    pagePlus1.classList.add('is-hidden');
-    pagePlus2.classList.add('is-hidden');
-    pageDot2.classList.add('is-hidden');
-    pageLast.classList.add('is-hidden');
-    pageNext.classList.add('is-hidden');
-  } else if (+page === 1) {
+  //   pagePlus1.classList.add('is-hidden');
+  //   pagePlus2.classList.add('is-hidden');
+  //   pageDot2.classList.add('is-hidden');
+  //   pageLast.classList.add('is-hidden');
+  //   pageNext.classList.add('is-hidden');
+  // } else
+
+  //  1 WSZY SPOSÓB Z INLINE:
+
+  // if (+page === 1) {
+  //   pagePrevious.style.display = 'none';
+  //   pageFirst.style.display = 'none';
+  //   pageDot.style.display = 'none';
+  //   pageMinus2.style.display = 'none';
+  //   pageMinus1.style.display = 'none';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = '';
+  //   pageDot2.style.display = '';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else if (+page === 2) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = 'none';
+  //   pageMinus2.style.display = 'none';
+  //   pageMinus1.style.display = 'none';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = '';
+  //   pageDot2.style.display = '';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else if (+page === 3) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = 'none';
+  //   pageMinus2.style.display = 'none';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = '';
+  //   pageDot2.style.display = '';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else if (+page === 4) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = 'none';
+  //   pageMinus2.style.display = '';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = '';
+  //   pageDot2.style.display = '';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else if (+page === data.total_pages) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = '';
+  //   pageMinus2.style.display = '';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = 'none';
+  //   pagePlus2.style.display = 'none';
+  //   pageDot2.style.display = 'none';
+  //   pageLast.style.display = 'none';
+  //   pageNext.style.display = 'none';
+  // } else if (+page === data.total_pages - 1) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = '';
+  //   pageMinus2.style.display = '';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = 'none';
+  //   pagePlus2.style.display = 'none';
+  //   pageDot2.style.display = 'none';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else if (+page === data.total_pages - 2) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = '';
+  //   pageMinus2.style.display = '';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = 'none';
+  //   pageDot2.style.display = 'none';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else if (+page === data.total_pages - 3) {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = '';
+  //   pageMinus2.style.display = '';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = '';
+  //   pageDot2.style.display = 'none';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // } else {
+  //   pagePrevious.style.display = '';
+  //   pageFirst.style.display = '';
+  //   pageDot.style.display = '';
+  //   pageMinus2.style.display = '';
+  //   pageMinus1.style.display = '';
+
+  //   pagePlus1.style.display = '';
+  //   pagePlus2.style.display = '';
+  //   pageDot2.style.display = '';
+  //   pageLast.style.display = '';
+  //   pageNext.style.display = '';
+  // }
+
+  // DRUGI SPOSÓB
+
+  if (+page === 1) {
     pagePrevious.classList.add('is-hidden');
     pageFirst.classList.add('is-hidden');
     pageDot.classList.add('is-hidden');
@@ -191,7 +308,19 @@ const renderPageNumber = (page, data) => {
     pageNext.classList.remove('is-hidden');
   } else if (+page === 2) {
     pagePrevious.classList.remove('is-hidden');
-    pageFirst.classList.add('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
+
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === 3) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
     pageDot.classList.add('is-hidden');
     pageMinus2.classList.add('is-hidden');
     pageMinus1.classList.remove('is-hidden');
@@ -201,9 +330,9 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.remove('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+page === 3) {
+  } else if (+page === 4) {
     pagePrevious.classList.remove('is-hidden');
-    pageFirst.classList.add('is-hidden');
+    pageFirst.classList.remove('is-hidden');
     pageDot.classList.add('is-hidden');
     pageMinus2.classList.remove('is-hidden');
     pageMinus1.classList.remove('is-hidden');
@@ -232,7 +361,7 @@ const renderPageNumber = (page, data) => {
     pageMinus2.classList.remove('is-hidden');
     pageMinus1.classList.remove('is-hidden');
 
-    pagePlus1.classList.remove('is-hidden');
+    pagePlus1.classList.add('is-hidden');
     pagePlus2.classList.add('is-hidden');
     pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
@@ -247,7 +376,7 @@ const renderPageNumber = (page, data) => {
     pagePlus1.classList.remove('is-hidden');
     pagePlus2.classList.add('is-hidden');
     pageDot2.classList.add('is-hidden');
-    pageLast.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
   } else if (+page === data.total_pages - 3) {
     pagePrevious.classList.remove('is-hidden');
@@ -258,15 +387,15 @@ const renderPageNumber = (page, data) => {
 
     pagePlus1.classList.remove('is-hidden');
     pagePlus2.classList.remove('is-hidden');
-    pageDot2.classList.remove('is-hidden');
+    pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
   } else {
-    pagePlus1.classList.remove('is-hidden');
-    pagePlus2.classList.remove('is-hidden');
-    pageDot2.classList.remove('is-hidden');
-    pageLast.classList.remove('is-hidden');
-    pageNext.classList.remove('is-hidden');
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
 
     pagePlus1.classList.remove('is-hidden');
     pagePlus2.classList.remove('is-hidden');
@@ -290,9 +419,7 @@ searchFormEl.addEventListener('submit', async event => {
 
 pagePrevious.addEventListener('click', async event => {
   event.preventDefault();
-  // page--;
   page = parseInt(localStorage.getItem('currentPage')) - 1;
-
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
@@ -303,6 +430,7 @@ pagePrevious.addEventListener('click', async event => {
 pageFirst.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
+
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
