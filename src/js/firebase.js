@@ -51,12 +51,12 @@ document.getElementById('register-btn').addEventListener('click', function () {
   createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
     .then(userCredential => {
       user = userCredential.user;
-      document.getElementById('register-div').style.display = 'inline';
+      //document.getElementById('register-div').style.display = 'inline';
       Notify.success('Succesfully registered! Now log in');
     })
     .catch(error => {
       const errorMessage = error.message;
-      document.getElementById('register-div').style.display = 'inline';
+      //document.getElementById('register-div').style.display = 'inline';
       Notify.failure(`${errorMessage}`);
     });
 });
