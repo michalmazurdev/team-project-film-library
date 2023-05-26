@@ -98,6 +98,7 @@ function addToWatchedOrQueue(
           overview: about,
           release_date: releaseDate,
           poster_path: posterPath,
+          id: UniqueFilmId,
         };
         update(ref(db), updates);
       } else {
@@ -112,6 +113,7 @@ function addToWatchedOrQueue(
           overview: about,
           release_date: releaseDate,
           poster_path: posterPath,
+          id: UniqueFilmId,
         });
       }
       Notify.success(`added to ${libraryPlace} list`);
