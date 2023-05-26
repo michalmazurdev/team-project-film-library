@@ -61,23 +61,6 @@ document.getElementById('register-btn').addEventListener('click', function () {
     });
 });
 
-// const logCheck = () => {
-//   loginEmail = document.getElementById('login-email').value;
-//   loginPassword = document.getElementById('login-password').value;
-
-//   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-//     .then(userCredential => {
-//       Notify.success('Succesfully logged in');
-//       user = userCredential.user;
-//     })
-//     .catch(error => {
-//       const errorMessage = error.message;
-//       Notify.failure(`${errorMessage}`);
-//     });
-// }
-// document.getElementById('log-btn').addEventListener('click',logCheck );
-// document.getElementById('register-btn').addEventListener('click',logCheck );
-
 //************************************* */
 
 //funkcje zapisu i usunięcia danych z Firebase
