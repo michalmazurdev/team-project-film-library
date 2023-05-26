@@ -18,6 +18,7 @@
       rel="stylesheet"
     />
     <link href="./images/favicon.ico" rel="icon" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
     <!-- W taki sposbu dodajemy fragmenty w główny HTML-plik strony. -->
@@ -36,11 +37,15 @@
     <include src="./partials/modal_team.html"></include>
     <!-- <include src="./partials/firebase_login.html"></include> -->
 
+    <!-- Loader -->
+    <include src="./partials/loader.html"></include>
+
     <!-- Skrypt jest na samym dole kodu. On juz ma w sobie podłączony SAAS plik. -->
     <script src="./index.js" type="module"></script>
     <script src="./js/modal.js" type="module"></script>
     <script src="./js/modal_team.js" type="module"></script>
 
+    <script src="./js/loader.js" type="module"></script>
     <script src="./js/trending-movies.js" type="module"></script>
     <script src="./js/firebase.js" type="module"></script>
   </body>
