@@ -1,8 +1,3 @@
-.is-hidden {
-  display: none;
-  // visibility: collapse;
-}
-
 .pagination {
   margin-bottom: 60px;
   display: flex;
@@ -11,7 +6,7 @@
   gap: 16px;
 
   @include tablet {
-  margin-bottom: 40px; 
+    margin-bottom: 40px;
   }
 
   &__button {
@@ -60,3 +55,6 @@
   }
 }
 
+.is-hidden {
+  display: none;
+}
