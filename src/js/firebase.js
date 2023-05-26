@@ -29,7 +29,39 @@ let clickedMovie;
 
 //******************* */
 
-document.getElementById('log-btn').addEventListener('click', function () {
+// document.getElementById('log-btn').addEventListener('click', function () {
+//   loginEmail = document.getElementById('login-email').value;
+//   loginPassword = document.getElementById('login-password').value;
+
+//   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+//     .then(userCredential => {
+//       Notify.success('Succesfully logged in');
+//       user = userCredential.user;
+//     })
+//     .catch(error => {
+//       const errorMessage = error.message;
+//       Notify.failure(`${errorMessage}`);
+//     });
+// });
+
+// document.getElementById('register-btn').addEventListener('click', function () {
+//   const registerEmail = document.getElementById('register-email').value;
+//   const registerPassword = document.getElementById('register-password').value;
+
+//   createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+//     .then(userCredential => {
+//       user = userCredential.user;
+//       document.getElementById('register-div').style.display = 'inline';
+//       Notify.success('Succesfully registered! Now log in');
+//     })
+//     .catch(error => {
+//       const errorMessage = error.message;
+//       document.getElementById('register-div').style.display = 'inline';
+//       Notify.failure(`${errorMessage}`);
+//     });
+// });
+
+const logCheck = () => {
   loginEmail = document.getElementById('login-email').value;
   loginPassword = document.getElementById('login-password').value;
 
@@ -42,24 +74,9 @@ document.getElementById('log-btn').addEventListener('click', function () {
       const errorMessage = error.message;
       Notify.failure(`${errorMessage}`);
     });
-});
-
-document.getElementById('register-btn').addEventListener('click', function () {
-  const registerEmail = document.getElementById('register-email').value;
-  const registerPassword = document.getElementById('register-password').value;
-
-  createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-    .then(userCredential => {
-      user = userCredential.user;
-      document.getElementById('register-div').style.display = 'inline';
-      Notify.success('Succesfully registered! Now log in');
-    })
-    .catch(error => {
-      const errorMessage = error.message;
-      document.getElementById('register-div').style.display = 'inline';
-      Notify.failure(`${errorMessage}`);
-    });
-});
+}
+document.getElementById('log-btn').addEventListener('click',logCheck );
+document.getElementById('register-btn').addEventListener('click',logCheck );
 
 //************************************* */
 

@@ -22,23 +22,34 @@ let user;
 let moviesAddedToWatch;
 let watchedOrQueue;
 
-document.getElementById('log-btn').addEventListener('click', function () {
+// document.getElementById('log-btn').addEventListener('click', function () {
+//   const loginEmail = document.getElementById('login-email').value;
+//   const loginPassword = document.getElementById('login-password').value;
+
+//   signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(userCredential => {
+//     user = userCredential.user;
+//   });
+// });
+
+// document.getElementById('register-btn').addEventListener('click', function () {
+//   const registerEmail = document.getElementById('register-email').value;
+//   const registerPassword = document.getElementById('register-password').value;
+
+//   createUserWithEmailAndPassword(auth, registerEmail, registerPassword).then(userCredential => {
+//     user = userCredential.user;
+//   });
+// });
+
+const log = () => {
   const loginEmail = document.getElementById('login-email').value;
   const loginPassword = document.getElementById('login-password').value;
 
   signInWithEmailAndPassword(auth, loginEmail, loginPassword).then(userCredential => {
     user = userCredential.user;
   });
-});
-
-document.getElementById('register-btn').addEventListener('click', function () {
-  const registerEmail = document.getElementById('register-email').value;
-  const registerPassword = document.getElementById('register-password').value;
-
-  createUserWithEmailAndPassword(auth, registerEmail, registerPassword).then(userCredential => {
-    user = userCredential.user;
-  });
-});
+}
+document.getElementById('log-btn').addEventListener('click', log);
+document.getElementById('register-btn').addEventListener('click', log);
 
 const drawMovies = movies => {
   let markup = '';

@@ -6,6 +6,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  transition: all 0.3s ease-in-out;
 
   &--library {
     background-image: url('/src/images/backgroundLibraryMobile.jpg');
@@ -16,11 +17,8 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 54px;
+    //margin-bottom: 62px;
 
-    &--margin {
-      margin-bottom: 62px;
-    }
   }
 
   &__logo {
@@ -126,7 +124,60 @@
     }
   }
 
-  .button {
+  .login__form {
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-bottom: 2px;
+  }
+
+  .login__input {
+      height: 20px;
+      background-color: $transparentColor;
+      border: none;
+      border-bottom: 1px solid $defaultColor;
+      outline: none;
+      color: $defaultColor;
+      font-size: $defaultFontSize;
+      line-height: $defaultLineHeight;
+      &::placeholder {
+        color: $defaultColor;
+        opacity: 0.5;
+        font-size: $defaultFontSize;
+        line-height: $defaultLineHeight;
+        font-style: italic;
+      }
+  }
+  .log__btns {
+    align-items: center;
+    gap: 20px;
+    display: flex;
+    margin-top: 2px;
+  }
+
+  .log__btn {
+    width: 130px;
+    height: 20px;
+    background-color: $transparentColor;
+    border: 1px solid $defaultColor;
+    border-radius: 4px;
+    color: $defaultColor;
+    font-weight: 500;
+    font-size: $smallFontSize;
+    line-height: $smallLineHeight;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover,
+    &:focus {
+      background-color: $descritiopnColor;
+    }
+  }
+
+  .library-button {
     display: flex;
     align-items: center;
     justify-content: center;
