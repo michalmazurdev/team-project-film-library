@@ -38,9 +38,23 @@ window.addEventListener('click', event => {
     return;
   }
   modalEl.classList.toggle('modal__hidden');
-
+  let clickedMovie;
   const id = event.target.dataset.order;
-  const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+
+  switch (event.target.dataset.collection) {
+    case 'fetched':
+      clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+      break;
+    case 'watched':
+      clickedMovie = JSON.parse(localStorage.getItem('watched'))[id];
+      break;
+    case 'queue':
+      clickedMovie = JSON.parse(localStorage.getItem('queue'))[id];
+      break;
+    default:
+      console.log('Wrong input.');
+  }
+  // const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
 
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
@@ -48,7 +62,6 @@ window.addEventListener('click', event => {
   let posterUrlRetina = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w780${clickedMovie.poster_path}`
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
-
 
   let modalPosterEl = document.querySelector('.modal__poster');
   let titleEl = document.querySelector('.modal__title');
@@ -59,17 +72,17 @@ window.addEventListener('click', event => {
   let genresEl = document.querySelector("dd[data-info='genres']");
   let descriptionEl = document.querySelector('.modal__descripton');
 
-
   modalPosterEl.src = `${posterUrl}`;
-  posterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
+  modalPosterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
   titleEl.textContent = `${clickedMovie.title}`;
-  ratingEl.textContent = `${formatRate(clickedMovie.vote_average)}`;
+  ratingEl.textContent = `${Number.parseFloat(clickedMovie.vote_average).toFixed(1)}`;
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
   popularityEl.innerText = `${clickedMovie.popularity}`;
-  longTitle.innerText = `${clickedMovie.original_title}`;
+  longTitle.innerText = `${clickedMovie.original_title.toUpperCase()}`;
   genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
+  modalEl.dataset.genres = `${clickedMovie.genre_ids}`;
 
   closeButtonEl.addEventListener('click', clickedCloseButton);
   modalEl.addEventListener('click', clickedOutside);
