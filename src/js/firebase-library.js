@@ -54,8 +54,8 @@ const drawMovies = movies => {
     <div class="movie-card">
     <div class="movie-card__poster-container">
     <img class="movie-card__poster" id="poster_path" data-order=${id++}
-    src="${movie.backdrop_path}"
-    srcset="${movie.backdrop_path} 1x, ${movie.backdrop_path} 2x"
+    src="${posterUrl}"
+    srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
     />
     </div>
