@@ -92,12 +92,12 @@
       border-bottom: 1px solid $defaultColor;
       outline: none;
       color: $defaultColor;
-      font-size: $smallFontSize;
+      font-size: $defaultFontSize;
       line-height: $defaultLineHeight;
 
       &::placeholder {
         color: $defaultColor;
-        font-size: $smallFontSize;
+        font-size: $defaultFontSize;
         line-height: $defaultLineHeight;
         padding: 2px 2px;
       }
@@ -154,7 +154,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .header__title {
     display: none;
   }
