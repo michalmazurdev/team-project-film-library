@@ -82,6 +82,7 @@ window.addEventListener('click', event => {
   genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
+  modalEl.dataset.genres = `${clickedMovie.genre_ids}`;
 
   closeButtonEl.addEventListener('click', clickedCloseButton);
   modalEl.addEventListener('click', clickedOutside);
