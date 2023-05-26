@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import { movieTypes } from './genres.js';
-import { showLoader } from './loader.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
@@ -22,12 +21,10 @@ let page = 1;
 
 const fetchTrendingMovies = async page => {
   try {
-    showLoader(true);
     const response = await axios.get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=5e58d3162f5aafaf855cf7d900bbc361&include_adult=false&language=en-US&page=${page}`,
     );
     let movies = response.data.results;
-    showLoader(false);
     // saveMovieResults(movies);
     localStorage.setItem('currentFetch', JSON.stringify(movies));
     return movies;
@@ -55,12 +52,11 @@ const getURL = () => {
 // FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
 const fetchSearchedMovies = async () => {
   try {
-    showLoader(true);
     const response = await axios.get(getURL());
     let movies = response.data.results;
     // saveMovieResults(movies);
     localStorage.setItem('currentFetch', JSON.stringify(movies));
-    showLoader(false);
+
     return movies;
   } catch (error) {
     console.log(error);
