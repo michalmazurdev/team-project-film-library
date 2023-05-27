@@ -17,8 +17,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    //margin-bottom: 62px;
-
+    margin-bottom: 62px;
   }
 
   &__logo {
@@ -42,12 +41,10 @@
   &__list {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 10px;
+    @include tablet {
+    gap: 40px;}
   }
-
-  // &__log {
-  //   display: inline-flex;
-  // }
 
   &__link {
     display: block;
@@ -127,50 +124,53 @@
       text-align: left;
     }
   }
-
-  .login__form {
-    visibility: hidden;
+  .layout__form {
+    justify-content: flex-start;
+    gap: 20px;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    margin-bottom: 2px;
+    margin-top: 2px;
+    position: relative;
   }
+
+  .login__form,
   .login__log {
     visibility: hidden;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
+    width: 100px;
+    position: absolute;
+    top: 20px;
   }
+  .login__log {
+    left: 75px;
+  }
+
   .login__input {
-      height: 20px;
+      height: 15px;
+      width: 100px;
       background-color: $transparentColor;
       border: none;
       border-bottom: 1px solid $defaultColor;
       outline: none;
       color: $defaultColor;
-      font-size: $defaultFontSize;
+      font-size: $smallFontSize;
       line-height: $defaultLineHeight;
       &::placeholder {
         color: $defaultColor;
         opacity: 0.5;
-        font-size: $defaultFontSize;
+        font-size: $smallFontSize;
         line-height: $defaultLineHeight;
         font-style: italic;
       }
   }
-  .log__btns {
-    justify-content: flex-end;
-    gap: 20px;
-    display: flex;
-    margin-top: 2px;
-  }
 
-  .log__btn {
-    width: 130px;
+  .login__btn {
+    width: 70px;
     height: 20px;
+    margin-top: 5px;
     background-color: $transparentColor;
     border: 1px solid $defaultColor;
     border-radius: 4px;
