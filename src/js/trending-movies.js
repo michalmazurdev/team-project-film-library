@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import { movieTypes } from './genres.js';
+import { showLoader } from './loader.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
@@ -39,11 +40,13 @@ const getURL = page => {
 
 const fetchSearchedMovies = async page => {
   try {
+    showLoader(true);
     const response = await axios.get(getURL(page));
     let data = response.data;
     localStorage.setItem('currentFetch', JSON.stringify(data.results));
     // localStorage.setItem('areWeTrending', JSON.stringify(false));
     console.log('SEARCHED', data);
+    showLoader(false);
     return data;
   } catch (error) {
     console.log(error);
