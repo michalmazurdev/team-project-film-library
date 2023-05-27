@@ -142,6 +142,7 @@ const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
 // const paginationBtns = document.querySelector('.pagination');
+// TO DELETE:
 const paginationBtns = document.querySelector('.pagination');
 paginationBtns.classList.add('top'); // Dodaje klasę 'top'
 
@@ -342,6 +343,15 @@ const renderPageNumber = (page, data) => {
   if (+pageMinus1.innerHTML <= 1) {
     pageMinus1.classList.add('is-hidden');
   }
+  if (+pageCurrent.innerHTML === 2) {
+    pageDot.classList.add('is-hidden');
+  }
+  if (+pageMinus1.innerHTML - 1 === 1) {
+    pageDot.classList.add('is-hidden');
+  }
+  if (+pageMinus2.innerHTML - 1 === 1) {
+    pageDot.classList.add('is-hidden');
+  }
 
   // RIGHT:
 
@@ -352,31 +362,21 @@ const renderPageNumber = (page, data) => {
     pageLast.classList.add('is-hidden');
     pageNext.classList.add('is-hidden');
   }
-
   if (+pagePlus1.innerHTML >= +data.total_pages) {
     pagePlus1.classList.add('is-hidden');
   }
   if (+pagePlus2.innerHTML >= +data.total_pages) {
     pagePlus2.classList.add('is-hidden');
-
-  // if ()
-
- 
-  // }
-  // if (+pageCurrent === +data.total_pages) {
-  //   pageLast.classList.add('is-hidden');
-  //   pageNext.classList.add('is-hidden');
-  // }
-
-  // if (+pagePlus1.innerHTML + 1 === +pageLast) {
-  //   pageDot2.classList.add('is-hidden');
-  // }
-  // if (+pagePlus2.innerHTML + 1 === +pageLast) {
-  //   pageDot2.classList.add('is-hidden');
-  // }
-  // if (+pageCurrent.innerHTML + 1 === +data.total_pages) {
-  //   pageDot2.classList.add('is-hidden');
-  // }
+  }
+  if (+pageCurrent.innerHTML + 1 === +data.total_pages) {
+    pageDot2.classList.add('is-hidden');
+  }
+  if (+pagePlus1.innerHTML + 1 === +data.total_pages) {
+    pageDot2.classList.add('is-hidden');
+  }
+  if (+pagePlus2.innerHTML + 1 === +data.total_pages) {
+    pageDot2.classList.add('is-hidden');
+  }
 };
 
 searchFormEl.addEventListener('submit', async event => {
