@@ -40,7 +40,7 @@ document.getElementById('register-btn').addEventListener('click', function () {
   });
 });
 
-const drawMovies = movies => {
+const drawMovies = (movies, collection) => {
   let markup = '';
   let id = 0;
   movies.forEach(movie => {
@@ -53,14 +53,14 @@ const drawMovies = movies => {
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
-    <img class="movie-card__poster" id="poster_path" data-order=${id++}
-    src="${movie.backdrop_path}"
-    srcset="${movie.backdrop_path} 1x, ${movie.backdrop_path} 2x"
+    <img class="movie-card__poster" id="poster_path" data-order=${id++} data-collection=${collection}
+    src="${posterUrl}"
+    srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
     />
     </div>
     <div class="movie-card__figcaption">
-        <p class="movie-card__title" id="title">${movie.title}</p>
+        <p class="movie-card__title" id="title">${movie.title.toUpperCase()}</p>
         <span class="movie-card__genre" id="genre_ids">${movie.genre_ids} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
@@ -104,7 +104,8 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
         arrayOfVideoData,
         arrayOfVideoIds,
       );
-      loadMovies(drawMovies(arrayOfVideoData));
+      localStorage.setItem(watchedOrQueue, JSON.stringify(arrayOfVideoData));
+      loadMovies(drawMovies(arrayOfVideoData, watchedOrQueue));
     });
   } else {
     Notify.failure('Sign in first');

@@ -1,17 +1,17 @@
 <section class="pagination">
-  <button class="pagination__button--arrow">
+  <button id="previous" class="pagination__button--arrow">
     <img src="./images/icons-pagination/arrow-left.svg" />
   </button>
-  <button class="pagination__button--hidden-on-mobile">1</button>
-  <button class="pagination__button--hidden-on-mobile">...</button>
-  <button class="pagination__button">13</button>
-  <button class="pagination__button">14</button>
-  <button class="pagination__button--active">15</button>
-  <button class="pagination__button">16</button>
-  <button class="pagination__button">17</button>
-  <button class="pagination__button--hidden-on-mobile">...</button>
-  <button class="pagination__button--hidden-on-mobile">20</button>
-  <button class="pagination__button--arrow">
+  <button id="first" class="pagination__button--hidden-on-mobile" data-page="1"></button>
+  <div id="dot" class="pagination__button--hidden-on-mobile" data-page="">...</div>
+  <button id="minus2" class="pagination__button" data-page=""></button>
+  <button id="minus1" class="pagination__button" data-page=""></button>
+  <button id="current" class="pagination__button--active" data-page=""></button>
+  <button id="plus1" class="pagination__button" data-page=""></button>
+  <button id="plus2" class="pagination__button" data-page=""></button>
+  <div id="dot2" class="pagination__button--hidden-on-mobile" data-page="">...</div>
+  <button id="last" class="pagination__button--hidden-on-mobile" data-page=""></button>
+  <button id="next" class="pagination__button--arrow">
     <img src="./images/icons-pagination/arrow-right.svg" />
   </button>
 </section>

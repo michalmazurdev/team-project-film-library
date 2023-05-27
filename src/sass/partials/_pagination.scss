@@ -4,9 +4,11 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+
   @include tablet {
-  margin-bottom: 40px; 
+    margin-bottom: 40px;
   }
+
   &__button {
     padding: 0;
     background-color: inherit;
@@ -53,3 +55,6 @@
   }
 }
 
+.is-hidden {
+  display: none;
+}
