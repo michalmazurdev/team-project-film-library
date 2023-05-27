@@ -1,6 +1,5 @@
 import { movieTypes } from './genres.js';
 
-const posterEl = document.querySelector('#poster_path');
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
 
@@ -38,9 +37,22 @@ window.addEventListener('click', event => {
     return;
   }
   modalEl.classList.toggle('modal__hidden');
-
+  let clickedMovie;
   const id = event.target.dataset.order;
-  const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+  switch (event.target.dataset.collection) {
+    case 'fetched':
+      clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+      break;
+    case 'watched':
+      clickedMovie = JSON.parse(localStorage.getItem('watched'))[id];
+      break;
+    case 'queue':
+      clickedMovie = JSON.parse(localStorage.getItem('queue'))[id];
+      break;
+    default:
+      console.log('Wrong input.');
+  }
+  // const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
 
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
@@ -61,13 +73,14 @@ window.addEventListener('click', event => {
   modalPosterEl.src = `${posterUrl}`;
   modalPosterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
   titleEl.textContent = `${clickedMovie.title}`;
-  ratingEl.textContent = `${formatRate(clickedMovie.vote_average)}`;
+  ratingEl.textContent = `${Number.parseFloat(clickedMovie.vote_average).toFixed(1)}`;
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
   popularityEl.innerText = `${clickedMovie.popularity}`;
   longTitle.innerText = `${clickedMovie.original_title.toUpperCase()}`;
   genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
+  modalEl.dataset.genres = `${clickedMovie.genre_ids}`;
 
   closeButtonEl.addEventListener('click', clickedCloseButton);
   modalEl.addEventListener('click', clickedOutside);

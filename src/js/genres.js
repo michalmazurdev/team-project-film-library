@@ -23,10 +23,9 @@ export const movieTypes = types => {
   let array = [];
 
   types.forEach(item => {
-    if (genres[item]) {
+    if (genres[+item]) {
       array.push(genres[item]);
     }
   });
   return array.join(', ');
 };
-
