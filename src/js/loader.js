@@ -1,12 +1,16 @@
-$(window).on('load', function () {
-  $('.loader-wrapper').fadeOut('slow');
-});
+// $(window).on('load', function () {
+//   $('.loader-wrapper').fadeOut('slow');
+// });
 
 export function showLoader(show) {
   const preloader = document.getElementById('preloader');
+  const minimumDuration = 1000;
+
   if (show) {
     preloader.style.display = 'flex';
   } else {
-    preloader.style.display = 'none';
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, minimumDuration);
   }
 }
