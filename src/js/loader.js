@@ -1,6 +1,6 @@
-// $(window).on('load', function () {
-//   $('.loader-wrapper').fadeOut('slow');
-// });
+$(window).on('load', function () {
+  $('.loader-wrapper').fadeOut('slow');
+});
 
 export function showLoader(show) {
   const preloader = document.getElementById('preloader');
