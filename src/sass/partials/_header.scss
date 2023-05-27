@@ -122,9 +122,10 @@
       font-size: $smallFontSize;
       line-height: $defaultLineHeight;
       text-align: left;
+      transition: visibility 0.3s ease-in-out;
     }
   }
-  
+
   .layout__form {
     justify-content: flex-start;
     gap: 20px;
