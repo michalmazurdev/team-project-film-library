@@ -1,4 +1,5 @@
 import { movieTypes } from './genres.js';
+import { dataService } from './localstorage.js';
 
 const posterEl = document.querySelector('#poster_path');
 const modalEl = document.querySelector('.modal__backdrop');
@@ -41,14 +42,13 @@ window.addEventListener('click', event => {
 
   const id = event.target.dataset.order;
   const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
-
+  dataService(clickedMovie);
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
   let posterUrlRetina = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w780${clickedMovie.poster_path}`
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
-
 
   let modalPosterEl = document.querySelector('.modal__poster');
   let titleEl = document.querySelector('.modal__title');
@@ -58,7 +58,6 @@ window.addEventListener('click', event => {
   let longTitle = document.querySelector("dd[data-info='orgtitle']");
   let genresEl = document.querySelector("dd[data-info='genres']");
   let descriptionEl = document.querySelector('.modal__descripton');
-
 
   modalPosterEl.src = `${posterUrl}`;
   posterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
