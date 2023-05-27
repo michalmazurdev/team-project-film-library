@@ -1,9 +1,35 @@
 import Notiflix from 'notiflix';
 import axios from 'axios';
 const posterEl = document.querySelector('.modal__poster');
-const modalVideol = document.querySelector('.modal-video__backdrop');
+const modalVideoEl = document.querySelector('.modal-video__backdrop');
 const closeButtonVideoEl = document.querySelector('.modal-video__close');
 console.log(closeButtonVideoEl);
+
+const closeVideo = () => {
+  modalVideoEl.classList.toggle('modal-video__hidden');
+  document.querySelector('iframe').removeAttribute('src');
+};
+const removeListeners = () => {
+  closeButtonVideoEl.removeEventListener('click', clickedCloseButton);
+  document.removeEventListener('keydown', pressedESC);
+  modalVideoEl.removeEventListener('click', clickedOutside);
+};
+const clickedCloseButton = () => {
+  closeVideo();
+  removeListeners();
+};
+const pressedESC = event => {
+  if (event.keyCode === 27) {
+    closeVideo();
+    removeListeners();
+  }
+};
+const clickedOutside = event => {
+  if (event.target === modalVideoEl) {
+    closeVideo();
+    removeListeners();
+  }
+};
 
 const fetchTrailerIds = async () => {
   try {
@@ -15,7 +41,7 @@ const fetchTrailerIds = async () => {
     return response.data.results;
   } catch (error) {
     Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.',
+      'Sorry, there are no trailers matching your search query. We are sorry for that😇.',
     );
   }
 };
@@ -23,39 +49,17 @@ const fetchTrailerIds = async () => {
 posterEl.addEventListener('click', async event => {
   event.preventDefault();
 
-  //   console.log(intMovieId);
-  modalVideol.classList.toggle('modal-video__hidden');
-
+  modalVideoEl.classList.toggle('modal-video__hidden');
   const response = await fetchTrailerIds();
 
-  //   console.log(response);
   const trailerIds = response
     .filter(clip => clip.type == 'Trailer')
     .map(clip => clip.key)
     .slice(0, 1);
   console.log(trailerIds);
   document.querySelector('iframe').src = `https://www.youtube.com/embed/${trailerIds}`;
+
+  document.addEventListener('keydown', pressedESC);
+  closeButtonVideoEl.addEventListener('click', clickedCloseButton);
+  modalVideoEl.addEventListener('click', clickedOutside);
 });
-
-closeButtonVideoEl.addEventListener('click', () => {
-  modalVideol.classList.toggle('modal-video__hidden');
-  document.querySelector('iframe').removeAttribute('src');
-});
-
-// const clickedCloseButton = () => {
-//   closeModal();
-//   removeListeners();
-// };
-
-// const pressedESC = event => {
-//   if (event.keyCode === 27) {
-//     closeModal();
-//     removeListeners();
-//   }
-// };
-// const clickedOutside = event => {
-//   if (event.target === modalEl) {
-//     closeModal();
-//     removeListeners();
-//   }
-// };
