@@ -411,11 +411,13 @@ const renderPageNumber = (page, data) => {
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
   page = 1;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 // PAGINATION BUTTONS NUMBER OF PAGE:
@@ -423,80 +425,95 @@ searchFormEl.addEventListener('submit', async event => {
 pagePrevious.addEventListener('click', async event => {
   event.preventDefault();
   page = parseInt(localStorage.getItem('currentPage')) - 1;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pageFirst.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
-
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pageMinus2.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pageMinus1.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pagePlus1.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pagePlus2.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pageLast.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
 
 pageNext.addEventListener('click', async event => {
   event.preventDefault();
   page = parseInt(localStorage.getItem('currentPage')) + 1;
+  showLoader(true);
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data);
   localStorage.setItem('currentPage', page.toString());
+  showLoader(false);
 });
