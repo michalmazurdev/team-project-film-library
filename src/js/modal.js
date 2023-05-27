@@ -1,6 +1,5 @@
 import { movieTypes } from './genres.js';
 
-const posterEl = document.querySelector('#poster_path');
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
 
@@ -40,7 +39,6 @@ window.addEventListener('click', event => {
   modalEl.classList.toggle('modal__hidden');
   let clickedMovie;
   const id = event.target.dataset.order;
-
   switch (event.target.dataset.collection) {
     case 'fetched':
       clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];

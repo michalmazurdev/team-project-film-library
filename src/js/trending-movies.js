@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import { hideLoader, showLoader, showLoaderFor700 } from './loader.js';
 import { movieTypes } from './genres.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
