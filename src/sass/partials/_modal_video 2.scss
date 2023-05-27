@@ -1,4 +1,4 @@
-.modal-team {
+.modal-video {
   max-height: 95vh;
   width: 85%;
   background-color: $defaultColor;
@@ -50,73 +50,6 @@
     transition: transform 0.25s ease-out;
     &:hover {
       transform: scale(1.5);
-    }
-  }
-  &__header {
-    text-align: center;
-    margin-top: 0;
-  }
-}
-.team-members {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 10px;
-  @include desktop {
-    width: 1240px;
-    gap: 10px;
-    row-gap: 50px;
-  }
-}
-
-.team-member {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
-  padding: 0 5px;
-  border-bottom: 1px solid rgb(192, 192, 192);
-  margin-bottom: 40px;
-  @include desktop {
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-  &:last-child {
-    margin-bottom: 0px;
-    border: none;
-  }
-  &:nth-child(n + 7) {
-    @include tablet {
-      margin-bottom: 0px;
-      border-bottom: none;
-    }
-  }
-
-  &__description {
-    margin-top: 0;
-    text-align: center;
-    @include desktop {
-      margin-top: 10px;
-    }
-  }
-  &__photo {
-    transition: transform 0.25s ease-out;
-    &:hover {
-      transform: scale(1.05);
-      cursor: pointer;
-      @include tablet {
-        transform: scale(1.08);
-      }
-      @include desktop {
-        transform: scale(1.1);
-      }
-    }
-  }
-  &__name {
-    @include desktop {
-      border-bottom: 1px solid rgb(192, 192, 192);
-      padding: 15px 0 5px 0;
-      margin: 0;
     }
   }
 }
