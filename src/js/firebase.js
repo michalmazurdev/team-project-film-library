@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix';
 
@@ -22,6 +27,21 @@ let loginPassword = document.getElementById('login-password').value;
 let user;
 let id;
 let clickedMovie;
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    user
+      .getIdTokenResult()
+      .then(idTokenResult => {
+        const expirationTime = idTokenResult.expirationTime;
+        const remainingTime = expirationTime - Date.now();
+        console.log('ile czasu zostalo w milisec:', remainingTime);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+});
 
 //**************** */
 
