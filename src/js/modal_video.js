@@ -39,4 +39,23 @@ posterEl.addEventListener('click', async event => {
 
 closeButtonVideoEl.addEventListener('click', () => {
   modalVideol.classList.toggle('modal-video__hidden');
+  document.querySelector('iframe').removeAttribute('src');
 });
+
+// const clickedCloseButton = () => {
+//   closeModal();
+//   removeListeners();
+// };
+
+// const pressedESC = event => {
+//   if (event.keyCode === 27) {
+//     closeModal();
+//     removeListeners();
+//   }
+// };
+// const clickedOutside = event => {
+//   if (event.target === modalEl) {
+//     closeModal();
+//     removeListeners();
+//   }
+// };
