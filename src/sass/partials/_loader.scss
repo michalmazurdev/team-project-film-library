@@ -87,8 +87,8 @@ $offset: $lat - $thickness;
  * Attempt to center the whole thing!
  */
 
-.loader {
-  position: absolute;
-  top: calc(50% - #{$size / 2});
-  left: calc(50% - #{$size / 2});
-}
+// .loader {
+//   position: absolute;
+//   top: calc(50% - #{$size / 2});
+//   left: calc(50% - #{$size / 2});
+// }
