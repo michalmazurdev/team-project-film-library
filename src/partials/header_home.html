@@ -8,10 +8,10 @@
       </a>
       <ul class="header__list"> <div class=layout__form> 
           <li class="header__item header__register">
-            <p class="header__link ">register</p>
+            <p class="header__link" id="register">register</p>
           </li>
             <li class="header__item header__log">
-            <p class="header__link">log in</p>
+            <p class="header__link" id="log-in">log in</p>
           </li>
           <li class="header__item">
             <a class="header__link header__link--active" href="/src/index.html">home</a>
@@ -61,13 +61,33 @@
         </ul>
     </div>
     <script>
-    const register = document.querySelector(".header__register");
-    const log = document.querySelector(".header__log");
-    const loginForm = document.querySelector(".login__form")
-    const loginLog = document.querySelector(".login__log")
-  
-    register.addEventListener('click', () => {loginForm.style.visibility = 'visible'});
-    log.addEventListener('click', () => {loginLog.style.visibility = 'visible'});
+  const register = document.querySelector(".header__register");
+  const log = document.querySelector(".header__log");
+  const loginForm = document.querySelector(".login__form");
+  const loginLog = document.querySelector(".login__log");
+  const registerLink = document.getElementById('register');
+  const logInLink = document.getElementById('log-in');
+
+  register.addEventListener('click', () => {
+    loginForm.style.visibility = 'visible';
+    registerLink.style.color = 'red'
+    
+    if (loginForm.style.visibility === 'visible'){
+      loginLog.style = 'hidden';
+      logInLink.style.color = 'white'}
+      else {loginLog.style.visibility = 'visible'}
+});
+
+  log.addEventListener('click', () => {
+    loginLog.style.visibility = 'visible';
+    logInLink.style.color = 'red';
+
+  if (loginLog.style.visibility === 'visible'){
+    loginForm.style = 'hidden';
+    registerLink.style.color = 'white'
+  }
+    else {loginForm.style.visibility = 'visible';}
+});
     </script>
 
   <form class="form" id="form-search">
