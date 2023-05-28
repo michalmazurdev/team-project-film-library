@@ -50,9 +50,6 @@ window.addEventListener('click', async event => {
   modalEl.classList.toggle('modal__hidden');
   const movieId = event.target.dataset.movieid;
   const clickedMovie = await fetchMovieInfo(movieId);
-  console.log();
-  console.log(clickedMovie);
-  console.log(movieId);
 
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
