@@ -26,13 +26,13 @@ const getURL = page => {
   let url;
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
-    console.log('this week');
+
     // Jeśli inny warunek to można np z local storage pobrać dane
   } else {
     url = `${searchMovieURL}${searchParams}`;
     console.log('search for movies');
   }
-  console.log(url);
+
   return url;
 };
 
@@ -75,6 +75,7 @@ const fetchSearchedMovies = async page => {
 const drawMovies = (movies, collection) => {
   let markup = '';
   let id = 0;
+  console.log(movies);
   movies.forEach(movie => {
     let posterUrl = movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -85,7 +86,9 @@ const drawMovies = (movies, collection) => {
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
-    <img class="movie-card__poster" id="poster_path" data-order=${id++} data-collection=${collection}
+    <img class="movie-card__poster" id="poster_path" data-movieid=${
+      movie.id
+    } data-collection=${collection}
     src="${posterUrl}"
     srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
