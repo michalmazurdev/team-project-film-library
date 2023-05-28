@@ -13,9 +13,9 @@
     width: 704px;
   }
   @include desktop {
-  width: 1280px;
-  padding: 20px 20px;
-  overflow: hidden;
+    width: 1280px;
+    padding: 20px 20px;
+    overflow: hidden;
   }
   &__backdrop {
     position: fixed;
@@ -30,7 +30,7 @@
       rgba(194, 194, 204, 0.6278886554621849) 0%
     );
     @include desktop {
-     padding: 50px 0 0 0;
+      padding: 50px 0 0 0;
     }
   }
   &__hidden {
@@ -38,8 +38,8 @@
   }
   &__close {
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 30px;
+    right: 40px;
     border: none;
     padding: 0;
     background-color: transparent;
@@ -50,6 +50,54 @@
     transition: transform 0.25s ease-out;
     &:hover {
       transform: scale(1.5);
+    }
+  }
+  &__scroll {
+    position: absolute;
+    right: 40px;
+    // bottom: 20px;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    height: 14px;
+    font-size: 0;
+    scale: 2;
+    cursor: pointer;
+    transition: transform 0.25s ease-out;
+    &:hover {
+      transform: scale(1.5);
+    }
+    @include desktop {
+      display: none;
+    }
+  }
+  &__header {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 40px;
+    // border-bottom: 1px solid rgb(192, 192, 192);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 80%;
+      height: 2px;
+      background-color: rgb(192, 192, 192);
+      left: 50%;
+      top: 40px;
+      transform: translate(-50%, -50%);
+      // display: flex;
+
+
+      @include desktop {
+        top: 50px;
+        // display: none;
+      }
+    }
+    @include desktop {
+      margin: 30px 0 60px 0;
+      // margin-top: 30px;
     }
   }
 }
@@ -66,13 +114,17 @@
 }
 
 .team-member {
+  font-family: $defaultFontSize;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 300px;
   padding: 0 5px;
   border-bottom: 1px solid rgb(192, 192, 192);
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  // @include tablet {
+  //   border-bottom-width: 80%;
+  // }
   @include desktop {
     border-bottom: none;
     margin-bottom: 0;
@@ -81,38 +133,50 @@
     margin-bottom: 0px;
     border: none;
   }
-  &:nth-child(n + 7){
-  @include tablet {
-    margin-bottom: 0px;
-    border-bottom: none;
-  }
+  &:nth-child(n + 7) {
+    @include tablet {
+      margin-bottom: 0px;
+      border-bottom: none;
+    }
   }
 
   &__description {
+    max-width: 80%;
+    margin-bottom: 20px;
     margin-top: 0;
     text-align: center;
-     @include desktop {
-     margin-top: 10px;  
+    @include desktop {
+      margin-top: 10px;
     }
   }
   &__photo {
+    margin-bottom: 10px;
     transition: transform 0.25s ease-out;
     &:hover {
       transform: scale(1.05);
       cursor: pointer;
       @include tablet {
-      transform: scale(1.08);
+        transform: scale(1.08);
       }
       @include desktop {
-      transform: scale(1.1);
+        transform: scale(1.1);
       }
     }
   }
   &__name {
+    margin-bottom: 5px;
     @include desktop {
-    border-bottom: 1px solid rgb(192, 192, 192);
-    padding: 15px 0 5px 0;
-    margin: 0;
+      border-bottom: 1px solid rgb(192, 192, 192);
+      padding: 15px 0 5px 0;
+      margin: 0;
+    }
+  }
+  &__function {
+    margin-bottom: 5px;
+    font-style: italic;
+    font-weight: 500;
+    @include desktop {
+      margin-top: 5px;
     }
   }
 }
@@ -126,10 +190,8 @@
   }
 }
 
-
 /*@media screen and (min-width: #{$tablet}) {
   // .modal-team__backdrop {
   //   padding-top: 100px;
   // }
   } */
-
