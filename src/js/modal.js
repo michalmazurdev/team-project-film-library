@@ -1,5 +1,5 @@
 import { movieTypes } from './genres.js';
-
+import axios from 'axios';
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
 
@@ -32,27 +32,27 @@ const clickedOutside = event => {
   }
 };
 
-window.addEventListener('click', event => {
+const fetchMovieInfo = async movieId => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e58d3162f5aafaf855cf7d900bbc361&language=en-US`,
+    );
+    return response.data;
+  } catch (error) {
+    Notiflix.Notify.failure('some error😇.');
+  }
+};
+
+window.addEventListener('click', async event => {
   if (event.target.className !== 'movie-card__poster') {
     return;
   }
   modalEl.classList.toggle('modal__hidden');
-  let clickedMovie;
-  const id = event.target.dataset.order;
-  switch (event.target.dataset.collection) {
-    case 'fetched':
-      clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
-      break;
-    case 'watched':
-      clickedMovie = JSON.parse(localStorage.getItem('watched'))[id];
-      break;
-    case 'queue':
-      clickedMovie = JSON.parse(localStorage.getItem('queue'))[id];
-      break;
-    default:
-      console.log('Wrong input.');
-  }
-  // const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+  const movieId = event.target.dataset.movieid;
+  const clickedMovie = await fetchMovieInfo(movieId);
+  console.log();
+  console.log(clickedMovie);
+  console.log(movieId);
 
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
@@ -77,7 +77,7 @@ window.addEventListener('click', event => {
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
   popularityEl.innerText = `${clickedMovie.popularity}`;
   longTitle.innerText = `${clickedMovie.original_title.toUpperCase()}`;
-  genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
+  genresEl.innerText = `${movieTypes(clickedMovie.genres.map(genre => genre.id))}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
   modalEl.dataset.genres = `${clickedMovie.genre_ids}`;

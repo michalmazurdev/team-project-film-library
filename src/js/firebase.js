@@ -5,6 +5,8 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from 'firebase/auth';
+import Notiflix from 'notiflix';
+import axios from 'axios';
 import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix';
@@ -135,14 +137,25 @@ function addToWatchedOrQueue(
     });
 }
 
+const fetchMovieInfo = async movieId => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e58d3162f5aafaf855cf7d900bbc361&language=en-US`,
+    );
+    return response.data;
+  } catch (error) {
+    Notiflix.Notify.failure('some error😇.');
+  }
+};
+
 //pobieranie id filmu po kliknięciu na poster
-window.addEventListener('click', event => {
+window.addEventListener('click', async event => {
   if (event.target.className !== 'movie-card__poster') {
     return;
   }
-  id = event.target.dataset.order;
-  clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
-  UniqueFilmId = JSON.parse(localStorage.getItem('currentFetch'))[id].id;
+  const movieId = event.target.dataset.movieid;
+  clickedMovie = await fetchMovieInfo(movieId);
+  UniqueFilmId = clickedMovie.id;
 });
 
 //wowyłanie funkcji która dodaje film do Firebase do ścieżki /watched
@@ -237,7 +250,7 @@ const drawMovies = (movies, collection) => {
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
-    <img class="movie-card__poster" id="poster_path" data-order=${id++} data-collection=${collection}
+    <img class="movie-card__poster" id="poster_path" data-movieid=${movie.id}
     src="${posterUrl}"
     srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
@@ -266,6 +279,7 @@ const loadMovies = markup => {
 //po kliknięciu Watched przekazuje ścieżkę do Firebase/Watched do funkcji
 document.querySelector('.button__status').addEventListener('click', () => {
   watchedOrQueue = 'watched';
+
   passPathToRenderMoviesFrom(watchedOrQueue);
 });
 
