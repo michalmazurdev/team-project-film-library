@@ -1,15 +1,22 @@
+//font-style
 $defaultFontStyle: 'Roboto', sans-serif;
+
+//font-size
 $smallFontSize: 0.75rem;
 $defaultFontSize: 0.875rem;
 $mediumFontSize: 1.25rem;
 $largeFontSize: 1.375rem;
 $headFontSize: 1.875rem;
+$mediumFontSizeModal: 1.4375rem;
+
+//line-height
 $smallLineHeight: 0.875rem;
 $defaultLineHeight: 1rem;
 $mediumLineHeight: 1.25rem;
-$mediumFontSizeModal: 1.4375rem;
 $largeLineHeight: 1.5rem;
 $headLineHeight: 2.1875rem;
+
+//color
 $defaultColor: #ffffff;
 $titleColor: #000000;
 $descritiopnColor: #ff6b08;
