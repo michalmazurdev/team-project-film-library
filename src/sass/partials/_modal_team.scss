@@ -1,5 +1,5 @@
 .modal-team {
-  max-height: 95vh;
+  max-height: 90vh;
   width: 85%;
   background-color: $defaultColor;
   margin: auto;
@@ -15,7 +15,7 @@
   @include desktop {
     width: 1280px;
     padding: 20px 20px;
-    overflow: hidden;
+    // overflow: hidden;
   }
   &__backdrop {
     position: fixed;
@@ -71,11 +71,17 @@
       display: none;
     }
   }
-  &__header {
-    text-align: center;
+  &__head-div {
+    display: flex;
+    justify-content: center;
+    // justify-content: baseline;
+    align-items: center;
+
+    // text-align: center;
+
     margin-top: 0;
     margin-bottom: 40px;
-    // border-bottom: 1px solid rgb(192, 192, 192);
+
     position: relative;
 
     &::after {
@@ -85,20 +91,59 @@
       height: 2px;
       background-color: rgb(192, 192, 192);
       left: 50%;
-      top: 40px;
+      top: 60px;
       transform: translate(-50%, -50%);
-      // display: flex;
+  }
+  @include tablet {
+    // justify-content:space-around;
+  }
+  @include desktop {
+    margin: 30px 0 60px 0;
+    justify-content: flex-start;
+    // margin-top: 30px;
+  }
+
+}
+&__head-img {
+  margin-right: 40px;
+  @include tablet {
+    margin-right: 70px;
+  }
+  @include desktop {
+    margin-left: 150px;
+    // justify-content: flex-start;
+  }
+}
+
+  &__header {
+    text-align: center;
+    // margin-top: 0;
+    // margin-bottom: 40px;
+    // border-bottom: 1px solid rgb(192, 192, 192);
+    // position: relative;
 
 
-      @include desktop {
-        top: 50px;
-        // display: none;
-      }
-    }
-    @include desktop {
-      margin: 30px 0 60px 0;
-      // margin-top: 30px;
-    }
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   width: 80%;
+    //   height: 2px;
+    //   background-color: rgb(192, 192, 192);
+    //   left: 50%;
+    //   top: 40px;
+    //   transform: translate(-50%, -50%);
+    //   // display: flex;
+
+
+    //   @include desktop {
+    //     top: 50px;
+    //     // display: none;
+    //   }
+    // }
+    // @include desktop {
+    //   margin: 30px 0 60px 0;
+    //   // margin-top: 30px;
+    // }
   }
 }
 .team-members {
