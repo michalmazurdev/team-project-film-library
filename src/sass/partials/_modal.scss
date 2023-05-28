@@ -7,22 +7,22 @@
   padding: 48px 20px 40px;
   overflow-y: auto;
   animation: fade-in 0.6s ease both;
-@include tablet {
-  width: 704px;
-  padding: 40px 72px 40px 36px;
+  @include tablet {
+    width: 704px;
+    padding: 40px 72px 40px 36px;
   }
-@include desktop {
-  width: 806px;
-  padding: 40px 12px;
+  @include desktop {
+    width: 806px;
+    padding: 40px 12px;
   }
   &__container {
     @include tablet {
-    gap: 68px;
-    display: flex;
+      gap: 68px;
+      display: flex;
     }
     @include desktop {
-    gap: 16px;
-    display: flex;
+      gap: 16px;
+      display: flex;
     }
   }
   &__backdrop {
@@ -33,15 +33,15 @@
     bottom: 0;
     padding-top: 20px;
     background: linear-gradient(
-    90deg,
-    rgba(194, 194, 204, 0.6278886554621849) 0%,
-    rgba(194, 194, 204, 0.6278886554621849) 0%
-   );
-   @include tablet {
-    padding-top: 100px;
+      90deg,
+      rgba(194, 194, 204, 0.6278886554621849) 0%,
+      rgba(194, 194, 204, 0.6278886554621849) 0%
+    );
+    @include tablet {
+      padding-top: 100px;
     }
-   @include desktop {
-    padding-top: 150px;
+    @include desktop {
+      padding-top: 150px;
     }
   }
   &__hidden {
@@ -162,9 +162,9 @@
     font-size: $smallFontSize;
     line-height: $smallLineHeight;
     color: $defaultColor;
-     &--number-of-votes {
-     color: $titleColor;
-     background-color: #f7f7f7;
+    &--number-of-votes {
+      color: $titleColor;
+      background-color: #f7f7f7;
     }
   }
   &__descripton-heading {
@@ -204,16 +204,22 @@
     line-height: $defaultLineHeight;
     background-color: $defaultColor;
     color: $titleColor;
+    text-transform: uppercase;
     border: 1px solid $titleColor;
     cursor: pointer;
     transition: all 0.3s linear;
     &:hover,
     &:focus {
-        border: none;
-        background-color: $modalPrimaryColor;
-        color: $defaultColor;
-        transform: scale(1.03);            
-      }
+      border: none;
+      background-color: $modalPrimaryColor;
+      color: $defaultColor;
+      transform: scale(1.03);
+    }
+    &--remove {
+      background-color: #ff6b01;
+      color: #fff;
+      border: 1px solid #ff6b01;
+    }
     /*&--watched {
       background-color: #ff6b01;
       color: #fff;
@@ -239,6 +245,4 @@
   100% {
     opacity: 1;
   }
-  
 }
-

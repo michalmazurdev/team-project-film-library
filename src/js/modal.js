@@ -1,5 +1,4 @@
 import { movieTypes } from './genres.js';
-import { dataService } from './localstorage.js';
 
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
@@ -43,7 +42,6 @@ window.addEventListener('click', event => {
   switch (event.target.dataset.collection) {
     case 'fetched':
       clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
-      dataService(clickedMovie);
       break;
     case 'watched':
       clickedMovie = JSON.parse(localStorage.getItem('watched'))[id];

@@ -1,33 +1,73 @@
-export function dataService(data) {
-  const addwatchedBtn = document.querySelector('.modal__button--watched');
-  const addqueueBtn = document.querySelector('.modal__button--queue');
+const watchedBtn = document.querySelector('.modal__button--watched');
+const queueBtn = document.querySelector('.modal__button--queue');
+let clickedMovie = JSON.parse(localStorage.getItem('currentFetch'));
+let uniqueMovieId = JSON.parse(localStorage.getItem('currentFetch'));
 
-  if (localStorage.getItem('watchedMovie') === null) {
-    localStorage.setItem('watchedMovie', '[]');
+window.addEventListener('click', event => {
+  if (event.target.className !== 'movie-card__poster') {
+    return;
   }
 
-  if (localStorage.getItem('queueMovie') === null) {
-    localStorage.setItem('queueMovie', '[]');
+  let id = event.target.dataset.order;
+  clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
+  uniqueMovieId = JSON.parse(localStorage.getItem('currentFetch'))[id].id;
+
+  checkBtnWatched('watchedMovies', watchedBtn);
+  checkBtnQueue('queueMovies', queueBtn);
+});
+
+watchedBtn.addEventListener('click', () => {
+  let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+  if (!watchedMovies.find(item => item.id === uniqueMovieId)) {
+    saveToLocalStorage(watchedMovies, clickedMovie, 'watchedMovies');
+    watchedBtn.textContent = 'Remove from watched';
+  } else {
+    removeToLocalStorage(watchedMovies, 'watchedMovies');
+    watchedBtn.classList.add('modal__button');
+    watchedBtn.textContent = 'Add to watched';
   }
+});
 
-  function onWatchedClick() {
-    const watchedMovie = JSON.parse(localStorage.getItem('watchedMovie'));
-
-    if (!watchedMovie.find(item => item.id === data.id)) {
-      watchedMovie.push(data);
-      localStorage.setItem('watchedMovie', JSON.stringify(watchedMovie));
-    }
+queueBtn.addEventListener('click', () => {
+  let queueMovies = JSON.parse(localStorage.getItem('queueMovies')) || [];
+  if (!queueMovies.find(item => item.id === uniqueMovieId)) {
+    saveToLocalStorage(queueMovies, clickedMovie, 'queueMovies');
+    queueBtn.textContent = 'Remove from queue';
+  } else {
+    removeToLocalStorage(queueMovies, 'queueMovies');
+    queueBtn.textContent = 'Add to queue';
   }
+});
 
-  function onQueueClick() {
-    const watchedQueue = JSON.parse(localStorage.getItem('queueMovie'));
+function saveToLocalStorage(name, data, key) {
+  name.push(data);
+  localStorage.setItem(key, JSON.stringify(name));
+}
 
-    if (!watchedQueue.find(item => item.id === data.id)) {
-      watchedQueue.push(data);
-      localStorage.setItem('queueMovie', JSON.stringify(watchedQueue));
-    }
+function removeToLocalStorage(name, key) {
+  let index = name.findIndex(item => item.id === uniqueMovieId);
+  name.splice(index, 1);
+  localStorage.setItem(key, JSON.stringify(name));
+}
+
+function checkBtnWatched(key, nameBtn) {
+  const array = JSON.parse(localStorage.getItem(key));
+  if (array.findIndex(item => item.id === uniqueMovieId) !== -1) {
+    nameBtn.classList.add('modal__button--remove');
+    nameBtn.textContent = 'Remove from watched';
+  } else {
+    nameBtn.classList.remove('modal__button--remove');
+    nameBtn.textContent = 'Add to watched';
   }
+}
 
-  addwatchedBtn.addEventListener('click', onWatchedClick);
-  addqueueBtn.addEventListener('click', onQueueClick);
+function checkBtnQueue(key, nameBtn) {
+  const array = JSON.parse(localStorage.getItem(key));
+  if (array.findIndex(item => item.id === uniqueMovieId) !== -1) {
+    nameBtn.classList.add('modal__button--remove');
+    nameBtn.textContent = 'Remove from queue';
+  } else {
+    nameBtn.classList.remove('modal__button--remove');
+    nameBtn.textContent = 'Add to queue';
+  }
 }
