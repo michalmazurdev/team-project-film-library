@@ -160,7 +160,7 @@ const renderPageNumber = (page, totalPages) => {
   pageCurrent.innerHTML = page;
   pagePlus1.innerHTML = Number(page) + 1;
   pagePlus2.innerHTML = Number(page) + 2;
-  pageLast.innerHTML = Number(totalPages);
+  pageLast.innerHTML = Number(+totalPages);
 
   console.log('TOTAL', +totalPages);
   console.log('PAGE', page);
