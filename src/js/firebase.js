@@ -8,7 +8,7 @@ import {
 import Notiflix from 'notiflix';
 import axios from 'axios';
 import { movieTypes } from './genres.js';
-import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
+import { getDatabase, ref, set, child, get, update, remove, limitToFirst } from 'firebase/database';
 import { Notify } from 'notiflix';
 
 const organizeArray = array => {
@@ -44,7 +44,6 @@ let clickedMovie;
 onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
     user = currentUser;
-    Notify.success('No you can click some stuff (from onAuthStateChanged func )');
   }
 });
 
@@ -308,6 +307,7 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
       moviesAddedToWatch = snapshot.val();
       const arrayOfVideoData = Object.values(moviesAddedToWatch);
       const arrayOfVideoIds = Object.keys(moviesAddedToWatch);
+      // const totalItems = arrayOfVideoData.length;
       console.log(
         'Tu przechowywane są tablice z filmami i ich ID : ',
         arrayOfVideoData,
