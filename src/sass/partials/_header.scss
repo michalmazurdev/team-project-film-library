@@ -44,9 +44,7 @@
   &__list {
     display: flex;
     align-items: center;
-    gap: 10px;
-    @include tablet {
-    gap: 40px;}
+    gap: 40px;
   }
 
   &__link {
@@ -125,68 +123,7 @@
       text-align: left;
     }
   }
-  .layout__form {
-    justify-content: flex-start;
-    gap: 20px;
-    display: flex;
-    margin-top: 2px;
-    position: relative;
-  }
 
-  .login__form {
-    visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    margin-bottom: 5px;
-    position: absolute;
-    top: 20px;
-  }
-
-  .login__input {
-      height: 15px;
-      width: 113px;
-      background-color: $transparentColor;
-      border: none;
-      border-bottom: 1px solid $defaultColor;
-      outline: none;
-      color: $defaultColor;
-      font-size: $smallFontSize;
-      line-height: $defaultLineHeight;
-      &::placeholder {
-        color: $defaultColor;
-        opacity: 0.5;
-        font-size: $smallFontSize;
-        line-height: $defaultLineHeight;
-        font-style: italic;
-        text-align: center;
-      }
-  }
-
-  .login__btn {
-    visibility: hidden;
-    width: 70px;
-    height: 15px;
-    margin-top: 3px;
-    background-color: $transparentColor;
-    border: 1px solid $defaultColor;
-    border-radius: 4px;
-    color: $defaultColor;
-    font-weight: 500;
-    font-size: $smallFontSize;
-    line-height: $smallLineHeight;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    position: absolute;
-    top: 50px;
-    left: 20px;
-    &:hover,
-    &:focus {
-      background-color: $descritiopnColor;
-    }
-  }
   .button {
     display: flex;
     align-items: center;

@@ -69,16 +69,18 @@ document.getElementById('log-btn').addEventListener('click', function () {
 });
 
 document.getElementById('register-btn').addEventListener('click', function () {
-  loginEmail = document.getElementById('login-email').value;
-  loginPassword = document.getElementById('login-password').value;
+  const registerEmail = document.getElementById('register-email').value;
+  const registerPassword = document.getElementById('register-password').value;
 
-  createUserWithEmailAndPassword(auth, loginEmail, loginPassword)
+  createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
     .then(userCredential => {
       user = userCredential.user;
+      document.getElementById('register-div').style.display = 'inline';
       Notify.success('Succesfully registered! Now log in');
     })
     .catch(error => {
       const errorMessage = error.message;
+      document.getElementById('register-div').style.display = 'inline';
       Notify.failure(`${errorMessage}`);
     });
 });
