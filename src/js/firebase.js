@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from 'firebase/auth';
+import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix';
 
@@ -244,7 +245,7 @@ const drawMovies = (movies, collection) => {
     </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title.toUpperCase()}</p>
-        <span class="movie-card__genre" id="genre_ids">${movie.genre_ids} |</span>
+        <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,
