@@ -40,39 +40,43 @@ const getURL = page => {
 
 // FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
 
-const fetchSearchedMovies = async page => {
-  try {
-    const response = await axios.get(getURL(page));
-    let data = response.data;
-    localStorage.setItem('currentFetch', JSON.stringify(data.results));
-    // localStorage.setItem('areWeTrending', JSON.stringify(false));
-    return data;
-  } catch (error) {
-    console.log(error);
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.',
-    );
-    // searchErrorEl.classList.remove('is-hidden');
-  }
-};
-
 // const fetchSearchedMovies = async page => {
 //   try {
 //     const response = await axios.get(getURL(page));
 //     let data = response.data;
-//     if (data.results) {
-//       localStorage.setItem('currentFetch', JSON.stringify(data.results));
-//       localStorage.setItem('areWeTrending', JSON.stringify(false));
-//       console.log('SEARCHED', data);
-//       return data;
-//     } else {
-//       throw new Error('No movie results found.');
-//     }
+//     localStorage.setItem('currentFetch', JSON.stringify(data.results));
+//     // localStorage.setItem('areWeTrending', JSON.stringify(false));
+//     console.log('DATA', data);
+//     console.log('RESPONSE', response);
+//     return data;
 //   } catch (error) {
 //     console.log(error);
-//     // Handle the error appropriately, e.g., show a notification or display an error message on the page.
+//     Notiflix.Notify.failure(
+//       'Sorry, there are no images matching your search query. Please try again.',
+//     );
+//     // searchErrorEl.classList.remove('is-hidden');
 //   }
 // };
+
+const fetchSearchedMovies = async page => {
+  try {
+    const response = await axios.get(getURL(page));
+    let data = response.data;
+    if (data.results.length !== 0) {
+      localStorage.setItem('currentFetch', JSON.stringify(data.results));
+      localStorage.setItem('areWeTrending', JSON.stringify(false));
+      console.log('SEARCHED', data);
+      searchErrorEl.innerHTML = '';
+      return data;
+    } else {
+      searchErrorEl.innerHTML = 'Search result not successful. Enter the correct movie name and';
+      throw new Error('No movie results found.');
+    }
+  } catch (error) {
+    console.log(error);
+    // Handle the error appropriately, e.g., show a notification or display an error message on the page.
+  }
+};
 
 const drawMovies = (movies, collection) => {
   let markup = '';
@@ -127,7 +131,7 @@ const firstIteration = async page => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
 };
 
 firstIteration(page);
