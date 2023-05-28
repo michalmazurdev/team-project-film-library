@@ -14,10 +14,10 @@
 
 // $colors: hsla(337, 84, 48, 0.75) hsla(160, 50, 48, 0.75) hsla(190, 61, 65, 0.75)
 //   hsla(41, 82, 52, 0.75);
-$color1: hsla(337, 84, 48, 0.75);
-$color2: hsla(160, 50, 48, 0.75);
-$color3: hsla(190, 61, 65, 0.75);
-$color4: hsla(41, 82, 52, 0.75);
+$color1: $defaultColor;
+$color2: $defaultColor;
+$color3: $defaultColor;
+$color4: $defaultColor;
 
 $size: 2.5em;
 $thickness: 0.5em;
