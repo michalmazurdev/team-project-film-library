@@ -5,6 +5,8 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from 'firebase/auth';
+import Notiflix from 'notiflix';
+import axios from 'axios';
 import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix';
@@ -151,9 +153,8 @@ window.addEventListener('click', async event => {
   if (event.target.className !== 'movie-card__poster') {
     return;
   }
-
+  const movieId = event.target.dataset.movieid;
   clickedMovie = await fetchMovieInfo(movieId);
-
   UniqueFilmId = clickedMovie.id;
 });
 

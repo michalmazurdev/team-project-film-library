@@ -30,7 +30,6 @@ const getURL = page => {
     // Jeśli inny warunek to można np z local storage pobrać dane
   } else {
     url = `${searchMovieURL}${searchParams}`;
-    console.log('search for movies');
   }
 
   return url;
@@ -44,7 +43,6 @@ const fetchSearchedMovies = async page => {
     let data = response.data;
     localStorage.setItem('currentFetch', JSON.stringify(data.results));
     // localStorage.setItem('areWeTrending', JSON.stringify(false));
-    console.log('SEARCHED', data);
     return data;
   } catch (error) {
     console.log(error);
@@ -75,7 +73,6 @@ const fetchSearchedMovies = async page => {
 const drawMovies = (movies, collection) => {
   let markup = '';
   let id = 0;
-  console.log(movies);
   movies.forEach(movie => {
     let posterUrl = movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
