@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import { hideLoader, showLoader, showLoaderFor700 } from './loader.js';
 import { movieTypes } from './genres.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
@@ -28,13 +29,12 @@ const getURL = page => {
   let url;
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
-    console.log('this week');
+
     // Jeśli inny warunek to można np z local storage pobrać dane
   } else {
     url = `${searchMovieURL}${searchParams}`;
-    console.log('search for movies');
   }
-  console.log(url);
+
   return url;
 };
 
@@ -45,8 +45,7 @@ const fetchSearchedMovies = async page => {
     const response = await axios.get(getURL(page));
     let data = response.data;
     localStorage.setItem('currentFetch', JSON.stringify(data.results));
-    localStorage.setItem('areWeTrending', JSON.stringify(false));
-    console.log('SEARCHED', data);
+    // localStorage.setItem('areWeTrending', JSON.stringify(false));
     return data;
   } catch (error) {
     console.log(error);
@@ -75,10 +74,10 @@ const fetchSearchedMovies = async page => {
 //   }
 // };
 
-const drawMovies = data => {
+const drawMovies = (movies, collection) => {
   let markup = '';
   let id = 0;
-  data.forEach(movie => {
+  movies.forEach(movie => {
     let posterUrl = movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
@@ -88,14 +87,16 @@ const drawMovies = data => {
     markup += `
     <div class="movie-card">
     <div class="movie-card__poster-container">
-    <img class="movie-card__poster" id="poster_path" data-order=${id++}
+    <img class="movie-card__poster" id="poster_path" data-movieid=${
+      movie.id
+    } data-collection=${collection}
     src="${posterUrl}"
     srcset="${posterUrl} 1x, ${posterUrlRetina} 2x"
     alt=""
     />
     </div>
     <div class="movie-card__figcaption">
-        <p class="movie-card__title" id="title">${movie.title}</p>
+        <p class="movie-card__title" id="title">${movie.title.toUpperCase()}</p>
         <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
@@ -118,6 +119,20 @@ const loadMovies = markup => {
     element.classList.add('is-hidden');
   });
 };
+
+
+const firstIteration = async page => {
+  localStorage.setItem('currentPage', 1);
+  page = parseInt(localStorage.getItem('currentPage'));
+
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data);
+};
+
+firstIteration(page);
+
 
 // PAGINATION
 
@@ -389,7 +404,7 @@ searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
   page = 1;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -401,7 +416,7 @@ pagePrevious.addEventListener('click', async event => {
   event.preventDefault();
   page = parseInt(localStorage.getItem('currentPage')) - 1;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -412,7 +427,7 @@ pageFirst.addEventListener('click', async event => {
   const page = event.target.innerHTML;
 
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -422,7 +437,7 @@ pageMinus2.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -432,7 +447,7 @@ pageMinus1.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -442,7 +457,7 @@ pagePlus1.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -452,7 +467,7 @@ pagePlus2.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -462,7 +477,7 @@ pageLast.addEventListener('click', async event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
@@ -472,7 +487,7 @@ pageNext.addEventListener('click', async event => {
   event.preventDefault();
   page = parseInt(localStorage.getItem('currentPage')) + 1;
   const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
+  const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
