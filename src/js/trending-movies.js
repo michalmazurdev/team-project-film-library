@@ -9,6 +9,9 @@ const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
 const searchAllURL = `https://api.themoviedb.org/3/search/multi?`;
 const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
 const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
+const searchErrorEl = document.querySelector('.form__result');
+
+console.log('tag html', searchErrorEl);
 
 const language = 'en-US';
 let page = parseInt(localStorage.getItem('currentPage')) || 1;
@@ -47,9 +50,10 @@ const fetchSearchedMovies = async page => {
     return data;
   } catch (error) {
     console.log(error);
-    // Notiflix.Notify.failure(
-    //   'Sorry, there are no images matching your search query. Please try again.',
-    // );
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.',
+    );
+    // searchErrorEl.classList.remove('is-hidden');
   }
 };
 
@@ -115,18 +119,6 @@ const loadMovies = markup => {
   });
 };
 
-const firstIteration = async page => {
-  localStorage.setItem('currentPage', 1);
-  page = parseInt(localStorage.getItem('currentPage'));
-
-  const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
-  loadMovies(markup);
-  renderPageNumber(page, data);
-};
-
-firstIteration(page);
-
 // PAGINATION
 
 const pagePrevious = document.getElementById('previous');
@@ -142,23 +134,25 @@ const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
 // const paginationBtns = document.querySelector('.pagination');
-// TO DELETE:
+// USTAWIANIE PAGINACJI NA SAMEJ GÓRZE:
 const paginationBtns = document.querySelector('.pagination');
 paginationBtns.classList.add('top'); // Dodaje klasę 'top'
 
-const renderPageNumber = (page, data) => {
+const renderPageNumber = (page, totalPages) => {
+  // totalPages = data.total_pages;
+
   pageFirst.innerHTML = 1;
   pageMinus2.innerHTML = Number(page) - 2;
   pageMinus1.innerHTML = Number(page) - 1;
   pageCurrent.innerHTML = page;
   pagePlus1.innerHTML = Number(page) + 1;
   pagePlus2.innerHTML = Number(page) + 2;
-  pageLast.innerHTML = data.total_pages;
+  pageLast.innerHTML = Number(totalPages);
 
-  console.log('TOTAL', +data.total_pages);
+  console.log('TOTAL', +totalPages);
   console.log('PAGE', page);
 
-  if (+data.total_pages === 1) {
+  if (+totalPages === 1) {
     pagePrevious.classList.add('is-hidden');
     pageFirst.classList.add('is-hidden');
     pageDot.classList.add('is-hidden');
@@ -170,7 +164,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.add('is-hidden');
     pageNext.classList.add('is-hidden');
-  } else if (+data.total_pages === 2) {
+  } else if (+totalPages === 2) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.add('is-hidden');
@@ -182,7 +176,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+data.total_pages === 3) {
+  } else if (+totalPages === 3) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.add('is-hidden');
@@ -194,7 +188,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+data.total_pages === 4) {
+  } else if (+totalPages === 4) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.add('is-hidden');
@@ -206,7 +200,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+data.total_pages === 5) {
+  } else if (+totalPages === 5) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.remove('is-hidden');
@@ -266,7 +260,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.remove('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+page === data.total_pages) {
+  } else if (+page === +totalPages) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.remove('is-hidden');
@@ -278,7 +272,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.add('is-hidden');
     pageNext.classList.add('is-hidden');
-  } else if (+page === data.total_pages - 1) {
+  } else if (+page === +totalPages - 1) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.remove('is-hidden');
@@ -290,7 +284,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+page === data.total_pages - 2) {
+  } else if (+page === +totalPages - 2) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.remove('is-hidden');
@@ -302,7 +296,7 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.add('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
-  } else if (+page === data.total_pages - 3) {
+  } else if (+page === +totalPages - 3) {
     pagePrevious.classList.remove('is-hidden');
     pageFirst.classList.remove('is-hidden');
     pageDot.classList.remove('is-hidden');
@@ -355,29 +349,41 @@ const renderPageNumber = (page, data) => {
 
   // RIGHT:
 
-  if (+pageCurrent.innerHTML === +data.total_pages) {
+  if (+pageCurrent.innerHTML === +totalPages) {
     pagePlus2.classList.add('is-hidden');
     pagePlus1.classList.add('is-hidden');
     pageDot2.classList.add('is-hidden');
     pageLast.classList.add('is-hidden');
     pageNext.classList.add('is-hidden');
   }
-  if (+pagePlus1.innerHTML >= +data.total_pages) {
+  if (+pagePlus1.innerHTML >= +totalPages) {
     pagePlus1.classList.add('is-hidden');
   }
-  if (+pagePlus2.innerHTML >= +data.total_pages) {
+  if (+pagePlus2.innerHTML >= +totalPages) {
     pagePlus2.classList.add('is-hidden');
   }
-  if (+pageCurrent.innerHTML + 1 === +data.total_pages) {
+  if (+pageCurrent.innerHTML + 1 === +totalPages) {
     pageDot2.classList.add('is-hidden');
   }
-  if (+pagePlus1.innerHTML + 1 === +data.total_pages) {
+  if (+pagePlus1.innerHTML + 1 === +totalPages) {
     pageDot2.classList.add('is-hidden');
   }
-  if (+pagePlus2.innerHTML + 1 === +data.total_pages) {
+  if (+pagePlus2.innerHTML + 1 === +totalPages) {
     pageDot2.classList.add('is-hidden');
   }
 };
+
+const firstIteration = async page => {
+  localStorage.setItem('currentPage', 1);
+  page = parseInt(localStorage.getItem('currentPage'));
+
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results);
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+};
+
+firstIteration(page);
 
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
@@ -385,7 +391,7 @@ searchFormEl.addEventListener('submit', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -397,7 +403,7 @@ pagePrevious.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -408,7 +414,7 @@ pageFirst.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -418,7 +424,7 @@ pageMinus2.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -428,7 +434,7 @@ pageMinus1.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -438,7 +444,7 @@ pagePlus1.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -448,7 +454,7 @@ pagePlus2.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -458,7 +464,7 @@ pageLast.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });
 
@@ -468,6 +474,6 @@ pageNext.addEventListener('click', async event => {
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results);
   loadMovies(markup);
-  renderPageNumber(page, data);
+  renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
 });

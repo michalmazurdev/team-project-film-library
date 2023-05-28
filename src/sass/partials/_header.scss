@@ -117,8 +117,6 @@
     }
 
     &__result {
-      // visibility: visible;
-      visibility: hidden;
       color: $accentColor;
       font-size: $smallFontSize;
       line-height: $defaultLineHeight;
@@ -152,6 +150,10 @@
       }
     }
   }
+}
+
+.is-hidden {
+  display: none;
 }
 
 @media (max-width: 767px) {
