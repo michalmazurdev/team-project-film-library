@@ -28,18 +28,9 @@ let user;
 let id;
 let clickedMovie;
 
-onAuthStateChanged(auth, user => {
-  if (user) {
-    user
-      .getIdTokenResult()
-      .then(idTokenResult => {
-        const expirationTime = idTokenResult.expirationTime;
-        const remainingTime = expirationTime - Date.now();
-        console.log('ile czasu zostalo w milisec:', remainingTime);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+onAuthStateChanged(auth, currentUser => {
+  if (currentUser) {
+    user = currentUser;
   }
 });
 
@@ -296,7 +287,7 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
         arrayOfVideoData,
         arrayOfVideoIds,
       );
-      localStorage.setItem(watchedOrQueue, JSON.stringify(arrayOfVideoData));
+      // localStorage.setItem(watchedOrQueue, JSON.stringify(arrayOfVideoData));
       loadMovies(drawMovies(arrayOfVideoData, watchedOrQueue));
     });
   } else {
