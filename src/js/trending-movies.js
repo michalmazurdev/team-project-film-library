@@ -120,7 +120,6 @@ const loadMovies = markup => {
   });
 };
 
-
 const firstIteration = async page => {
   localStorage.setItem('currentPage', 1);
   page = parseInt(localStorage.getItem('currentPage'));
@@ -132,7 +131,6 @@ const firstIteration = async page => {
 };
 
 firstIteration(page);
-
 
 // PAGINATION
 
@@ -387,18 +385,6 @@ const renderPageNumber = (page, totalPages) => {
     pageDot2.classList.add('is-hidden');
   }
 };
-
-const firstIteration = async page => {
-  localStorage.setItem('currentPage', 1);
-  page = parseInt(localStorage.getItem('currentPage'));
-
-  const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results);
-  loadMovies(markup);
-  renderPageNumber(page, data.total_pages);
-};
-
-firstIteration(page);
 
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
