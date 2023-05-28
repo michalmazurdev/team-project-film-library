@@ -142,6 +142,11 @@ const pageDot2 = document.getElementById('dot2');
 const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
+// const paginationBtns = document.querySelector('.pagination');
+// TO DELETE:
+const paginationBtns = document.querySelector('.pagination');
+paginationBtns.classList.add('top'); // Dodaje klasę 'top'
+
 const renderPageNumber = (page, data) => {
   pageFirst.innerHTML = 1;
   pageMinus2.innerHTML = Number(page) - 2;
@@ -151,151 +156,70 @@ const renderPageNumber = (page, data) => {
   pagePlus2.innerHTML = Number(page) + 2;
   pageLast.innerHTML = data.total_pages;
 
-  // if (data.total_pages === 1)
-  console.log(+data.total_pages);
-  console.log(page);
+  console.log('TOTAL', +data.total_pages);
+  console.log('PAGE', page);
 
-  // if (+data.total_pages === 1) {
-  //   pagePrevious.classList.add('is-hidden');
-  //   pageFirst.classList.add('is-hidden');
-  //   pageDot.classList.add('is-hidden');
-  //   pageMinus2.classList.add('is-hidden');
-  //   pageMinus1.classList.add('is-hidden');
+  if (+data.total_pages === 1) {
+    pagePrevious.classList.add('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
 
-  //   pagePlus1.classList.add('is-hidden');
-  //   pagePlus2.classList.add('is-hidden');
-  //   pageDot2.classList.add('is-hidden');
-  //   pageLast.classList.add('is-hidden');
-  //   pageNext.classList.add('is-hidden');
-  // } else if (+data.total_pages === 2) {
-  //   pagePrevious.classList.add('is-hidden');
-  //   pageFirst.classList.add('is-hidden');
-  //   pageDot.classList.add('is-hidden');
-  //   pageMinus2.classList.add('is-hidden');
-  //   pageMinus1.classList.add('is-hidden');
+    pagePlus1.classList.add('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.add('is-hidden');
+    pageNext.classList.add('is-hidden');
+  } else if (+data.total_pages === 2) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
 
-  //   pagePlus1.classList.add('is-hidden');
-  //   pagePlus2.classList.add('is-hidden');
-  //   pageDot2.classList.add('is-hidden');
-  //   pageLast.classList.add('is-hidden');
-  //   pageNext.classList.add('is-hidden');
-  // } else
+    pagePlus1.classList.add('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+data.total_pages === 3) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
 
-  //  1 WSZY SPOSÓB Z INLINE:
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+data.total_pages === 4) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
 
-  // if (+page === 1) {
-  //   pagePrevious.style.display = 'none';
-  //   pageFirst.style.display = 'none';
-  //   pageDot.style.display = 'none';
-  //   pageMinus2.style.display = 'none';
-  //   pageMinus1.style.display = 'none';
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+data.total_pages === 5) {
+    pagePrevious.classList.remove('is-hidden');
+    pageFirst.classList.remove('is-hidden');
+    pageDot.classList.remove('is-hidden');
+    pageMinus2.classList.remove('is-hidden');
+    pageMinus1.classList.remove('is-hidden');
 
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = '';
-  //   pageDot2.style.display = '';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else if (+page === 2) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = 'none';
-  //   pageMinus2.style.display = 'none';
-  //   pageMinus1.style.display = 'none';
-
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = '';
-  //   pageDot2.style.display = '';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else if (+page === 3) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = 'none';
-  //   pageMinus2.style.display = 'none';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = '';
-  //   pageDot2.style.display = '';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else if (+page === 4) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = 'none';
-  //   pageMinus2.style.display = '';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = '';
-  //   pageDot2.style.display = '';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else if (+page === data.total_pages) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = '';
-  //   pageMinus2.style.display = '';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = 'none';
-  //   pagePlus2.style.display = 'none';
-  //   pageDot2.style.display = 'none';
-  //   pageLast.style.display = 'none';
-  //   pageNext.style.display = 'none';
-  // } else if (+page === data.total_pages - 1) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = '';
-  //   pageMinus2.style.display = '';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = 'none';
-  //   pagePlus2.style.display = 'none';
-  //   pageDot2.style.display = 'none';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else if (+page === data.total_pages - 2) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = '';
-  //   pageMinus2.style.display = '';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = 'none';
-  //   pageDot2.style.display = 'none';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else if (+page === data.total_pages - 3) {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = '';
-  //   pageMinus2.style.display = '';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = '';
-  //   pageDot2.style.display = 'none';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // } else {
-  //   pagePrevious.style.display = '';
-  //   pageFirst.style.display = '';
-  //   pageDot.style.display = '';
-  //   pageMinus2.style.display = '';
-  //   pageMinus1.style.display = '';
-
-  //   pagePlus1.style.display = '';
-  //   pagePlus2.style.display = '';
-  //   pageDot2.style.display = '';
-  //   pageLast.style.display = '';
-  //   pageNext.style.display = '';
-  // }
-
-  // DRUGI SPOSÓB
-
-  if (+page === 1) {
+    pagePlus1.classList.remove('is-hidden');
+    pagePlus2.classList.remove('is-hidden');
+    pageDot2.classList.remove('is-hidden');
+    pageLast.classList.remove('is-hidden');
+    pageNext.classList.remove('is-hidden');
+  } else if (+page === 1) {
     pagePrevious.classList.add('is-hidden');
     pageFirst.classList.add('is-hidden');
     pageDot.classList.add('is-hidden');
@@ -403,6 +327,56 @@ const renderPageNumber = (page, data) => {
     pageDot2.classList.remove('is-hidden');
     pageLast.classList.remove('is-hidden');
     pageNext.classList.remove('is-hidden');
+  }
+
+  // LEFT:
+
+  if (+pageCurrent.innerHTML === 1) {
+    pagePrevious.classList.add('is-hidden');
+    pageFirst.classList.add('is-hidden');
+    pageDot.classList.add('is-hidden');
+    pageMinus1.classList.add('is-hidden');
+    pageMinus2.classList.add('is-hidden');
+  }
+  if (+pageMinus2.innerHTML <= 1) {
+    pageMinus2.classList.add('is-hidden');
+  }
+  if (+pageMinus1.innerHTML <= 1) {
+    pageMinus1.classList.add('is-hidden');
+  }
+  if (+pageCurrent.innerHTML === 2) {
+    pageDot.classList.add('is-hidden');
+  }
+  if (+pageMinus1.innerHTML - 1 === 1) {
+    pageDot.classList.add('is-hidden');
+  }
+  if (+pageMinus2.innerHTML - 1 === 1) {
+    pageDot.classList.add('is-hidden');
+  }
+
+  // RIGHT:
+
+  if (+pageCurrent.innerHTML === +data.total_pages) {
+    pagePlus2.classList.add('is-hidden');
+    pagePlus1.classList.add('is-hidden');
+    pageDot2.classList.add('is-hidden');
+    pageLast.classList.add('is-hidden');
+    pageNext.classList.add('is-hidden');
+  }
+  if (+pagePlus1.innerHTML >= +data.total_pages) {
+    pagePlus1.classList.add('is-hidden');
+  }
+  if (+pagePlus2.innerHTML >= +data.total_pages) {
+    pagePlus2.classList.add('is-hidden');
+  }
+  if (+pageCurrent.innerHTML + 1 === +data.total_pages) {
+    pageDot2.classList.add('is-hidden');
+  }
+  if (+pagePlus1.innerHTML + 1 === +data.total_pages) {
+    pageDot2.classList.add('is-hidden');
+  }
+  if (+pagePlus2.innerHTML + 1 === +data.total_pages) {
+    pageDot2.classList.add('is-hidden');
   }
 };
 
