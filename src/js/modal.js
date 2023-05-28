@@ -1,5 +1,6 @@
 import { movieTypes } from './genres.js';
-import axios from 'axios';
+
+const posterEl = document.querySelector('#poster_path');
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
 
@@ -32,27 +33,14 @@ const clickedOutside = event => {
   }
 };
 
-const fetchMovieInfo = async movieId => {
-  try {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e58d3162f5aafaf855cf7d900bbc361&language=en-US`,
-    );
-    return response.data;
-  } catch (error) {
-    Notiflix.Notify.failure('some error😇.');
-  }
-};
-
-window.addEventListener('click', async event => {
+window.addEventListener('click', event => {
   if (event.target.className !== 'movie-card__poster') {
     return;
   }
   modalEl.classList.toggle('modal__hidden');
-  const movieId = event.target.dataset.movieid;
-  const clickedMovie = await fetchMovieInfo(movieId);
-  console.log();
-  console.log(clickedMovie);
-  console.log(movieId);
+
+  const id = event.target.dataset.order;
+  const clickedMovie = JSON.parse(localStorage.getItem('currentFetch'))[id];
 
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
@@ -60,6 +48,7 @@ window.addEventListener('click', async event => {
   let posterUrlRetina = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w780${clickedMovie.poster_path}`
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
+
 
   let modalPosterEl = document.querySelector('.modal__poster');
   let titleEl = document.querySelector('.modal__title');
@@ -70,17 +59,17 @@ window.addEventListener('click', async event => {
   let genresEl = document.querySelector("dd[data-info='genres']");
   let descriptionEl = document.querySelector('.modal__descripton');
 
+
   modalPosterEl.src = `${posterUrl}`;
-  modalPosterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
+  posterEl.srcset = `${posterUrl} 1x, ${posterUrlRetina} 2x`;
   titleEl.textContent = `${clickedMovie.title}`;
-  ratingEl.textContent = `${Number.parseFloat(clickedMovie.vote_average).toFixed(1)}`;
+  ratingEl.textContent = `${formatRate(clickedMovie.vote_average)}`;
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
   popularityEl.innerText = `${clickedMovie.popularity}`;
-  longTitle.innerText = `${clickedMovie.original_title.toUpperCase()}`;
-  genresEl.innerText = `${movieTypes(clickedMovie.genres.map(genre => genre.id))}`;
+  longTitle.innerText = `${clickedMovie.original_title}`;
+  genresEl.innerText = `${movieTypes(clickedMovie.genre_ids)}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
-  modalEl.dataset.genres = `${clickedMovie.genre_ids}`;
 
   closeButtonEl.addEventListener('click', clickedCloseButton);
   modalEl.addEventListener('click', clickedOutside);
