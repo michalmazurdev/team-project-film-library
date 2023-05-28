@@ -38,26 +38,6 @@ const getURL = page => {
   return url;
 };
 
-// FUNKCJA POBIERAJĄCA DANE Z SERWERA W ZALEŻNOŚCI OD WART URL
-
-// const fetchSearchedMovies = async page => {
-//   try {
-//     const response = await axios.get(getURL(page));
-//     let data = response.data;
-//     localStorage.setItem('currentFetch', JSON.stringify(data.results));
-//     // localStorage.setItem('areWeTrending', JSON.stringify(false));
-//     console.log('DATA', data);
-//     console.log('RESPONSE', response);
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//     Notiflix.Notify.failure(
-//       'Sorry, there are no images matching your search query. Please try again.',
-//     );
-//     // searchErrorEl.classList.remove('is-hidden');
-//   }
-// };
-
 const fetchSearchedMovies = async page => {
   try {
     const response = await axios.get(getURL(page));
@@ -74,7 +54,6 @@ const fetchSearchedMovies = async page => {
     }
   } catch (error) {
     console.log(error);
-    // Handle the error appropriately, e.g., show a notification or display an error message on the page.
   }
 };
 
@@ -153,10 +132,20 @@ const pageNext = document.getElementById('next');
 // const paginationBtns = document.querySelector('.pagination');
 // USTAWIANIE PAGINACJI NA SAMEJ GÓRZE:
 const paginationBtns = document.querySelector('.pagination');
-paginationBtns.classList.add('top'); // Dodaje klasę 'top'
+// Dodaje klasę 'top'
+// paginationBtns.classList.add('top');
 
 const renderPageNumber = (page, totalPages) => {
   // totalPages = data.total_pages;
+
+  if (page > 1) {
+    const headerHeight = document.querySelector('header').offsetHeight;
+
+    window.scrollTo({
+      top: headerHeight,
+      behavior: 'smooth',
+    });
+  }
 
   pageFirst.innerHTML = 1;
   pageMinus2.innerHTML = Number(page) - 2;
@@ -168,7 +157,6 @@ const renderPageNumber = (page, totalPages) => {
 
   console.log('TOTAL', +totalPages);
   console.log('PAGE', page);
-
   if (+totalPages === 1) {
     pagePrevious.classList.add('is-hidden');
     pageFirst.classList.add('is-hidden');
