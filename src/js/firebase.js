@@ -11,6 +11,16 @@ import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix';
 
+const organizeArray = array => {
+  let object = {};
+  let totalPages = Math.ceil(array.length / 20);
+  for (let i = 0; i < totalPages; i++) {
+    object[i + 1] = array.slice(i * 20, i * 20 + 20);
+  }
+  object.total_pages = totalPages;
+  return object;
+};
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDWoBH83IVZtl5zfAq5CbdguqYq3fE-DS0',
   authDomain: 'js-team-project-gr5.firebaseapp.com',
@@ -34,6 +44,7 @@ let clickedMovie;
 onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
     user = currentUser;
+    Notify.success('No you can click some stuff (from onAuthStateChanged func )');
   }
 });
 
@@ -302,7 +313,7 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
         arrayOfVideoData,
         arrayOfVideoIds,
       );
-      // localStorage.setItem(watchedOrQueue, JSON.stringify(arrayOfVideoData));
+      localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
       loadMovies(drawMovies(arrayOfVideoData, watchedOrQueue));
     });
   } else {
