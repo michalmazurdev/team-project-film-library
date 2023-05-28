@@ -3,7 +3,6 @@ import axios from 'axios';
 const posterEl = document.querySelector('.modal__poster');
 const modalVideoEl = document.querySelector('.modal-video__backdrop');
 const closeButtonVideoEl = document.querySelector('.modal-video__close');
-console.log(closeButtonVideoEl);
 
 const closeVideo = () => {
   modalVideoEl.classList.toggle('modal-video__hidden');
