@@ -765,4 +765,3 @@ const organizeArray = array => {
   object.total_pages = totalPages;
   return object;
 };
-console.log(organizeArray(mockMovies));

@@ -44,8 +44,6 @@ let clickedMovie;
 onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
     user = currentUser;
-    console.log('logged in');
-    Notify.success('You can now click stuff');
   }
 });
 
