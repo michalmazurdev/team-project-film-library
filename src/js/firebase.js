@@ -53,64 +53,36 @@ onAuthStateChanged(auth, currentUser => {
 
 //******************* */
 
-// document.getElementById('log-btn').addEventListener('click', function () {
-//   loginEmail = document.getElementById('login-email').value;
-//   loginPassword = document.getElementById('login-password').value;
+document.getElementById('log-btn').addEventListener('click', function () {
+  loginEmail = document.getElementById('login-email').value;
+  loginPassword = document.getElementById('login-password').value;
 
-//   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-//     .then(userCredential => {
-//       Notify.success('Succesfully logged in');
-//       user = userCredential.user;
-//     })
-//     .catch(error => {
-//       const errorMessage = error.message;
-//       Notify.failure(`${errorMessage}`);
-//     });
-// });
-
-// document.getElementById('register-btn').addEventListener('click', function () {
-//   const registerEmail = document.getElementById('register-email').value;
-//   const registerPassword = document.getElementById('register-password').value;
-
-//   createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
-//     .then(userCredential => {
-//       user = userCredential.user;
-//       document.getElementById('register-div').style.display = 'inline';
-//       Notify.success('Succesfully registered! Now log in');
-//     })
-//     .catch(error => {
-//       const errorMessage = error.message;
-//       document.getElementById('register-div').style.display = 'inline';
-//       Notify.failure(`${errorMessage}`);
-//     });
-// });
-
-const logInBtn = document.getElementById('log-btn');
-const registerBtn = document.getElementById('register-btn');
-
-logInBtn.addEventListener('click', function() {
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
-      Notify.success('Successfully logged in');
+      Notify.success('Succesfully logged in');
       user = userCredential.user;
     })
     .catch(error => {
       const errorMessage = error.message;
-      Notify.failure(errorMessage);
+      Notify.failure(`${errorMessage}`);
     });
 });
 
-registerBtn.addEventListener('click', function() {
+document.getElementById('register-btn').addEventListener('click', function () {
+  loginEmail = document.getElementById('login-email').value;
+  loginPassword = document.getElementById('login-password').value;
+
   createUserWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
-      Notify.success('Successfully registered! Now log in');
       user = userCredential.user;
+      Notify.success('Succesfully registered! Now log in');
     })
     .catch(error => {
       const errorMessage = error.message;
-      Notify.failure(errorMessage);
+      Notify.failure(`${errorMessage}`);
     });
 });
+
 //************************************* */
 
 //funkcje zapisu i usunięcia danych z Firebase
