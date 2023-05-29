@@ -1,7 +1,7 @@
 .modal-team {
   max-height: 90vh;
   width: 85%;
-  background-color: $defaultColor;
+  background-color: $modalTeamBackground;
   margin: auto;
   position: relative;
   padding: 48 20 40;
@@ -51,6 +51,9 @@
     &:hover {
       transform: scale(1.5);
     }
+    @include desktop {
+      top: 40px;
+    }
   }
   &__scroll {
     position: absolute;
@@ -68,12 +71,15 @@
       transform: scale(1.5);
     }
     @include desktop {
-      display: none;
+      // display: none;
+      right: 60px;
+      // bottom: 70px;
+      padding-bottom: 30px;
     }
   }
   &__head-div {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     // justify-content: baseline;
     align-items: center;
 
@@ -91,7 +97,7 @@
       height: 2px;
       background-color: rgb(192, 192, 192);
       left: 50%;
-      top: 60px;
+      top: 80px;
       transform: translate(-50%, -50%);
   }
   @include tablet {
@@ -105,45 +111,39 @@
 
 }
 &__head-img {
-  margin-right: 40px;
+  transition: transform 0.25s ease-out;
+    &:hover {
+      transform: scale(1.2);
+    }
+  margin-right: 20px;
+  margin-left: 50px;
   @include tablet {
     margin-right: 70px;
+    margin-left: 80px;
   }
   @include desktop {
-    margin-left: 150px;
+    margin-right: 240px;
+    margin-left: 200px;
     // justify-content: flex-start;
   }
 }
+&__head-title {
+  font-family: $defaultFontStyle;
+  text-align: right;
+}
 
   &__header {
-    text-align: center;
-    // margin-top: 0;
-    // margin-bottom: 40px;
-    // border-bottom: 1px solid rgb(192, 192, 192);
-    // position: relative;
+    // text-align: center;
+    letter-spacing: 2px;
+    color: $textFooterColor;
 
 
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-    //   width: 80%;
-    //   height: 2px;
-    //   background-color: rgb(192, 192, 192);
-    //   left: 50%;
-    //   top: 40px;
-    //   transform: translate(-50%, -50%);
-    //   // display: flex;
+  }
+  &__header-add {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: $propertyColor;
 
-
-    //   @include desktop {
-    //     top: 50px;
-    //     // display: none;
-    //   }
-    // }
-    // @include desktop {
-    //   margin: 30px 0 60px 0;
-    //   // margin-top: 30px;
-    // }
   }
 }
 .team-members {
@@ -210,6 +210,7 @@
   }
   &__name {
     margin-bottom: 5px;
+    letter-spacing: 1px;
     @include desktop {
       border-bottom: 1px solid rgb(192, 192, 192);
       padding: 15px 0 5px 0;
