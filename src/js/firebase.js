@@ -47,8 +47,6 @@ onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
     user = currentUser;
   }
-  if (document.querySelector('.modal__button--watched')) {
-  }
 });
 
 //**************** */
