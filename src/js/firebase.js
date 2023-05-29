@@ -58,16 +58,24 @@ onAuthStateChanged(auth, currentUser => {
 document.getElementById('log-btn').addEventListener('click', function () {
   loginEmail = document.getElementById('login-email').value;
   loginPassword = document.getElementById('login-password').value;
-
+  
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
       Notify.success('Succesfully logged in');
       user = userCredential.user;
+      setTimeout(() => {
+        document.querySelector(".login__form").style.visibility = 'hidden';
+        document.getElementById('log-btn').style.visibility = 'hidden' ;
+        document.getElementById('log-in').style.color = 'white';
+        }, 1000); 
     })
     .catch(error => {
       const errorMessage = error.message;
       Notify.failure(`${errorMessage}`);
     });
+
+ 
+   
 });
 
 document.getElementById('register-btn').addEventListener('click', function () {
@@ -78,11 +86,17 @@ document.getElementById('register-btn').addEventListener('click', function () {
     .then(userCredential => {
       user = userCredential.user;
       Notify.success('Succesfully registered! Now log in');
+      setTimeout(() => {
+        document.querySelector(".login__form").style.visibility = 'hidden';
+        document.getElementById('register-btn').style.visibility = 'hidden';
+        document.getElementById('register').style.color = 'white';
+        }, 1000);
     })
     .catch(error => {
       const errorMessage = error.message;
       Notify.failure(`${errorMessage}`);
     });
+   
 });
 
 //************************************* */
