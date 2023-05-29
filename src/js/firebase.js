@@ -11,7 +11,7 @@ import { renderPageNumber } from './pagination.js';
 import axios from 'axios';
 import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove, limitToFirst } from 'firebase/database';
-import { Notify } from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const organizeArray = array => {
   let object = {};
@@ -78,7 +78,9 @@ document.getElementById('log-btn').addEventListener('click', function () {
   
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
-      Notify.success('Succesfully logged in');
+      Notify.success(`Succesfully logged in`, {
+        timeout: 1000,
+      });
       user = userCredential.user;
       logged();
       // setTimeout(() => {
@@ -89,7 +91,9 @@ document.getElementById('log-btn').addEventListener('click', function () {
     })
     .catch(error => {
       const errorMessage = error.message;
-      Notify.failure(`${errorMessage}`);
+      Notify.failure(`${errorMessage}`, {
+        timeout: 1000,
+      });
     });
 });
 
@@ -100,17 +104,33 @@ document.getElementById('register-btn').addEventListener('click', function () {
   createUserWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
       user = userCredential.user;
-      Notify.success('Succesfully registered!');
+
+//       Notify.success('Succesfully registered!');
       logged();
       // setTimeout(() => {
       //   document.querySelector(".login__form").style.visibility = 'hidden';
       //   document.getElementById('register-btn').style.visibility = 'hidden';
       //   document.getElementById('register').style.color = 'white';
       //   }, 1000);
+
+
+      Notify.success(`Succesfully registered! Now log in`, {
+        timeout: 1000,
+      });
+
+//       setTimeout(() => {
+//         document.querySelector(".login__form").style.visibility = 'hidden';
+//         document.getElementById('register-btn').style.visibility = 'hidden';
+//         document.getElementById('register').style.color = 'white';
+//         }, 1000);
+
+
     })
     .catch(error => {
       const errorMessage = error.message;
-      Notify.failure(`${errorMessage}`);
+      Notify.failure(`${errorMessage}`, {
+        timeout: 1000,
+      });
     });
    
 });
@@ -170,10 +190,15 @@ function addToWatchedOrQueue(
           id: UniqueFilmId,
         });
       }
-      Notify.success(`added to ${libraryPlace} list`);
+      Notify.success(`added to ${libraryPlace} list`, {
+        timeout: 1000,
+      });
     })
     .catch(error => {
-      Notify.failure(error.message);
+      const errorMessage = error.message;
+      Notify.failure(`${errorMessage}`, {
+        timeout: 1000,
+      });
     });
 }
 
@@ -184,7 +209,9 @@ const fetchMovieInfo = async movieId => {
     );
     return response.data;
   } catch (error) {
-    Notiflix.Notify.failure('some error😇.');
+    Notify.failure(`some error😇.`, {
+      timeout: 1000,
+    });
   }
 };
 
@@ -234,7 +261,9 @@ document.querySelector('.modal__button--watched').addEventListener('click', () =
       uid,
     );
   } else {
-    Notify.failure('No user is signed in.');
+    Notify.failure(`No user is signed in.`, {
+      timeout: 1000,
+    });
   }
 });
 
@@ -273,7 +302,9 @@ document.querySelector('.modal__button--queue').addEventListener('click', () => 
       uid,
     );
   } else {
-    Notify.failure('No user is signed in.');
+    Notify.failure('No user is signed in.', {
+      timeout: 1000,
+    });
   }
 });
 
@@ -348,15 +379,40 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
       renderPageNumberLibrary(1, organizeArray(arrayOfVideoData).total_pages);
     });
   } else {
-    Notify.failure('Sign in first');
+    Notify.failure(`Sign in first`, {
+      timeout: 1000,
+    });
   }
 }
 
 //Usuwanie obiektu z Watched lub Queue po właściwości .UniqueId
 function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
   remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${UniqueFilmId}`))
-    .then(Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`))
+    .then(Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`, {
+      timeout: 1000,
+    }))
     .catch(function (error) {
-      Notify.failure('Wystąpił błąd podczas usuwania obiektu:', error);
+      Notify.failure(`Wystąpił błąd podczas usuwania obiektu:`, error, {
+        timeout: 1000,
+      });
     });
 }
+
+function loadWatchedMoviesOnLibraryEnter() {
+  setTimeout(() => {
+    if (document.querySelector('.button__status')) {
+      if (user) {
+        watchedOrQueue = 'watched';
+        passPathToRenderMoviesFrom(watchedOrQueue);
+        document.querySelector('.button__status').style.backgroundColor = '#ff6b08';
+        window.addEventListener('click', () => {
+          document.querySelector('.button__status').style.backgroundColor = '';
+        });
+      } else {
+        Notify.failure('No user is signed in.');
+      }
+    }
+  }, 500);
+}
+
+loadWatchedMoviesOnLibraryEnter();
