@@ -12,8 +12,6 @@ const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
 const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 const searchErrorEl = document.querySelector('.form__result');
 
-console.log('tag html', searchErrorEl);
-
 const language = 'en-US';
 let page = parseInt(localStorage.getItem('currentPage')) || 1;
 
@@ -45,7 +43,6 @@ const fetchSearchedMovies = async page => {
     if (data.results.length !== 0) {
       localStorage.setItem('currentFetch', JSON.stringify(data.results));
       localStorage.setItem('areWeTrending', JSON.stringify(false));
-      console.log('SEARCHED', data);
       searchErrorEl.innerHTML = '';
       return data;
     } else {
@@ -129,18 +126,9 @@ const pageDot2 = document.getElementById('dot2');
 const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
-// const paginationBtns = document.querySelector('.pagination');
-// USTAWIANIE PAGINACJI NA SAMEJ GÓRZE:
-const paginationBtns = document.querySelector('.pagination');
-// Dodaje klasę 'top'
-// paginationBtns.classList.add('top');
-
 const renderPageNumber = (page, totalPages) => {
-  // totalPages = data.total_pages;
-
   if (page > 1) {
     const headerHeight = document.querySelector('header').offsetHeight;
-
     window.scrollTo({
       top: headerHeight,
       behavior: 'smooth',
@@ -155,8 +143,6 @@ const renderPageNumber = (page, totalPages) => {
   pagePlus2.innerHTML = Number(page) + 2;
   pageLast.innerHTML = Number(+totalPages);
 
-  console.log('TOTAL', +totalPages);
-  console.log('PAGE', page);
   if (+totalPages === 1) {
     pagePrevious.classList.add('is-hidden');
     pageFirst.classList.add('is-hidden');
