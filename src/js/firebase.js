@@ -54,6 +54,23 @@ onAuthStateChanged(auth, currentUser => {
 //Funkcję dla logowania i rejestrowania
 
 //******************* */
+//funkcjonalność gdy użytkownik jest zalogowany
+const loggedEl = document.querySelector(".logged")
+const loginForm = document.querySelector(".login__form");
+const logInBtn = document.getElementById('log-btn');
+const registerBtn = document.getElementById('register-btn');
+const registerLink = document.getElementById('register');
+const loginLink = document.getElementById('log-in');
+
+const logged =()=>{
+loggedEl.style.visibility = "visible";
+loginForm.style.visibility = "hidden";
+logInBtn.style.visibility = "hidden";
+registerBtn.style.visibility = "hidden";
+loginLink.style.color = "white";
+registerLink.style.color = "white"
+};
+
 
 document.getElementById('log-btn').addEventListener('click', function () {
   loginEmail = document.getElementById('login-email').value;
@@ -65,11 +82,12 @@ document.getElementById('log-btn').addEventListener('click', function () {
         timeout: 1000,
       });
       user = userCredential.user;
-      setTimeout(() => {
-        document.querySelector(".login__form").style.visibility = 'hidden';
-        document.getElementById('log-btn').style.visibility = 'hidden' ;
-        document.getElementById('log-in').style.color = 'white';
-        }, 1000); 
+      logged();
+      // setTimeout(() => {
+      //   document.querySelector(".login__form").style.visibility = 'hidden';
+      //   document.getElementById('log-btn').style.visibility = 'hidden' ;
+      //   document.getElementById('log-in').style.color = 'white';
+      //   }, 1000); 
     })
     .catch(error => {
       const errorMessage = error.message;
@@ -77,9 +95,6 @@ document.getElementById('log-btn').addEventListener('click', function () {
         timeout: 1000,
       });
     });
-
- 
-   
 });
 
 document.getElementById('register-btn').addEventListener('click', function () {
@@ -90,15 +105,25 @@ document.getElementById('register-btn').addEventListener('click', function () {
     .then(userCredential => {
       user = userCredential.user;
 
+//       Notify.success('Succesfully registered!');
+      logged();
+      // setTimeout(() => {
+      //   document.querySelector(".login__form").style.visibility = 'hidden';
+      //   document.getElementById('register-btn').style.visibility = 'hidden';
+      //   document.getElementById('register').style.color = 'white';
+      //   }, 1000);
+
+
       Notify.success(`Succesfully registered! Now log in`, {
         timeout: 1000,
       });
 
-      setTimeout(() => {
-        document.querySelector(".login__form").style.visibility = 'hidden';
-        document.getElementById('register-btn').style.visibility = 'hidden';
-        document.getElementById('register').style.color = 'white';
-        }, 1000);
+//       setTimeout(() => {
+//         document.querySelector(".login__form").style.visibility = 'hidden';
+//         document.getElementById('register-btn').style.visibility = 'hidden';
+//         document.getElementById('register').style.color = 'white';
+//         }, 1000);
+
 
     })
     .catch(error => {
