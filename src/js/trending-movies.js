@@ -30,7 +30,7 @@ const getURL = page => {
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
 
-    // Jeśli inny warunek to można np z local storage pobrać dane
+    // Jeśli inny warunek to można np z local storage pobrać DANE
   } else {
     url = `${searchMovieURL}${searchParams}`;
   }
@@ -114,8 +114,6 @@ const firstIteration = async page => {
 
 firstIteration(page);
 
-// PAGINATION
-
 searchFormEl.addEventListener('submit', async event => {
   event.preventDefault();
   page = 1;
@@ -127,7 +125,6 @@ searchFormEl.addEventListener('submit', async event => {
 });
 
 // PAGINATION BUTTONS NUMBER OF PAGE:
-
 const pagePrevious = document.getElementById('previous');
 const pageFirst = document.getElementById('first');
 const pageDot = document.getElementById('dot');

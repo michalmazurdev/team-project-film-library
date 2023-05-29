@@ -1,11 +1,5 @@
 export const renderPageNumber = (page, totalPages) => {
-  if (page > 1) {
-    const headerHeight = document.querySelector('header').offsetHeight;
-    window.scrollTo({
-      top: headerHeight,
-      behavior: 'smooth',
-    });
-  }
+  const paginationBtnsEl = document.querySelector('.pagination');
   const pagePrevious = document.getElementById('previous');
   const pageFirst = document.getElementById('first');
   const pageDot = document.getElementById('dot');
@@ -17,6 +11,25 @@ export const renderPageNumber = (page, totalPages) => {
   const pageDot2 = document.getElementById('dot2');
   const pageLast = document.getElementById('last');
   const pageNext = document.getElementById('next');
+
+  paginationBtnsEl.classList.remove('is-hidden');
+
+  pageDot.style.cursor = 'default';
+  pageDot2.style.cursor = 'default';
+
+  if (+page === 1) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  } else if (+page > 1) {
+    const headerHeight = document.querySelector('header').offsetHeight;
+    window.scrollTo({
+      top: headerHeight,
+      behavior: 'smooth',
+    });
+  }
+
   pageFirst.innerHTML = 1;
   pageMinus2.innerHTML = Number(page) - 2;
   pageMinus1.innerHTML = Number(page) - 1;
@@ -24,6 +37,9 @@ export const renderPageNumber = (page, totalPages) => {
   pagePlus1.innerHTML = Number(page) + 1;
   pagePlus2.innerHTML = Number(page) + 2;
   pageLast.innerHTML = Number(+totalPages);
+
+  pageDot.style.cursor = 'default';
+  pageDot2.style.cursor = 'default';
 
   if (+totalPages === 1) {
     pagePrevious.classList.add('is-hidden');
