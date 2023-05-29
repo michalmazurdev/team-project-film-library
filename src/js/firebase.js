@@ -313,7 +313,8 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
         arrayOfVideoIds,
       );
       localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
-      loadMovies(drawMovies(arrayOfVideoData, watchedOrQueue));
+      loadMovies(drawMovies(arrayOfVideoData.slice(0, 20), watchedOrQueue));
+      renderPageNumber(1, organizeArray(arrayOfVideoData).total_pages);
     });
   } else {
     Notify.failure('Sign in first');
