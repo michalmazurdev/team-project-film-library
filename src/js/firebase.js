@@ -47,6 +47,8 @@ onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
     user = currentUser;
   }
+  if (document.querySelector('.modal__button--watched')) {
+  }
 });
 
 //**************** */
@@ -330,3 +332,22 @@ function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
       Notify.failure('Wystąpił błąd podczas usuwania obiektu:', error);
     });
 }
+
+function loadWatchedMoviesOnLibraryEnter() {
+  setTimeout(() => {
+    if (document.querySelector('.button__status')) {
+      if (user) {
+        watchedOrQueue = 'watched';
+        passPathToRenderMoviesFrom(watchedOrQueue);
+        document.querySelector('.button__status').style.backgroundColor = '#ff6b08';
+        window.addEventListener('click', () => {
+          document.querySelector('.button__status').style.backgroundColor = '';
+        });
+      } else {
+        Notify.failure('No user is signed in.');
+      }
+    }
+  }, 500);
+}
+
+loadWatchedMoviesOnLibraryEnter();
