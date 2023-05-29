@@ -372,3 +372,22 @@ function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
       });
     });
 }
+
+function loadWatchedMoviesOnLibraryEnter() {
+  setTimeout(() => {
+    if (document.querySelector('.button__status')) {
+      if (user) {
+        watchedOrQueue = 'watched';
+        passPathToRenderMoviesFrom(watchedOrQueue);
+        document.querySelector('.button__status').style.backgroundColor = '#ff6b08';
+        window.addEventListener('click', () => {
+          document.querySelector('.button__status').style.backgroundColor = '';
+        });
+      } else {
+        Notify.failure('No user is signed in.');
+      }
+    }
+  }, 500);
+}
+
+loadWatchedMoviesOnLibraryEnter();
