@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import Notiflix from 'notiflix';
+import { renderPageNumber } from './pagination.js';
 import axios from 'axios';
 import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove, limitToFirst } from 'firebase/database';
