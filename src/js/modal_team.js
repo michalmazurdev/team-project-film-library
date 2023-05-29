@@ -9,3 +9,9 @@ teamLinkEl.addEventListener('click', event => {
 closeButtonTeamEl.addEventListener('click', () => {
   modalTeamEl.classList.toggle('modal-team__hidden');
 });
+
+document.addEventListener('keyup', e => {
+  if (e.key === 'Escape') {
+    modalTeamEl.classList.toggle('modal-team__hidden')
+  }
+} )

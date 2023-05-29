@@ -38,6 +38,8 @@ const drawMovies = (movies, collection) => {
   return markup;
 };
 
+const paginationBtnsEl = document.querySelector('.pagination');
+
 const loadMovies = markup => {
   movieListEl.innerHTML = '';
   movieListEl.innerHTML = markup;
@@ -53,6 +55,7 @@ const pageLastLibrary = document.getElementById('lastLibrary');
 const pageNextLibrary = document.getElementById('nextLibrary');
 
 export const renderPageNumberLibrary = (page, totalPages) => {
+  const paginationBtnsEl = document.querySelector('.pagination');
   const pagePreviousLibrary = document.getElementById('previousLibrary');
   const pageFirstLibrary = document.getElementById('firstLibrary');
   const pageDotLibrary = document.getElementById('dotLibrary');
@@ -64,7 +67,18 @@ export const renderPageNumberLibrary = (page, totalPages) => {
   const pageDot2Library = document.getElementById('dot2Library');
   const pageLastLibrary = document.getElementById('lastLibrary');
   const pageNextLibrary = document.getElementById('nextLibrary');
-  if (page > 1) {
+
+  paginationBtnsEl.classList.remove('is-hidden');
+
+  pageDotLibrary.style.cursor = 'default';
+  pageDot2Library.style.cursor = 'default';
+
+  if (+page === 1) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  } else if (+page > 1) {
     const headerHeight = document.querySelector('header').offsetHeight;
     window.scrollTo({
       top: headerHeight,

@@ -1,25 +1,21 @@
+import axios from 'axios';
+const fetchGenres = async () => {
+  const genresSimplified = {};
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=5e58d3162f5aafaf855cf7d900bbc361`,
+    );
+    response.data.genres.forEach(genre => (genresSimplified[genre.id] = genre.name));
+    console.log(genresSimplified);
+    localStorage.setItem('genresSimplified', JSON.stringify(genresSimplified));
+  } catch (error) {
+    console.log(error);
+  }
+};
+fetchGenres();
+
 export const movieTypes = types => {
-  const genres = {
-    28: 'Action',
-    12: 'Adventure',
-    16: 'Animation',
-    35: 'Comedy',
-    80: 'Crime',
-    99: 'Documentary',
-    18: 'Drama',
-    10751: 'Family',
-    14: 'Fantasy',
-    36: 'History',
-    27: 'Horror',
-    10402: 'Music',
-    9648: 'Mystery',
-    10749: 'Romance',
-    878: 'Science Fiction',
-    10770: 'TV Movie',
-    53: 'Thriller',
-    10752: 'War',
-    37: 'Western',
-  };
+  const genres = JSON.parse(localStorage.getItem('genresSimplified'));
   let array = [];
 
   types.forEach(item => {
