@@ -68,7 +68,7 @@ const drawMovies = (movies, collection) => {
       ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
-    <div class="movie-card">
+    <div class="movie-card" data-collection=${collection}>
     <div class="movie-card__poster-container">
     <img class="movie-card__poster" id="poster_path" data-movieid=${
       movie.id
