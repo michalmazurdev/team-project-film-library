@@ -50,7 +50,7 @@ window.addEventListener('click', async event => {
   modalEl.classList.toggle('modal__hidden');
   const movieId = event.target.dataset.movieid;
   const clickedMovie = await fetchMovieInfo(movieId);
-
+  console.log(clickedMovie);
   let posterUrl = clickedMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${clickedMovie.poster_path}`
     : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
@@ -72,12 +72,12 @@ window.addEventListener('click', async event => {
   titleEl.textContent = `${clickedMovie.title}`;
   ratingEl.textContent = `${Number.parseFloat(clickedMovie.vote_average).toFixed(1)}`;
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
-  popularityEl.innerText = `${clickedMovie.popularity}`;
+  popularityEl.innerText = `${clickedMovie.popularity.toFixed(1)}`;
   longTitle.innerText = `${clickedMovie.original_title.toUpperCase()}`;
   genresEl.innerText = `${movieTypes(clickedMovie.genres.map(genre => genre.id))}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
-  modalEl.dataset.genres = `${clickedMovie.genre_ids}`;
+  modalEl.dataset.genres = `${clickedMovie.genres.map(genre => genre.id)}`;
 
   closeButtonEl.addEventListener('click', clickedCloseButton);
   modalEl.addEventListener('click', clickedOutside);

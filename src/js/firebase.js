@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import Notiflix from 'notiflix';
+import { renderPageNumber } from './pagination.js';
 import axios from 'axios';
 import { movieTypes } from './genres.js';
 import { getDatabase, ref, set, child, get, update, remove, limitToFirst } from 'firebase/database';
@@ -69,18 +70,16 @@ document.getElementById('log-btn').addEventListener('click', function () {
 });
 
 document.getElementById('register-btn').addEventListener('click', function () {
-  const registerEmail = document.getElementById('register-email').value;
-  const registerPassword = document.getElementById('register-password').value;
+  loginEmail = document.getElementById('login-email').value;
+  loginPassword = document.getElementById('login-password').value;
 
-  createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+  createUserWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
       user = userCredential.user;
-      document.getElementById('register-div').style.display = 'inline';
       Notify.success('Succesfully registered! Now log in');
     })
     .catch(error => {
       const errorMessage = error.message;
-      document.getElementById('register-div').style.display = 'inline';
       Notify.failure(`${errorMessage}`);
     });
 });
@@ -258,7 +257,7 @@ const drawMovies = (movies, collection) => {
       ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
       : `https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg`;
     markup += `
-    <div class="movie-card">
+    <div class="movie-card" data-collection=${collection}>
     <div class="movie-card__poster-container">
     <img class="movie-card__poster" id="poster_path" data-movieid=${movie.id}
     src="${posterUrl}"
@@ -314,7 +313,8 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
         arrayOfVideoIds,
       );
       localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
-      loadMovies(drawMovies(arrayOfVideoData, watchedOrQueue));
+      loadMovies(drawMovies(arrayOfVideoData.slice(0, 20), watchedOrQueue));
+      renderPageNumber(1, organizeArray(arrayOfVideoData).total_pages);
     });
   } else {
     Notify.failure('Sign in first');
