@@ -22,6 +22,20 @@ const organizeArray = array => {
   return object;
 };
 
+// PAGINATION REFERENCES:
+
+const pagePrevious = document.getElementById('previous');
+const pageFirst = document.getElementById('first');
+const pageDot = document.getElementById('dot');
+const pageMinus2 = document.getElementById('minus2');
+const pageMinus1 = document.getElementById('minus1');
+const pageCurrent = document.getElementById('current');
+const pagePlus1 = document.getElementById('plus1');
+const pagePlus2 = document.getElementById('plus2');
+const pageDot2 = document.getElementById('dot2');
+const pageLast = document.getElementById('last');
+const pageNext = document.getElementById('next');
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDWoBH83IVZtl5zfAq5CbdguqYq3fE-DS0',
   authDomain: 'js-team-project-gr5.firebaseapp.com',

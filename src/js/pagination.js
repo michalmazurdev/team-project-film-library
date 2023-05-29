@@ -6,6 +6,10 @@ export const renderPageNumber = (page, totalPages) => {
       behavior: 'smooth',
     });
   }
+
+  console.log('PAGE', page);
+  console.log('TOTAL PAGES', totalPages);
+
   const pagePrevious = document.getElementById('previous');
   const pageFirst = document.getElementById('first');
   const pageDot = document.getElementById('dot');
@@ -17,6 +21,7 @@ export const renderPageNumber = (page, totalPages) => {
   const pageDot2 = document.getElementById('dot2');
   const pageLast = document.getElementById('last');
   const pageNext = document.getElementById('next');
+
   pageFirst.innerHTML = 1;
   pageMinus2.innerHTML = Number(page) - 2;
   pageMinus1.innerHTML = Number(page) - 1;
