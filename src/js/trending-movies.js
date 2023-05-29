@@ -30,7 +30,7 @@ const getURL = page => {
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
 
-    // Jeśli inny warunek to można np z local storage pobrać dane
+    // Jeśli inny warunek to można np z local storage pobrać DANE
   } else {
     url = `${searchMovieURL}${searchParams}`;
   }
