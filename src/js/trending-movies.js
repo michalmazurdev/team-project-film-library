@@ -6,6 +6,7 @@ import { movieTypes } from './genres.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
+const movieCardEl = document.querySelector('.movie-card');
 const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
 const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
 const searchAllURL = `https://api.themoviedb.org/3/search/multi?`;
@@ -55,7 +56,7 @@ const fetchSearchedMovies = async page => {
   }
 };
 
-const drawMovies = (movies, collection) => {
+export const drawMovies = (movies, collection) => {
   let markup = '';
   let id = 0;
   movies.forEach(movie => {
@@ -115,6 +116,18 @@ firstIteration(page);
 
 // PAGINATION
 
+searchFormEl.addEventListener('submit', async event => {
+  event.preventDefault();
+  page = 1;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+// PAGINATION BUTTONS NUMBER OF PAGE:
+
 const pagePrevious = document.getElementById('previous');
 const pageFirst = document.getElementById('first');
 const pageDot = document.getElementById('dot');
@@ -127,17 +140,17 @@ const pageDot2 = document.getElementById('dot2');
 const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
-searchFormEl.addEventListener('submit', async event => {
-  event.preventDefault();
-  page = 1;
-  const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results, 'fetched');
-  loadMovies(markup);
-  renderPageNumber(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
-
-// PAGINATION BUTTONS NUMBER OF PAGE:
+const pagePreviousLibrary = document.getElementById('previousLibrary');
+const pageFirstLibrary = document.getElementById('firstLibrary');
+const pageDotLibrary = document.getElementById('dotLibrary');
+const pageMinus2Library = document.getElementById('minus2Library');
+const pageMinus1Library = document.getElementById('minus1Library');
+const pageCurrentLibrary = document.getElementById('currentLibrary');
+const pagePlus1Library = document.getElementById('plus1Library');
+const pagePlus2Library = document.getElementById('plus2Library');
+const pageDot2Library = document.getElementById('dot2Library');
+const pageLastLibrary = document.getElementById('lastLibrary');
+const pageNextLibrary = document.getElementById('nextLibrary');
 
 pagePrevious.addEventListener('click', async event => {
   event.preventDefault();

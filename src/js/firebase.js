@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import Notiflix from 'notiflix';
+import { renderPageNumberLibrary } from './pagination_library.js';
 import { renderPageNumber } from './pagination.js';
 import axios from 'axios';
 import { movieTypes } from './genres.js';
@@ -314,7 +315,7 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
       );
       localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
       loadMovies(drawMovies(arrayOfVideoData.slice(0, 20), watchedOrQueue));
-      renderPageNumber(1, organizeArray(arrayOfVideoData).total_pages);
+      renderPageNumberLibrary(1, organizeArray(arrayOfVideoData).total_pages);
     });
   } else {
     Notify.failure('Sign in first');
