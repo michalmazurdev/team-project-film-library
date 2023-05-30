@@ -115,7 +115,6 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 
 document.getElementById('register-btn').addEventListener('click', function () {
   showLoader();
-
   loginEmail = document.getElementById('login-email').value;
   loginPassword = document.getElementById('login-password').value;
 
@@ -362,6 +361,7 @@ document.querySelector('.button__status').nextElementSibling.addEventListener('c
 //Przekazuje odpowiednią ścieżkę z obiektami do funkcji renderującej filmy
 function passPathToRenderMoviesFrom(watchedOrQueue) {
   if (user) {
+    showLoader();
     let uid = user.uid;
     get(child(dbRef, uid + '/' + watchedOrQueue)).then(snapshot => {
       moviesAddedToWatch = snapshot.val();
@@ -370,6 +370,7 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
       localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
       loadMovies(drawMovies(arrayOfVideoData.slice(0, 20), watchedOrQueue));
       renderPageNumberLibrary(1, organizeArray(arrayOfVideoData).total_pages);
+      hideLoader();
     });
   } else {
     Notify.failure(`Sign in first`, {
