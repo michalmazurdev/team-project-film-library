@@ -1,3 +1,5 @@
+import { showLoader, hideLoader } from './loader';
+import { fetchSearchedMovies, drawMovies, loadMovies } from './trending-movies';
 export const renderPageNumber = (page, totalPages) => {
   const paginationBtnsEl = document.querySelector('.pagination');
   const pagePrevious = document.getElementById('previous');
@@ -273,6 +275,7 @@ const pageLast = document.getElementById('last');
 const pageNext = document.getElementById('next');
 
 pagePrevious.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   page = parseInt(localStorage.getItem('currentPage')) - 1;
   const data = await fetchSearchedMovies(page);
@@ -280,9 +283,11 @@ pagePrevious.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pageFirst.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
@@ -290,9 +295,11 @@ pageFirst.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pageMinus2.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
@@ -300,9 +307,11 @@ pageMinus2.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pageMinus1.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
@@ -310,9 +319,11 @@ pageMinus1.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pagePlus1.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
@@ -320,9 +331,11 @@ pagePlus1.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pagePlus2.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
@@ -330,9 +343,11 @@ pagePlus2.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pageLast.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   const page = event.target.innerHTML;
   const data = await fetchSearchedMovies(page);
@@ -340,9 +355,11 @@ pageLast.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
 
 pageNext.addEventListener('click', async event => {
+  showLoader();
   event.preventDefault();
   page = parseInt(localStorage.getItem('currentPage')) + 1;
   const data = await fetchSearchedMovies(page);
@@ -350,4 +367,5 @@ pageNext.addEventListener('click', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });

@@ -38,7 +38,7 @@ const getURL = page => {
   return url;
 };
 
-const fetchSearchedMovies = async page => {
+export const fetchSearchedMovies = async page => {
   try {
     const response = await axios.get(getURL(page));
     let data = response.data;
@@ -92,7 +92,7 @@ export const drawMovies = (movies, collection) => {
   return markup;
 };
 
-const loadMovies = markup => {
+export const loadMovies = markup => {
   movieListEl.innerHTML = '';
   movieListEl.innerHTML = markup;
   // funkcja żeby ukryć rating filmu na stronie Home
