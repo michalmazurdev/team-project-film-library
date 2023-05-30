@@ -2,13 +2,13 @@
   @extend .container;
   padding-top: 40px;
   padding-bottom: 44px;
-  background-image: url('/src/images/backgroundmobile.jpg');
+  background-image: url('/src/images/backgroundMobile.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
   &--library {
-    background-image: url('/src/images/backgroundlibrarymobile.jpg');
+    background-image: url('/src/images/backgroundLibraryMobile.jpg');
   }
 
   &__container {
