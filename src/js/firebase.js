@@ -33,6 +33,7 @@ let loginPassword = document.getElementById('login-password').value;
 let user;
 let id;
 let clickedMovie;
+let UniqueFilmId;
 
 onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
