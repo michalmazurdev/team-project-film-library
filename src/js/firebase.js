@@ -364,6 +364,7 @@ const loadMovies = markup => {
 if (document.querySelector('.button__status')) {
   document.querySelector('.button__status').addEventListener('click', () => {
     watchedOrQueue = 'watched';
+    movieListEl.innerHTML = '';
     passPathToRenderMoviesFrom(watchedOrQueue);
   });
 }
@@ -372,6 +373,7 @@ if (document.querySelector('.button__status')) {
 if (document.querySelector('.button__status')) {
   document.querySelector('.button__status').nextElementSibling.addEventListener('click', () => {
     watchedOrQueue = 'queue';
+    movieListEl.innerHTML = '';
     passPathToRenderMoviesFrom(watchedOrQueue);
   });
 }
