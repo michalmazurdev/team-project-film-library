@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
+import { showLoader, hideLoader } from './loader.js';
 import { renderPageNumberLibrary } from './pagination_library.js';
 import axios from 'axios';
 import { convertGenres, organizeArray } from './helper_functions.js';
@@ -43,7 +44,6 @@ onAuthStateChanged(auth, currentUser => {
   }
 });
 
-//******************* */
 //funkcjonalność gdy użytkownik jest zalogowany
 
 const logged = email => {
@@ -58,7 +58,6 @@ const logged = email => {
   loggedEl.style.visibility = 'visible';
   loggedEl.textContent = `LOGGED IN AS ${email}`;
   logoutBtn.style.visibility = 'visible';
-
   loginForm.style.visibility = 'hidden';
   logInBtn.style.visibility = 'hidden';
   registerBtn.style.visibility = 'hidden';
@@ -66,7 +65,7 @@ const logged = email => {
   registerLink.style.color = 'white';
 };
 
-//fukncjonalonosc kiedy uzytkownik jest wylogowany]
+//fukncjonalonosc kiedy uzytkownik jest wylogowany
 
 const loggedOut = () => {
   const loggedEl = document.querySelector('.logged');
@@ -74,11 +73,11 @@ const loggedOut = () => {
   loggedEl.style.visibility = 'hidden';
   logoutBtn.style.visibility = 'hidden';
 };
-//**************** */
 
-//Funkcję dla logowania i rejestrowania
+//Funkcja dla logowania, wylogowywania i rejestrowania
 
 document.getElementById('log-btn').addEventListener('click', function () {
+  showLoader();
   loginEmail = document.getElementById('login-email').value;
   loginPassword = document.getElementById('login-password').value;
 
@@ -88,6 +87,7 @@ document.getElementById('log-btn').addEventListener('click', function () {
         timeout: 1000,
       });
       user = userCredential.user;
+      hideLoader();
     })
     .catch(error => {
       const errorMessage = error.message;
@@ -98,11 +98,13 @@ document.getElementById('log-btn').addEventListener('click', function () {
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
+  showLoader();
   signOut(auth)
     .then(() => {
       Notify.success(`Succesfully logged out`, {
         timeout: 1000,
       });
+      hideLoader();
     })
     .catch(error => {
       Notify.failure(`An error occured`, {
@@ -112,6 +114,8 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 });
 
 document.getElementById('register-btn').addEventListener('click', function () {
+  showLoader();
+
   loginEmail = document.getElementById('login-email').value;
   loginPassword = document.getElementById('login-password').value;
 
@@ -121,6 +125,7 @@ document.getElementById('register-btn').addEventListener('click', function () {
       Notify.success(`Succesfully registered! Now log in`, {
         timeout: 1000,
       });
+      hideLoader();
     })
     .catch(error => {
       const errorMessage = error.message;
@@ -345,7 +350,6 @@ const loadMovies = markup => {
 //po kliknięciu Watched przekazuje ścieżkę do Firebase/Watched do funkcji
 document.querySelector('.button__status').addEventListener('click', () => {
   watchedOrQueue = 'watched';
-
   passPathToRenderMoviesFrom(watchedOrQueue);
 });
 
@@ -375,19 +379,19 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
 }
 
 //Usuwanie obiektu z Watched lub Queue po właściwości .UniqueId
-function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
-  remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${UniqueFilmId}`))
-    .then(
-      Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`, {
-        timeout: 1000,
-      }),
-    )
-    .catch(function (error) {
-      Notify.failure(`Wystąpił błąd podczas usuwania obiektu:`, error, {
-        timeout: 1000,
-      });
-    });
-}
+// function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
+//   remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${UniqueFilmId}`))
+//     .then(
+//       Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`, {
+//         timeout: 1000,
+//       }),
+//     )
+//     .catch(function (error) {
+//       Notify.failure(`Wystąpił błąd podczas usuwania obiektu:`, error, {
+//         timeout: 1000,
+//       });
+//     });
+// }
 
 function loadWatchedMoviesOnLibraryEnter() {
   if (document.querySelector('.button__status')) {

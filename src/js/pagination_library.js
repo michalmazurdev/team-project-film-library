@@ -69,7 +69,6 @@ export const renderPageNumberLibrary = (page, totalPages) => {
   const pageNextLibrary = document.getElementById('nextLibrary');
 
   paginationBtnsEl.classList.remove('is-hidden');
-
   pageDotLibrary.style.cursor = 'default';
   pageDot2Library.style.cursor = 'default';
 
@@ -390,7 +389,7 @@ pageMinus2Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pageMinus1Library.addEventListener('click', async event => {
+pageMinus1Library.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;
@@ -409,7 +408,7 @@ pageMinus1Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pagePlus1Library.addEventListener('click', async event => {
+pagePlus1Library.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;
@@ -428,7 +427,7 @@ pagePlus1Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pagePlus2Library.addEventListener('click', async event => {
+pagePlus2Library.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;
@@ -447,7 +446,7 @@ pagePlus2Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pageLastLibrary.addEventListener('click', async event => {
+pageLastLibrary.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;

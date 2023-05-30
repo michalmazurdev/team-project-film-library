@@ -261,3 +261,93 @@ export const renderPageNumber = (page, totalPages) => {
     pageDot2.classList.add('is-hidden');
   }
 };
+
+// PAGINATION BUTTONS NUMBER OF PAGE:
+const pagePrevious = document.getElementById('previous');
+const pageFirst = document.getElementById('first');
+const pageMinus2 = document.getElementById('minus2');
+const pageMinus1 = document.getElementById('minus1');
+const pagePlus1 = document.getElementById('plus1');
+const pagePlus2 = document.getElementById('plus2');
+const pageLast = document.getElementById('last');
+const pageNext = document.getElementById('next');
+
+pagePrevious.addEventListener('click', async event => {
+  event.preventDefault();
+  page = parseInt(localStorage.getItem('currentPage')) - 1;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pageFirst.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pageMinus2.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pageMinus1.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pagePlus1.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pagePlus2.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pageLast.addEventListener('click', async event => {
+  event.preventDefault();
+  const page = event.target.innerHTML;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
+
+pageNext.addEventListener('click', async event => {
+  event.preventDefault();
+  page = parseInt(localStorage.getItem('currentPage')) + 1;
+  const data = await fetchSearchedMovies(page);
+  const markup = drawMovies(data.results, 'fetched');
+  loadMovies(markup);
+  renderPageNumber(page, data.total_pages);
+  localStorage.setItem('currentPage', page.toString());
+});
