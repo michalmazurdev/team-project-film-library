@@ -1,4 +1,5 @@
 import { convertGenres } from './helper_functions.js';
+import { showLoader, hideLoader } from './loader.js';
 import axios from 'axios';
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
@@ -34,9 +35,11 @@ const clickedOutside = event => {
 
 const fetchMovieInfo = async movieId => {
   try {
+    showLoader();
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=5e58d3162f5aafaf855cf7d900bbc361&language=en-US`,
     );
+    hideLoader();
     return response.data;
   } catch (error) {
     Notiflix.Notify.failure(`some error😇.`, {
