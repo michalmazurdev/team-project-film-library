@@ -8,19 +8,9 @@ import {
 } from 'firebase/auth';
 import { renderPageNumberLibrary } from './pagination_library.js';
 import axios from 'axios';
-import { convertGenres } from './helper_functions.js';
+import { convertGenres, organizeArray } from './helper_functions.js';
 import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
-const organizeArray = array => {
-  let object = {};
-  let totalPages = Math.ceil(array.length / 20);
-  for (let i = 0; i < totalPages; i++) {
-    object[i + 1] = array.slice(i * 20, i * 20 + 20);
-  }
-  object.total_pages = totalPages;
-  return object;
-};
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDWoBH83IVZtl5zfAq5CbdguqYq3fE-DS0',

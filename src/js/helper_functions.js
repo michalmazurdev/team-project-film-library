@@ -25,3 +25,13 @@ export const convertGenres = types => {
   });
   return array.join(', ');
 };
+
+export const organizeArray = array => {
+  let object = {};
+  let totalPages = Math.ceil(array.length / 20);
+  for (let i = 0; i < totalPages; i++) {
+    object[i + 1] = array.slice(i * 20, i * 20 + 20);
+  }
+  object.total_pages = totalPages;
+  return object;
+};
