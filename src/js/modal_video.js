@@ -41,6 +41,9 @@ const fetchTrailerIds = async () => {
   } catch (error) {
     Notiflix.Notify.failure(
       'Sorry, there are no trailers matching your search query. We are sorry for that😇.',
+      {
+        timeout: 1000,
+      },
     );
   }
 };

@@ -1,4 +1,4 @@
-import { movieTypes } from './genres';
+import { convertGenres } from './helper_functions';
 let page = 1;
 localStorage.setItem('currentPage', 1);
 const movieListEl = document.querySelector('.movie-list');
@@ -25,7 +25,7 @@ const drawMovies = (movies, collection) => {
     </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title.toUpperCase()}</p>
-        <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
+        <span class="movie-card__genre" id="genre_ids">${convertGenres(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,
@@ -69,7 +69,6 @@ export const renderPageNumberLibrary = (page, totalPages) => {
   const pageNextLibrary = document.getElementById('nextLibrary');
 
   paginationBtnsEl.classList.remove('is-hidden');
-
   pageDotLibrary.style.cursor = 'default';
   pageDot2Library.style.cursor = 'default';
 
@@ -390,7 +389,7 @@ pageMinus2Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pageMinus1Library.addEventListener('click', async event => {
+pageMinus1Library.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;
@@ -409,7 +408,7 @@ pageMinus1Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pagePlus1Library.addEventListener('click', async event => {
+pagePlus1Library.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;
@@ -428,7 +427,7 @@ pagePlus1Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pagePlus2Library.addEventListener('click', async event => {
+pagePlus2Library.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;
@@ -447,7 +446,7 @@ pagePlus2Library.addEventListener('click', async event => {
   localStorage.setItem('currentPage', page.toString());
 });
 
-pageLastLibrary.addEventListener('click', async event => {
+pageLastLibrary.addEventListener('click', event => {
   event.preventDefault();
   const page = event.target.innerHTML;
   let data;

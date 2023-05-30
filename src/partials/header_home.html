@@ -6,91 +6,63 @@
       </svg>
       <p class="header__title">Filmoteka</p>
     </a>
-    <ul class="header__list"> <div class=layout__form> 
-        <li class="header__item header__register">
+    <div class="header__list">
+      <div class="layout__form">
+        <div class="header__item header__register">
           <p class="header__link" id="register">register</p>
-        </li>
-          <li class="header__item header__log">
+        </div>
+        <div class="header__item header__log">
           <p class="header__link" id="log-in">log in</p>
-        </li>
-        <li class="header__item">
+        </div>
+        <div class="header__item">
           <a class="header__link header__link--active" href="/src/index.html">home</a>
-        </li>
-        <li class="header__item">
-          <a class="header__link " href="/src/library.html">my library</a>
-        </li>
+        </div>
+        <div class="header__item">
+          <a class="header__link" href="/src/library.html">my library</a>
+        </div>
 
-        <div class="login__form" id="register-div">
+        <form class="login__form" id="register-div">
           <input
             class="login__input"
             type="email"
             id="login-email"
             name="login-email"
-            placeholder="Email"
+            placeholder="E-mail"
+            autocomplete="off"
             required
           />
           <input
-          class="login__input"//
+            class="login__input"
             type="password"
             id="login-password"
             name="login-password"
             placeholder="Password"
+            autocomplete="off"
             required
           />
-        </div>
-
-        <button class="login__btn" id="log-btn">Log in</button>
-        <button class="login__btn" id="register-btn">Register</button>
-  
-      </ul>
+        </form>
+        <button class="login__btn" id="log-btn">log in</button>
+        <button class="login__btn" id="register-btn">register</button>
+        <p class="header__link logged"></p>
+        <button class="header__logout" style="visibility: hidden" id="logout-btn">LOG OUT</button>
+      </div>
+    </div>
   </div>
-  <script>
-const register = document.querySelector(".header__register");
-const log = document.querySelector(".header__log");
-const loginForm = document.querySelector(".login__form");
-const registerLink = document.getElementById('register');
-const loginLink = document.getElementById('log-in');
-const logInBtn = document.getElementById('log-btn');
-const registerBtn = document.getElementById('register-btn');
 
-register.addEventListener('click', () => {
-  loginForm.style.visibility = 'visible';
-  registerBtn.style.visibility = 'visible';
-  //logInBtn.classList.add('disabled');
-  registerLink.style.color = 'red'
-  
-  if (registerBtn.style.visibility === 'visible'){
-    logInBtn.style = 'hidden';
-    loginLink.style.color = 'white';
-  }});
-
-log.addEventListener('click', () => {
-  loginForm.style.visibility = 'visible';
-  logInBtn.style.visibility = 'visible';
- // registerBtn.classList.add('disabled');
-  loginLink.style.color = 'red';
-
-if (logInBtn.style.visibility === 'visible'){
-  registerBtn.style.visibility = 'hidden';
-  registerLink.style.color = 'white';
-}});
-  </script>
-
-<form class="form" id="form-search">
-  <input
-    class="form__input"
-    type="text"
-    name="search"
-    autocomplete="off"
-    placeholder="Movie search"
-    autocomplete="off"
-    required
-  />
-  <button class="form__btn" type="submit">
-    <svg class="form__icon" width="16" height="16">
-      <use href="/src/images/icons.svg#icon-search"></use>
-    </svg>
-  </button>
-  <div class="form__result"></div>
-</form>
+  <form class="form" id="form-search">
+    <input
+      class="form__input"
+      type="text"
+      name="search"
+      autocomplete="off"
+      placeholder="Movie search"
+      required
+    />
+    <button class="form__btn" type="submit">
+      <svg class="form__icon" width="16" height="16">
+        <use href="/src/images/icons.svg#icon-search"></use>
+      </svg>
+    </button>
+    <div class="form__result"></div>
+  </form>
 </header>

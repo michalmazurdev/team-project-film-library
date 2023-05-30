@@ -1,4 +1,4 @@
-import { movieTypes } from './genres.js';
+import { convertGenres } from './helper_functions.js';
 import axios from 'axios';
 const modalEl = document.querySelector('.modal__backdrop');
 const closeButtonEl = document.querySelector('.modal__close');
@@ -39,7 +39,9 @@ const fetchMovieInfo = async movieId => {
     );
     return response.data;
   } catch (error) {
-    Notiflix.Notify.failure('some error😇.');
+    Notiflix.Notify.failure(`some error😇.`, {
+      timeout: 1000,
+    });
   }
 };
 
@@ -74,7 +76,7 @@ window.addEventListener('click', async event => {
   numOfVotesEL.innerText = `${clickedMovie.vote_count}`;
   popularityEl.innerText = `${clickedMovie.popularity.toFixed(1)}`;
   longTitle.innerText = `${clickedMovie.original_title.toUpperCase()}`;
-  genresEl.innerText = `${movieTypes(clickedMovie.genres.map(genre => genre.id))}`;
+  genresEl.innerText = `${convertGenres(clickedMovie.genres.map(genre => genre.id))}`;
   descriptionEl.innerText = `${clickedMovie.overview}`;
   modalEl.dataset.movieid = `${clickedMovie.id}`;
   modalEl.dataset.genres = `${clickedMovie.genres.map(genre => genre.id)}`;
