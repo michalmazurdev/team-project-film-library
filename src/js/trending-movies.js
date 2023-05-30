@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import { hideLoader, showLoader, showLoaderFor700 } from './loader.js';
+import { hideLoader, showLoader } from './loader.js';
 import { renderPageNumber } from './pagination.js';
 import { convertGenres } from './helper_functions.js';
 const searchFormEl = document.getElementById('form-search');
@@ -103,6 +103,7 @@ export const loadMovies = markup => {
 };
 
 const firstIteration = async page => {
+  showLoader();
   localStorage.setItem('currentPage', 1);
   page = parseInt(localStorage.getItem('currentPage'));
 
@@ -110,11 +111,13 @@ const firstIteration = async page => {
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
+  hideLoader();
 };
 
 firstIteration(page);
 
 searchFormEl.addEventListener('submit', async event => {
+  showLoader();
   event.preventDefault();
   page = 1;
   const data = await fetchSearchedMovies(page);
@@ -122,4 +125,5 @@ searchFormEl.addEventListener('submit', async event => {
   loadMovies(markup);
   renderPageNumber(page, data.total_pages);
   localStorage.setItem('currentPage', page.toString());
+  hideLoader();
 });
