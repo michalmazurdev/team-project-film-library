@@ -156,6 +156,7 @@ function addToWatchedOrQueue(
   libraryPlace,
   userId,
 ) {
+  showLoader();
   get(child(dbRef, userId + '/' + `${libraryPlace}`))
     .then(snapshot => {
       if (snapshot.exists()) {
@@ -174,6 +175,7 @@ function addToWatchedOrQueue(
           id: UniqueFilmId,
         };
         update(ref(db), updates);
+        hideLoader();
       } else {
         set(ref(db, userId + '/' + `${libraryPlace}` + '/' + `${UniqueFilmId}`), {
           backdrop_path: picture,
@@ -188,6 +190,7 @@ function addToWatchedOrQueue(
           poster_path: posterPath,
           id: UniqueFilmId,
         });
+        hideLoader();
       }
       Notify.success(`added to ${libraryPlace} list`, {
         timeout: 1000,
