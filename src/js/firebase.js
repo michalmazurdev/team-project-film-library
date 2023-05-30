@@ -54,11 +54,9 @@ const logged = email => {
   const registerBtn = document.getElementById('register-btn');
   const registerLink = document.getElementById('register');
   const loginLink = document.getElementById('log-in');
-
   loginForm.style.visibility = 'hidden';
   logInBtn.style.visibility = 'hidden';
   registerBtn.style.visibility = 'hidden';
-
   registerLink.style.visibility = 'hidden';
   loginLink.style.display = 'none';
   loginLink.style.color = 'white';
@@ -102,6 +100,7 @@ document.getElementById('log-btn').addEventListener('click', function () {
       Notify.failure(`${errorMessage}`, {
         timeout: 1000,
       });
+      hideLoader();
     });
 });
 
@@ -140,6 +139,7 @@ document.getElementById('register-btn').addEventListener('click', function () {
       Notify.failure(`${errorMessage}`, {
         timeout: 1000,
       });
+      hideLoader();
     });
 });
 
