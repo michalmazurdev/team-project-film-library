@@ -75,6 +75,9 @@ const logged = email => {
   loginLink.style.color = 'white';
   registerLink.style.color = 'white';
 };
+
+//fukncjonalonosc kiedy uzytkownik jest wylogowany]
+
 const loggedOut = () => {
   const loggedEl = document.querySelector('.logged');
   const logoutBtn = document.querySelector('.header__logout');
