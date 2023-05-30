@@ -300,10 +300,10 @@
   (min-width: 1280px) and (min-resolution: 192dpi),
   (min-width: 1280px) and (min-resolution: 2dppx) {
   .header {
-    background-image: url('/src/images/backgroundDesktop@2x.jpg');
+    background-image: url('./src/images/backgroundDesktop@2x.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundlibraryDesktop@2x.jpg');
+      background-image: url('./src/images/backgroundlibraryDesktop@2x.jpg');
     }
   }
 }
