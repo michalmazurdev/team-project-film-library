@@ -79,132 +79,7 @@
       border-radius: 1px;
     }
   }
-
-  .form {
-    width: 280px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    @include tablet {
-      min-width: 336px;
-    }
-    @include desktop {
-      min-width: 394px;
-    }
-
-    &__input {
-      width: 100%;
-      height: 20px;
-      margin-bottom: 16px;
-      background-color: $transparentColor;
-      border: none;
-      border-bottom: 1px solid $defaultColor;
-      outline: none;
-      color: $defaultColor;
-      font-size: $defaultFontSize;
-      line-height: $defaultLineHeight;
-
-      &::placeholder {
-        color: $defaultColor;
-        font-size: $defaultFontSize;
-        line-height: $defaultLineHeight;
-        padding: 2px 2px;
-      }
-    }
-
-    &__btn {
-      background-color: $transparentColor;
-      border: none;
-      position: absolute;
-      top: 4px;
-      right: 0px;
-    }
-
-    &__icon {
-      fill: $defaultColor;
-      align-items: center;
-    }
-
-    &__result {
-      color: $accentColor;
-      font-size: $smallFontSize;
-      line-height: $defaultLineHeight;
-      text-align: left;
-    }
-  }
-  .layout__form {
-    justify-content: flex-start;
-    gap: 20px;
-    display: flex;
-    margin-top: 2px;
-    position: relative;
-  }
-
-  .login__form {
-    visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    margin-bottom: 5px;
-    position: absolute;
-    top: 20px;
-  }
-
-  .login__input {
-    height: 15px;
-    width: 113px;
-    background-color: $transparentColor;
-    border: none;
-    border-bottom: 1px solid $defaultColor;
-    outline: none;
-    color: $defaultColor;
-    font-size: $smallFontSize;
-    line-height: $defaultLineHeight;
-    &::placeholder {
-      color: $defaultColor;
-      opacity: 0.5;
-      font-size: $smallFontSize;
-      line-height: $defaultLineHeight;
-      font-style: italic;
-      text-align: left;
-    }
-  }
-
-  .login__btn {
-    visibility: hidden;
-    width: 70px;
-    height: 15px;
-    margin-top: 3px;
-    background-color: $transparentColor;
-    border: 1px solid $defaultColor;
-    border-radius: 4px;
-    color: $defaultColor;
-    font-weight: 500;
-    font-size: $smallFontSize;
-    line-height: $smallLineHeight;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    position: absolute;
-    top: 50px;
-    left: 20px;
-    &:hover,
-    &:focus {
-      background-color: $descritiopnColor;
-    }
-  }
-  .is-hidden {
-    display: none;
-  }
-  .logged {
-    visibility: hidden;
-    top: -30px;
-    right: 50px;
-    position: absolute;
-    font-size: 0.6rem;
-  }
-  .header__logout {
+  &__logout {
     visibility: hidden;
     top: -29px;
     right: 0px;
@@ -216,19 +91,145 @@
     color: white;
     font-weight: 500;
   }
-  .header__logout:hover {
+  &__logout:hover {
     color: red;
   }
+}
+.form {
+  width: 280px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  @include tablet {
+    min-width: 336px;
+  }
+  @include desktop {
+     min-width: 394px;
+  }
 
-  .button {
-    display: flex;
+  &__input {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 16px;
+    background-color: $transparentColor;
+    border: none;
+    border-bottom: 1px solid $defaultColor;
+    outline: none;
+    color: $defaultColor;
+    font-size: $defaultFontSize;
+    line-height: $defaultLineHeight;
+
+    &::placeholder {
+      color: $defaultColor;
+      font-size: $defaultFontSize;
+      line-height: $defaultLineHeight;
+      padding: 2px 2px;
+    }
+  }
+
+  &__btn {
+    background-color: $transparentColor;
+    border: none;
+    position: absolute;
+    top: 4px;
+    right: 0px;
+  }
+
+  &__icon {
+    fill: $defaultColor;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+  }
 
-    &__status {
-      width: 130px;
-      height: 40px;
+  &__result {
+    color: $accentColor;
+    font-size: $smallFontSize;
+    line-height: $defaultLineHeight;
+    text-align: left;
+  }
+}
+.layout__form {
+  justify-content: flex-start;
+  gap: 20px;
+  display: flex;
+  margin-top: 2px;
+  position: relative;
+}
+
+.login__form {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  margin-bottom: 5px;
+  position: absolute;
+  top: 20px;
+}
+
+.login__input {
+  height: 15px;
+  width: 113px;
+  background-color: $transparentColor;
+  border: none;
+  border-bottom: 1px solid $defaultColor;
+  outline: none;
+  color: $defaultColor;
+  font-size: $smallFontSize;
+  line-height: $defaultLineHeight;
+  &::placeholder {
+    color: $defaultColor;
+    opacity: 0.5;
+    font-size: $smallFontSize;
+    line-height: $defaultLineHeight;
+    font-style: italic;
+    text-align: left;
+    }
+}
+
+.login__btn {
+  visibility: hidden;
+  width: 70px;
+  height: 15px;
+  margin-top: 3px;
+  background-color: $transparentColor;
+  border: 1px solid $defaultColor;
+  border-radius: 4px;
+  color: $defaultColor;
+  font-weight: 500;
+  font-size: $smallFontSize;
+  line-height: $smallLineHeight;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+    top: 50px;
+    left: 20px;
+    &:hover,
+    &:focus {
+      background-color: $descritiopnColor;
+    }
+}
+.is-hidden {
+  display: none;
+}
+.logged {
+  visibility: hidden;
+  top: -30px;
+  right: 50px;
+  position: absolute;
+  font-size: 0.6rem;
+}
+ 
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  &__status {
+    width: 130px;
+    height: 40px;
       background-color: $transparentColor;
       border: 1px solid $defaultColor;
       border-radius: 4px;
@@ -243,10 +244,10 @@
       &:hover,
       &:focus {
         background-color: $descritiopnColor;
-      }
     }
   }
 }
+
 
 @media (max-width: 767px) {
   .header__title {
