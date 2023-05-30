@@ -58,7 +58,6 @@ posterEl.addEventListener('click', async event => {
     .filter(clip => clip.type == 'Trailer')
     .map(clip => clip.key)
     .slice(0, 1);
-  console.log(trailerIds);
   document.querySelector('iframe').src = `https://www.youtube.com/embed/${trailerIds}`;
 
   document.addEventListener('keydown', pressedESC);

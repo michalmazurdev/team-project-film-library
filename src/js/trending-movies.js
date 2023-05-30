@@ -104,16 +104,18 @@ const firstIteration = async page => {
   hideLoader();
 };
 
-firstIteration(page);
+if (searchErrorEl) {
+  firstIteration(page);
 
-searchFormEl.addEventListener('submit', async event => {
-  showLoader();
-  event.preventDefault();
-  page = 1;
-  const data = await fetchSearchedMovies(page);
-  const markup = drawMovies(data.results, 'fetched');
-  loadMovies(markup);
-  renderPageNumber(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-  hideLoader();
-});
+  searchFormEl.addEventListener('submit', async event => {
+    showLoader();
+    event.preventDefault();
+    page = 1;
+    const data = await fetchSearchedMovies(page);
+    const markup = drawMovies(data.results, 'fetched');
+    loadMovies(markup);
+    renderPageNumber(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+    hideLoader();
+  });
+}

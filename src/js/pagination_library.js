@@ -312,154 +312,157 @@ export const renderPageNumberLibrary = (page, totalPages) => {
     pageDot2Library.classList.add('is-hidden');
   }
 };
-pageNextLibrary.addEventListener('click', async event => {
-  event.preventDefault();
-  page = parseInt(localStorage.getItem('currentPage')) + 1;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
 
-pagePreviousLibrary.addEventListener('click', async event => {
-  event.preventDefault();
-  page = parseInt(localStorage.getItem('currentPage')) - 1;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+if (pageNextLibrary) {
+  pageNextLibrary.addEventListener('click', async event => {
+    event.preventDefault();
+    page = parseInt(localStorage.getItem('currentPage')) + 1;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
 
-pageFirstLibrary.addEventListener('click', async event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+  pagePreviousLibrary.addEventListener('click', async event => {
+    event.preventDefault();
+    page = parseInt(localStorage.getItem('currentPage')) - 1;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
 
-pageMinus2Library.addEventListener('click', async event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+  pageFirstLibrary.addEventListener('click', async event => {
+    event.preventDefault();
+    const page = event.target.innerHTML;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
 
-pageMinus1Library.addEventListener('click', event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+  pageMinus2Library.addEventListener('click', async event => {
+    event.preventDefault();
+    const page = event.target.innerHTML;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
 
-pagePlus1Library.addEventListener('click', event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+  pageMinus1Library.addEventListener('click', event => {
+    event.preventDefault();
+    const page = event.target.innerHTML;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
 
-pagePlus2Library.addEventListener('click', event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+  pagePlus1Library.addEventListener('click', event => {
+    event.preventDefault();
+    const page = event.target.innerHTML;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
 
-pageLastLibrary.addEventListener('click', event => {
-  event.preventDefault();
-  const page = event.target.innerHTML;
-  let data;
-  movieCardEl = document.querySelector('.movie-card');
-  switch (movieCardEl.dataset.collection) {
-    case 'queue':
-      data = JSON.parse(localStorage.getItem('queue'));
-      break;
-    case 'watched':
-      data = JSON.parse(localStorage.getItem('watched'));
-      break;
-  }
-  const markup = drawMovies(data[page], movieCardEl.dataset.collection);
-  loadMovies(markup);
-  renderPageNumberLibrary(page, data.total_pages);
-  localStorage.setItem('currentPage', page.toString());
-});
+  pagePlus2Library.addEventListener('click', event => {
+    event.preventDefault();
+    const page = event.target.innerHTML;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
+
+  pageLastLibrary.addEventListener('click', event => {
+    event.preventDefault();
+    const page = event.target.innerHTML;
+    let data;
+    movieCardEl = document.querySelector('.movie-card');
+    switch (movieCardEl.dataset.collection) {
+      case 'queue':
+        data = JSON.parse(localStorage.getItem('queue'));
+        break;
+      case 'watched':
+        data = JSON.parse(localStorage.getItem('watched'));
+        break;
+    }
+    const markup = drawMovies(data[page], movieCardEl.dataset.collection);
+    loadMovies(markup);
+    renderPageNumberLibrary(page, data.total_pages);
+    localStorage.setItem('currentPage', page.toString());
+  });
+}
