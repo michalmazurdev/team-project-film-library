@@ -104,7 +104,7 @@
     min-width: 336px;
   }
   @include desktop {
-     min-width: 394px;
+    min-width: 394px;
   }
 
   &__input {
@@ -183,7 +183,7 @@
     line-height: $defaultLineHeight;
     font-style: italic;
     text-align: left;
-    }
+  }
 }
 
 .login__btn {
@@ -202,12 +202,12 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: absolute;
-    top: 50px;
-    left: 20px;
-    &:hover,
-    &:focus {
-      background-color: $descritiopnColor;
-    }
+  top: 50px;
+  left: 20px;
+  &:hover,
+  &:focus {
+    background-color: $descritiopnColor;
+  }
 }
 .is-hidden {
   display: none;
@@ -220,7 +220,6 @@
   position: absolute;
   font-size: 0.6rem;
 }
- 
 
 .button {
   display: flex;
@@ -231,24 +230,23 @@
   &__status {
     width: 130px;
     height: 40px;
-      background-color: $transparentColor;
-      border: 1px solid $defaultColor;
-      border-radius: 4px;
-      color: $defaultColor;
-      font-weight: 500;
-      font-size: $smallFontSize;
-      line-height: $smallLineHeight;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
+    background-color: $transparentColor;
+    border: 1px solid $defaultColor;
+    border-radius: 4px;
+    color: $defaultColor;
+    font-weight: 500;
+    font-size: $smallFontSize;
+    line-height: $smallLineHeight;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 
-      &:hover,
-      &:focus {
-        background-color: $descritiopnColor;
+    &:hover,
+    &:focus {
+      background-color: $descritiopnColor;
     }
   }
 }
-
 
 @media (max-width: 767px) {
   .header__title {
@@ -258,20 +256,20 @@
 
 @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
   .header {
-    background-image: url('/src/images/backgroundmobile@2x.jpg');
+    background-image: url('/src/images/backgroundMobile@2x.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundlibrarymobile@2x.jpg');
+      background-image: url('/src/images/backgroundLibraryMobile@2x.jpg');
     }
   }
 }
 
 @media (min-width: 768px) {
   .header {
-    background-image: url('/src/images/backgroundtablet.jpg');
+    background-image: url('/src/images/backgroundTablet.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundlibrarytablet.jpg');
+      background-image: url('/src/images/backgroundLibraryTablet.jpg');
     }
   }
 }
@@ -280,20 +278,20 @@
   (min-width: 768px) and (min-resolution: 192dpi),
   (min-width: 768px) and (min-resolution: 2dppx) {
   .header {
-    background-image: url('/src/images/backgroundtablet@2x.jpg');
+    background-image: url('/src/images/backgroundTablet@2x.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundlibrarytablet@2x.jpg');
+      background-image: url('/src/images/backgroundLibraryTablet@2x.jpg');
     }
   }
 }
 
 @media (min-width: 1280px) {
   .header {
-    background-image: url('/src/images/backgrounddesktop.jpg');
+    background-image: url('/src/images/backgroundDesktop.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundlibrarydesktop.jpg');
+      background-image: url('/src/images/backgroundLibraryDesktop.jpg');
     }
   }
 }
@@ -302,10 +300,10 @@
   (min-width: 1280px) and (min-resolution: 192dpi),
   (min-width: 1280px) and (min-resolution: 2dppx) {
   .header {
-    background-image: url('/src/images/backgrounddesktop@2x.jpg');
+    background-image: url('/src/images/backgroundDesktop@2x.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundlibrarydesktop@2x.jpg');
+      background-image: url('/src/images/backgroundDibraryDesktop@2x.jpg');
     }
   }
 }
