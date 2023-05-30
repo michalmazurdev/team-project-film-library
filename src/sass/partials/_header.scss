@@ -198,11 +198,19 @@
     font-size: 0.6rem;
   }
   .header__logout {
-    visibility: hidden;
-    top: -30px;
+    // visibility: hidden;
+    top: -29px;
     right: 0px;
     position: absolute;
     font-size: 0.6rem;
+    background-color: transparent;
+    border: none;
+    text-align: baseline;
+    color: white;
+    font-weight: 500;
+  }
+  .header__logout:hover {
+    color: red;
   }
 
   .button {

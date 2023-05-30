@@ -10,7 +10,7 @@ import { showLoader, hideLoader } from './loader.js';
 import { renderPageNumberLibrary } from './pagination_library.js';
 import axios from 'axios';
 import { convertGenres, organizeArray } from './helper_functions.js';
-import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
+import { getDatabase, ref, set, child, get, update } from 'firebase/database';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const firebaseConfig = {
@@ -54,13 +54,14 @@ const logged = email => {
   const registerBtn = document.getElementById('register-btn');
   const registerLink = document.getElementById('register');
   const loginLink = document.getElementById('log-in');
-
   loggedEl.style.visibility = 'visible';
   loggedEl.textContent = `LOGGED IN AS ${email}`;
   logoutBtn.style.visibility = 'visible';
   loginForm.style.visibility = 'hidden';
   logInBtn.style.visibility = 'hidden';
   registerBtn.style.visibility = 'hidden';
+  registerLink.style.visibility = 'hidden';
+  loginLink.style.display = 'none';
   loginLink.style.color = 'white';
   registerLink.style.color = 'white';
 };
@@ -70,6 +71,10 @@ const logged = email => {
 const loggedOut = () => {
   const loggedEl = document.querySelector('.logged');
   const logoutBtn = document.querySelector('.header__logout');
+  const registerLink = document.getElementById('register');
+  const loginLink = document.getElementById('log-in');
+  registerLink.style.visibility = 'visible';
+  loginLink.style.display = 'block';
   loggedEl.style.visibility = 'hidden';
   logoutBtn.style.visibility = 'hidden';
 };
@@ -352,16 +357,20 @@ const loadMovies = markup => {
 };
 
 //po kliknięciu Watched przekazuje ścieżkę do Firebase/Watched do funkcji
-document.querySelector('.button__status').addEventListener('click', () => {
-  watchedOrQueue = 'watched';
-  passPathToRenderMoviesFrom(watchedOrQueue);
-});
+if (document.querySelector('.button__status')) {
+  document.querySelector('.button__status').addEventListener('click', () => {
+    watchedOrQueue = 'watched';
+    passPathToRenderMoviesFrom(watchedOrQueue);
+  });
+}
 
 //po kliknięciu Queue przekazuje ścieżkę do Firebase/queue do funkcji
-document.querySelector('.button__status').nextElementSibling.addEventListener('click', () => {
-  watchedOrQueue = 'queue';
-  passPathToRenderMoviesFrom(watchedOrQueue);
-});
+if (document.querySelector('.button__status')) {
+  document.querySelector('.button__status').nextElementSibling.addEventListener('click', () => {
+    watchedOrQueue = 'queue';
+    passPathToRenderMoviesFrom(watchedOrQueue);
+  });
+}
 
 //Przekazuje odpowiednią ścieżkę z obiektami do funkcji renderującej filmy
 function passPathToRenderMoviesFrom(watchedOrQueue) {
