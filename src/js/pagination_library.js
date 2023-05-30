@@ -1,4 +1,4 @@
-import { movieTypes } from './genres';
+import { convertGenres } from './helper_functions';
 let page = 1;
 localStorage.setItem('currentPage', 1);
 const movieListEl = document.querySelector('.movie-list');
@@ -25,7 +25,7 @@ const drawMovies = (movies, collection) => {
     </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title.toUpperCase()}</p>
-        <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
+        <span class="movie-card__genre" id="genre_ids">${convertGenres(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,

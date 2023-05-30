@@ -2,7 +2,7 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 import { hideLoader, showLoader, showLoaderFor700 } from './loader.js';
 import { renderPageNumber } from './pagination.js';
-import { movieTypes } from './genres.js';
+import { convertGenres } from './helper_functions.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
@@ -79,7 +79,7 @@ export const drawMovies = (movies, collection) => {
     </div>
     <div class="movie-card__figcaption">
         <p class="movie-card__title" id="title">${movie.title.toUpperCase()}</p>
-        <span class="movie-card__genre" id="genre_ids">${movieTypes(movie.genre_ids)} |</span>
+        <span class="movie-card__genre" id="genre_ids">${convertGenres(movie.genre_ids)} |</span>
         <span class="movie-card__release-date" id="release_date"> ${movie.release_date.slice(
           0,
           4,

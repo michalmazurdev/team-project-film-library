@@ -14,7 +14,7 @@ const fetchGenres = async () => {
 };
 fetchGenres();
 
-export const movieTypes = types => {
+export const convertGenres = types => {
   const genres = JSON.parse(localStorage.getItem('genresSimplified'));
   let array = [];
 
