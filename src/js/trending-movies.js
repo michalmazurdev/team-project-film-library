@@ -89,7 +89,6 @@ export const drawMovies = (movies, collection) => {
 export const loadMovies = markup => {
   movieListEl.innerHTML = '';
   movieListEl.innerHTML = markup;
-  // funkcja żeby ukryć rating filmu na stronie Home
   const ratingElements = document.querySelectorAll('.movie-card__rating');
   ratingElements.forEach(element => {
     element.classList.add('is-hidden');
