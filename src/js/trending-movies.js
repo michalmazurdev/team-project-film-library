@@ -6,12 +6,8 @@ import { convertGenres } from './helper_functions.js';
 const searchFormEl = document.getElementById('form-search');
 const inputEl = document.querySelector('.form__input');
 const movieListEl = document.querySelector('.movie-list');
-const movieCardEl = document.querySelector('.movie-card');
 const thisWeekMovieURL = `https://api.themoviedb.org/3/trending/movie/week?`;
 const searchMovieURL = `https://api.themoviedb.org/3/search/movie?`;
-const searchAllURL = `https://api.themoviedb.org/3/search/multi?`;
-const searchPersonURL = `https://api.themoviedb.org/3/search/person?`;
-const searchSeriesURL = `https://api.themoviedb.org/3/search/tv?`;
 const searchErrorEl = document.querySelector('.form__result');
 
 const language = 'en-US';
@@ -29,8 +25,6 @@ const getURL = page => {
   let url;
   if (inputEl.value === '') {
     url = `${thisWeekMovieURL}${searchParams}`;
-
-    // Jeśli inny warunek to można np z local storage pobrać DANE
   } else {
     url = `${searchMovieURL}${searchParams}`;
   }
@@ -47,10 +41,12 @@ export const fetchSearchedMovies = async page => {
       return data;
     } else {
       searchErrorEl.innerHTML = 'Search result not successful. Enter the correct movie name and';
+      hideLoader();
       throw new Error('No movie results found.');
     }
   } catch (error) {
     console.log(error);
+    hideLoader();
   }
 };
 
