@@ -2,6 +2,7 @@ import { convertGenres } from './helper_functions';
 let page = 1;
 localStorage.setItem('currentPage', 1);
 const movieListEl = document.querySelector('.movie-list');
+const movieCardEl = document.querySelector('.movie-card');
 const drawMovies = (movies, collection) => {
   let markup = '';
   let id = 0;
