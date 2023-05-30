@@ -30,7 +30,6 @@ const drawMovies = (movies, collection) => {
           0,
           4,
         )}</span>
-        <!-- in JS need to add a script for changing visibility on Homepage: document.querySelector('.movie-card__rating').classList.add('is-hidden') -->
         <span class="movie-card__rating" id="vote_average">${movie.vote_average}</span>
     </div>
 </div>`;
