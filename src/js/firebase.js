@@ -394,6 +394,7 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
     Notify.failure(`Sign in first`, {
       timeout: 1000,
     });
+    hideLoader();
   }
 }
 
