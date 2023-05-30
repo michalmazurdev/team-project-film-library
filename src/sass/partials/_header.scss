@@ -2,13 +2,13 @@
   @extend .container;
   padding-top: 40px;
   padding-bottom: 44px;
-  background-image: url('/src/images/backgroundMobile.jpg');
+  background-image: url('../images/backgroundMobile.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
   &--library {
-    background-image: url('/src/images/backgroundLibraryMobile.jpg');
+    background-image: url('../images/backgroundLibraryMobile.jpg');
   }
 
   &__container {
@@ -256,20 +256,20 @@
 
 @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
   .header {
-    background-image: url('/src/images/backgroundMobile@2x.jpg');
+    background-image: url('../images/backgroundMobile@2x.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundLibraryMobile@2x.jpg');
+      background-image: url('../images/backgroundLibraryMobile@2x.jpg');
     }
   }
 }
 
 @media (min-width: 768px) {
   .header {
-    background-image: url('/src/images/backgroundTablet.jpg');
+    background-image: url('../images/backgroundTablet.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundLibraryTablet.jpg');
+      background-image: url('../images/backgroundLibraryTablet.jpg');
     }
   }
 }
@@ -278,10 +278,10 @@
   (min-width: 768px) and (min-resolution: 192dpi),
   (min-width: 768px) and (min-resolution: 2dppx) {
   .header {
-    background-image: url('/src/images/backgroundTablet@2x.jpg');
+    background-image: url('../images/backgroundTablet@2x.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundLibraryTablet@2x.jpg');
+      background-image: url('../images/backgroundLibraryTablet@2x.jpg');
     }
   }
 }
@@ -291,7 +291,7 @@
     background-image: url('/src/images/backgroundDesktop.jpg');
 
     &--library {
-      background-image: url('/src/images/backgroundLibraryDesktop.jpg');
+      background-image: url('../images/backgroundLibraryDesktop.jpg');
     }
   }
 }
@@ -303,7 +303,7 @@
     background-image: url('../images/backgroundDesktop@2x.jpg');
 
     &--library {
-      background-image: url('./src/images/backgroundlibraryDesktop@2x.jpg');
+      background-image: url('../images/backgroundlibraryDesktop@2x.jpg');
     }
   }
 }
