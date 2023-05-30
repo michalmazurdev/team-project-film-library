@@ -43,8 +43,6 @@ export const fetchSearchedMovies = async page => {
     const response = await axios.get(getURL(page));
     let data = response.data;
     if (data.results.length !== 0) {
-      localStorage.setItem('currentFetch', JSON.stringify(data.results));
-      localStorage.setItem('areWeTrending', JSON.stringify(false));
       searchErrorEl.innerHTML = '';
       return data;
     } else {
@@ -106,7 +104,6 @@ const firstIteration = async page => {
   showLoader();
   localStorage.setItem('currentPage', 1);
   page = parseInt(localStorage.getItem('currentPage'));
-
   const data = await fetchSearchedMovies(page);
   const markup = drawMovies(data.results, 'fetched');
   loadMovies(markup);
