@@ -34,6 +34,7 @@ let user;
 let id;
 let clickedMovie;
 let UniqueFilmId;
+let watchedOrQueue;
 
 onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
