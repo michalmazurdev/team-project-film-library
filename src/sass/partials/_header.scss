@@ -46,7 +46,8 @@
     align-items: center;
     gap: 10px;
     @include tablet {
-    gap: 40px;}
+      gap: 40px;
+    }
   }
 
   &__link {
@@ -146,23 +147,23 @@
   }
 
   .login__input {
-      height: 15px;
-      width: 113px;
-      background-color: $transparentColor;
-      border: none;
-      border-bottom: 1px solid $defaultColor;
-      outline: none;
+    height: 15px;
+    width: 113px;
+    background-color: $transparentColor;
+    border: none;
+    border-bottom: 1px solid $defaultColor;
+    outline: none;
+    color: $defaultColor;
+    font-size: $smallFontSize;
+    line-height: $defaultLineHeight;
+    &::placeholder {
       color: $defaultColor;
+      opacity: 0.5;
       font-size: $smallFontSize;
       line-height: $defaultLineHeight;
-      &::placeholder {
-        color: $defaultColor;
-        opacity: 0.5;
-        font-size: $smallFontSize;
-        line-height: $defaultLineHeight;
-        font-style: italic;
-        text-align: left;
-      }
+      font-style: italic;
+      text-align: left;
+    }
   }
 
   .login__btn {
@@ -190,12 +191,19 @@
   }
 
   .logged {
-     visibility: hidden;
-     top: -35px;
-     left: 210px;
-     position: absolute;
-     font-size:0.5rem;
-    }
+    visibility: hidden;
+    top: -30px;
+    right: 50px;
+    position: absolute;
+    font-size: 0.6rem;
+  }
+  .header__logout {
+    visibility: hidden;
+    top: -30px;
+    right: 0px;
+    position: absolute;
+    font-size: 0.6rem;
+  }
 
   .button {
     display: flex;
