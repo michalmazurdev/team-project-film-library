@@ -382,13 +382,13 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
     showLoader();
     let uid = user.uid;
     get(child(dbRef, uid + '/' + watchedOrQueue)).then(snapshot => {
+      hideLoader();
       moviesAddedToWatch = snapshot.val();
       const arrayOfVideoData = Object.values(moviesAddedToWatch);
       const arrayOfVideoIds = Object.keys(moviesAddedToWatch);
       localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
       loadMovies(drawMovies(arrayOfVideoData.slice(0, 20), watchedOrQueue));
       renderPageNumberLibrary(1, organizeArray(arrayOfVideoData).total_pages);
-      hideLoader();
     });
   } else {
     Notify.failure(`Sign in first`, {
