@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Notiflix from 'notiflix';
 import { hideLoader, showLoader } from './loader.js';
 import { renderPageNumber } from './pagination.js';
 import { convertGenres } from './helper_functions.js';
