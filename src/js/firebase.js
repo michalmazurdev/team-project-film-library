@@ -4,13 +4,12 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from 'firebase/auth';
-import Notiflix from 'notiflix';
 import { renderPageNumberLibrary } from './pagination_library.js';
-import { renderPageNumber } from './pagination.js';
 import axios from 'axios';
 import { movieTypes } from './genres.js';
-import { getDatabase, ref, set, child, get, update, remove, limitToFirst } from 'firebase/database';
+import { getDatabase, ref, set, child, get, update, remove } from 'firebase/database';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const organizeArray = array => {
@@ -32,6 +31,7 @@ const firebaseConfig = {
   appId: '1:318653212510:web:dc27e0d5cca4f8c4cfd1cf',
   measurementId: 'G-WJNSN4TTJV',
 };
+
 const movieListEl = document.querySelector('.movie-list');
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
@@ -46,52 +46,72 @@ let clickedMovie;
 onAuthStateChanged(auth, currentUser => {
   if (currentUser) {
     user = currentUser;
+    logged(currentUser.email);
+    loadWatchedMoviesOnLibraryEnter();
+  } else {
+    loggedOut();
   }
 });
 
+//******************* */
+//funkcjonalność gdy użytkownik jest zalogowany
+
+const logged = email => {
+  const loggedEl = document.querySelector('.logged');
+  const logoutBtn = document.querySelector('.header__logout');
+  const loginForm = document.querySelector('.login__form');
+  const logInBtn = document.getElementById('log-btn');
+  const registerBtn = document.getElementById('register-btn');
+  const registerLink = document.getElementById('register');
+  const loginLink = document.getElementById('log-in');
+  loggedEl.textContent = `LOGGED IN AS ${email}`;
+  loggedEl.style.visibility = 'visible';
+  logoutBtn.style.visibility = 'visible';
+
+  loginForm.style.visibility = 'hidden';
+  logInBtn.style.visibility = 'hidden';
+  registerBtn.style.visibility = 'hidden';
+  loginLink.style.color = 'white';
+  registerLink.style.color = 'white';
+};
+const loggedOut = () => {
+  const loggedEl = document.querySelector('.logged');
+  const logoutBtn = document.querySelector('.header__logout');
+  loggedEl.style.visibility = 'hidden';
+  logoutBtn.style.visibility = 'hidden';
+};
 //**************** */
 
 //Funkcję dla logowania i rejestrowania
 
-//******************* */
-//funkcjonalność gdy użytkownik jest zalogowany
-const loggedEl = document.querySelector(".logged")
-const loginForm = document.querySelector(".login__form");
-const logInBtn = document.getElementById('log-btn');
-const registerBtn = document.getElementById('register-btn');
-const registerLink = document.getElementById('register');
-const loginLink = document.getElementById('log-in');
-
-const logged =()=>{
-loggedEl.style.visibility = "visible";
-loginForm.style.visibility = "hidden";
-logInBtn.style.visibility = "hidden";
-registerBtn.style.visibility = "hidden";
-loginLink.style.color = "white";
-registerLink.style.color = "white"
-};
-
-
 document.getElementById('log-btn').addEventListener('click', function () {
   loginEmail = document.getElementById('login-email').value;
   loginPassword = document.getElementById('login-password').value;
-  
+
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
       Notify.success(`Succesfully logged in`, {
         timeout: 1000,
       });
       user = userCredential.user;
-      logged();
-      // setTimeout(() => {
-      //   document.querySelector(".login__form").style.visibility = 'hidden';
-      //   document.getElementById('log-btn').style.visibility = 'hidden' ;
-      //   document.getElementById('log-in').style.color = 'white';
-      //   }, 1000); 
     })
     .catch(error => {
       const errorMessage = error.message;
       Notify.failure(`${errorMessage}`, {
+        timeout: 1000,
+      });
+    });
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  signOut(auth)
+    .then(() => {
+      Notify.success(`Succesfully logged out`, {
+        timeout: 1000,
+      });
+    })
+    .catch(error => {
+      Notify.failure(`An error occured`, {
         timeout: 1000,
       });
     });
@@ -104,27 +124,9 @@ document.getElementById('register-btn').addEventListener('click', function () {
   createUserWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(userCredential => {
       user = userCredential.user;
-
-//       Notify.success('Succesfully registered!');
-      logged();
-      // setTimeout(() => {
-      //   document.querySelector(".login__form").style.visibility = 'hidden';
-      //   document.getElementById('register-btn').style.visibility = 'hidden';
-      //   document.getElementById('register').style.color = 'white';
-      //   }, 1000);
-
-
       Notify.success(`Succesfully registered! Now log in`, {
         timeout: 1000,
       });
-
-//       setTimeout(() => {
-//         document.querySelector(".login__form").style.visibility = 'hidden';
-//         document.getElementById('register-btn').style.visibility = 'hidden';
-//         document.getElementById('register').style.color = 'white';
-//         }, 1000);
-
-
     })
     .catch(error => {
       const errorMessage = error.message;
@@ -132,7 +134,6 @@ document.getElementById('register-btn').addEventListener('click', function () {
         timeout: 1000,
       });
     });
-   
 });
 
 //************************************* */
@@ -368,12 +369,6 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
       moviesAddedToWatch = snapshot.val();
       const arrayOfVideoData = Object.values(moviesAddedToWatch);
       const arrayOfVideoIds = Object.keys(moviesAddedToWatch);
-      // const totalItems = arrayOfVideoData.length;
-      console.log(
-        'Tu przechowywane są tablice z filmami i ich ID : ',
-        arrayOfVideoData,
-        arrayOfVideoIds,
-      );
       localStorage.setItem(watchedOrQueue, JSON.stringify(organizeArray(arrayOfVideoData)));
       loadMovies(drawMovies(arrayOfVideoData.slice(0, 20), watchedOrQueue));
       renderPageNumberLibrary(1, organizeArray(arrayOfVideoData).total_pages);
@@ -388,9 +383,11 @@ function passPathToRenderMoviesFrom(watchedOrQueue) {
 //Usuwanie obiektu z Watched lub Queue po właściwości .UniqueId
 function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
   remove(child(dbRef, userId + '/' + `${watchedOrQueue}` + '/' + `${UniqueFilmId}`))
-    .then(Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`, {
-      timeout: 1000,
-    }))
+    .then(
+      Notify.success(`Removed ${UniqueFilmId} from ${watchedOrQueue} list`, {
+        timeout: 1000,
+      }),
+    )
     .catch(function (error) {
       Notify.failure(`Wystąpił błąd podczas usuwania obiektu:`, error, {
         timeout: 1000,
@@ -399,20 +396,16 @@ function deleteVideoFromLibrary(dbRef, userId, watchedOrQueue, UniqueFilmId) {
 }
 
 function loadWatchedMoviesOnLibraryEnter() {
-  setTimeout(() => {
-    if (document.querySelector('.button__status')) {
-      if (user) {
-        watchedOrQueue = 'watched';
-        passPathToRenderMoviesFrom(watchedOrQueue);
-        document.querySelector('.button__status').style.backgroundColor = '#ff6b08';
-        window.addEventListener('click', () => {
-          document.querySelector('.button__status').style.backgroundColor = '';
-        });
-      } else {
-        Notify.failure('No user is signed in.');
-      }
+  if (document.querySelector('.button__status')) {
+    if (user) {
+      watchedOrQueue = 'watched';
+      passPathToRenderMoviesFrom(watchedOrQueue);
+      document.querySelector('.button__status').style.backgroundColor = '#ff6b08';
+      window.addEventListener('click', () => {
+        document.querySelector('.button__status').style.backgroundColor = '';
+      });
+    } else {
+      Notify.failure('No user is signed in.');
     }
-  }, 500);
+  }
 }
-
-loadWatchedMoviesOnLibraryEnter();
