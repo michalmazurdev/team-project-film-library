@@ -54,16 +54,19 @@ const logged = email => {
   const registerBtn = document.getElementById('register-btn');
   const registerLink = document.getElementById('register');
   const loginLink = document.getElementById('log-in');
-  loggedEl.style.visibility = 'visible';
-  loggedEl.textContent = `LOGGED IN AS ${email}`;
-  logoutBtn.style.visibility = 'visible';
+
   loginForm.style.visibility = 'hidden';
   logInBtn.style.visibility = 'hidden';
   registerBtn.style.visibility = 'hidden';
+
   registerLink.style.visibility = 'hidden';
   loginLink.style.display = 'none';
   loginLink.style.color = 'white';
   registerLink.style.color = 'white';
+
+  loggedEl.style.visibility = 'visible';
+  loggedEl.textContent = `LOGGED IN AS ${email}`;
+  logoutBtn.style.visibility = 'visible';
 };
 
 //fukncjonalonosc kiedy uzytkownik jest wylogowany
@@ -115,6 +118,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
       Notify.failure(`An error occured`, {
         timeout: 1000,
       });
+      hideLoader();
     });
 });
 

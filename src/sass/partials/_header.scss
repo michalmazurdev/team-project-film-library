@@ -22,7 +22,12 @@
       margin-bottom: 62px;
     }
   }
-
+  // &__log {
+  //   visibility: hidden;
+  // }
+  // &__register {
+  //   visibility: hidden;
+  // }
   &__logo {
     display: flex;
     justify-content: center;
@@ -189,7 +194,9 @@
       background-color: $descritiopnColor;
     }
   }
-
+  .is-hidden {
+    display: none;
+  }
   .logged {
     visibility: hidden;
     top: -30px;
@@ -198,7 +205,7 @@
     font-size: 0.6rem;
   }
   .header__logout {
-    // visibility: hidden;
+    visibility: hidden;
     top: -29px;
     right: 0px;
     position: absolute;
