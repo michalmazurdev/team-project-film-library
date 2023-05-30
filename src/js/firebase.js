@@ -222,9 +222,11 @@ window.addEventListener('click', async event => {
   if (event.target.className !== 'movie-card__poster') {
     return;
   }
+  showLoader();
   const movieId = event.target.dataset.movieid;
   clickedMovie = await fetchMovieInfo(movieId);
   UniqueFilmId = clickedMovie.id;
+  hideLoader();
 });
 
 //wowyłanie funkcji która dodaje film do Firebase do ścieżki /watched
