@@ -64,8 +64,9 @@ const logged = email => {
   const registerBtn = document.getElementById('register-btn');
   const registerLink = document.getElementById('register');
   const loginLink = document.getElementById('log-in');
-  loggedEl.textContent = `LOGGED IN AS ${email}`;
+
   loggedEl.style.visibility = 'visible';
+  loggedEl.textContent = `LOGGED IN AS ${email}`;
   logoutBtn.style.visibility = 'visible';
 
   loginForm.style.visibility = 'hidden';
