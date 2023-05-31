@@ -278,7 +278,7 @@ if (pagePrevious) {
   pagePrevious.addEventListener('click', async event => {
     showLoader();
     event.preventDefault();
-    page = parseInt(localStorage.getItem('currentPage')) - 1;
+    const page = parseInt(localStorage.getItem('currentPage')) - 1;
     const data = await fetchSearchedMovies(page);
     const markup = drawMovies(data.results, 'fetched');
     loadMovies(markup);
@@ -362,7 +362,7 @@ if (pagePrevious) {
   pageNext.addEventListener('click', async event => {
     showLoader();
     event.preventDefault();
-    page = parseInt(localStorage.getItem('currentPage')) + 1;
+    const page = parseInt(localStorage.getItem('currentPage')) + 1;
     const data = await fetchSearchedMovies(page);
     const markup = drawMovies(data.results, 'fetched');
     loadMovies(markup);
