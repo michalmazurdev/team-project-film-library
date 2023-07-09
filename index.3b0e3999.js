@@ -1,0 +1,2 @@
+const e=document.querySelector(".footer-item__link"),t=document.querySelector(".modal-team__backdrop"),o=document.querySelector(".modal-team__close");e.addEventListener("click",e=>{e.preventDefault(),t.style.display="block",document.addEventListener("keyup",e=>{"Escape"===e.key&&(t.style.display="none")})}),o.addEventListener("click",()=>{t.style.display="none"});const l=document.getElementById("modal-team__btn-scroll"),c=document.querySelector(".modal-team");l.addEventListener("click",()=>{c.scrollTo({top:0,behavior:"smooth"})});
+//# sourceMappingURL=index.3b0e3999.js.map
