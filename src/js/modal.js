@@ -39,7 +39,7 @@ const fetchMovieInfo = async movieId => {
     );
     return response.data;
   } catch (error) {
-    Notiflix.Notify.failure(`some error😇.`, {
+    Notiflix.Notify.failure(`some error 😇.`, {
       timeout: 1000,
     });
   }
